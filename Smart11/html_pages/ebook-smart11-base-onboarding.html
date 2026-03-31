@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jouw Eerste 7 Dagen met Smart11 BASE — Activatiegids</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #dc9600;
+      --gold-dark: #b07800;
+      --orange: #E8650A;
+      --black: #0C0C0C;
+      --surface: #141414;
+      --surface-2: #1C1C1C;
+      --surface-3: #242424;
+      --border: rgba(245, 197, 24, 0.15);
+      --text: #F0F0F0;
+      --muted: #888888;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 24px;
+      background: var(--black);
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .cover-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 64px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .cover-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cover-label::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .cover-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 10vw, 96px);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+      color: #FFFFFF;
+      margin-bottom: 32px;
+    }
+
+    .cover-headline .accent {
+      color: var(--gold);
+      display: block;
+    }
+
+    .cover-subline {
+      font-size: 18px;
+      color: #AAAAAA;
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 56px;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 40px;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .meta-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ── PITCH GRAPHIC ── */
+    .pitch-graphic {
+      position: absolute;
+      right: -40px;
+      bottom: 0;
+      width: 420px;
+      opacity: 0.06;
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .section-spacer {
+      height: 120px;
+    }
+
+    .section-spacer-sm {
+      height: 64px;
+    }
+
+    /* ── INTRO BLOCK ── */
+    .intro-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      padding: 40px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-block::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 32px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 180px;
+      color: var(--gold);
+      opacity: 0.05;
+      line-height: 1;
+    }
+
+    .intro-text {
+      font-size: 20px;
+      line-height: 1.65;
+      color: #DDDDDD;
+      position: relative;
+      z-index: 1;
+    }
+
+    .intro-text strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ── CHAPTER HEADER ── */
+    .chapter {
+      padding: 80px 0 0;
+    }
+
+    .chapter-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .chapter-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 0.95;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .chapter-title .gold {
+      color: var(--gold);
+    }
+
+    .chapter-rule {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 24px 0 32px;
+    }
+
+    .chapter-intro {
+      font-size: 17px;
+      color: #AAAAAA;
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    /* ── DAY CARDS ── */
+    .day-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .day-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 36px 40px;
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 32px;
+      align-items: start;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      cursor: default;
+    }
+
+    .day-card:hover {
+      background: var(--surface-2);
+      border-color: var(--border);
+    }
+
+    .day-card:first-child {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+
+    .day-card:last-child {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .day-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      padding-top: 4px;
+    }
+
+    .day-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      line-height: 1;
+      color: rgba(245, 197, 24, 0.15);
+      margin-top: 4px;
+    }
+
+    .day-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+    }
+
+    .day-desc {
+      font-size: 15px;
+      color: #999999;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .day-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .day-action::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    /* ── HIGHLIGHT / TIP BOX ── */
+    .tip-box {
+      background: rgba(245, 197, 24, 0.05);
+      border: 1px solid rgba(245, 197, 24, 0.2);
+      padding: 28px 32px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin: 48px 0;
+    }
+
+    .tip-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .tip-content strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .tip-content p {
+      font-size: 15px;
+      color: #BBBBBB;
+      line-height: 1.65;
+    }
+
+    /* ── STEP LIST ── */
+    .step-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 40px 0;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      align-items: flex-start;
+    }
+
+    .step-item:last-child {
+      border-bottom: none;
+    }
+
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      line-height: 1;
+      color: var(--gold);
+      min-width: 40px;
+      flex-shrink: 0;
+    }
+
+    .step-body strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+
+    .step-body p {
+      font-size: 15px;
+      color: #999999;
+      line-height: 1.6;
+    }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin: 48px 0;
+    }
+
+    .stat-cell {
+      background: var(--surface);
+      padding: 32px 28px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      line-height: 1;
+      color: var(--gold);
+      display: block;
+    }
+
+    .stat-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── QUOTE BLOCK ── */
+    .quote-block {
+      padding: 64px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .quote-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.15;
+      color: #FFFFFF;
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+
+    .quote-text .gold {
+      color: var(--gold);
+    }
+
+    .quote-source {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* ── FEATURE GRID ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin: 40px 0;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      padding: 32px 28px;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(245, 197, 24, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+
+    .feature-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: #888888;
+      line-height: 1.6;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background: var(--surface);
+      border: 1px solid rgba(245, 197, 24, 0.2);
+      padding: 64px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin: 80px 0;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(245,197,24,0.08) 0%, transparent 70%);
+    }
+
+    .cta-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .cta-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+    }
+
+    .cta-title .gold { color: var(--gold); }
+
+    .cta-body {
+      font-size: 16px;
+      color: #AAAAAA;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.65;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--gold);
+      color: #0C0C0C;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(245, 197, 24, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    /* ── CHECKLIST ── */
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 32px 0;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      color: #BBBBBB;
+      line-height: 1.55;
+    }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .check-icon::after {
+      content: '';
+      width: 8px;
+      height: 5px;
+      border-left: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      transform: rotate(-45deg) translateY(-1px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 24px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── CALLOUT BAR ── */
+    .callout-bar {
+      background: var(--gold);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 40px 0;
+    }
+
+    .callout-bar p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #0C0C0C;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+
+    .callout-bar span {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    /* ── PAGE BREAK ── */
+    .page-break {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,197,24,0.2), transparent);
+      margin: 80px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .day-card {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 28px 24px;
+      }
+      .feature-grid { grid-template-columns: 1fr; }
+      .stat-strip { grid-template-columns: 1fr; }
+      .cover { padding: 60px 24px; }
+      .intro-block { padding: 28px 24px; }
+      .cta-section { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ COVER ══════════ -->
+  <div class="cover">
+    <div class="cover-inner">
+
+      <div class="logo">
+        <div class="logo-dot"></div>
+        SMART11
+      </div>
+
+      <div class="cover-label">Activatiegids — Smart11 BASE</div>
+
+      <h1 class="cover-headline">
+        Jouw Eerste<br>
+        <span class="accent">7 Dagen</span>
+        Met BASE
+      </h1>
+
+      <p class="cover-subline">
+        Van account aanmaken tot je eerste echte inzicht op het veld. Stap voor stap, zonder gedoe.
+      </p>
+
+      <div class="cover-meta">
+        <div class="meta-item">
+          <span class="meta-label">Leestijd</span>
+          <span class="meta-value">~10 min</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Voor</span>
+          <span class="meta-value">Coaches & clubs</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Doel</span>
+          <span class="meta-value">Eerste win in 48 uur</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pitch SVG background -->
+    <svg class="pitch-graphic" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="20" width="360" height="560" rx="4" stroke="white" stroke-width="2"/>
+      <line x1="20" y1="300" x2="380" y2="300" stroke="white" stroke-width="2"/>
+      <circle cx="200" cy="300" r="60" stroke="white" stroke-width="2"/>
+      <circle cx="200" cy="300" r="4" fill="white"/>
+      <rect x="130" y="20" width="140" height="80" rx="2" stroke="white" stroke-width="2"/>
+      <rect x="155" y="20" width="90" height="40" rx="2" stroke="white" stroke-width="2"/>
+      <rect x="130" y="500" width="140" height="80" rx="2" stroke="white" stroke-width="2"/>
+      <rect x="155" y="540" width="90" height="40" rx="2" stroke="white" stroke-width="2"/>
+      <circle cx="200" cy="80" r="4" fill="white"/>
+      <circle cx="200" cy="520" r="4" fill="white"/>
+    </svg>
+  </div>
+
+  <!-- ══════════ INTRO ══════════ -->
+  <div class="page">
+    <div class="section-spacer"></div>
+
+    <div class="intro-block">
+      <p class="intro-text">
+        Je hebt een trial van Smart11 BASE aangevraagd. Goed. Maar een tool downloaden is geen verbetering.<br><br>
+        <strong>Dit gids zorgt dat je in 7 dagen weet of Smart11 BASE werkt voor jouw team.</strong> Geen technisch handboek. Geen marketingverhaal. Gewoon: wat doe je wanneer, en waarom.
+      </p>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">⚡</div>
+      <div class="tip-content">
+        <strong>De gouden regel</strong>
+        <p>Je eerste echte win zit in de eerste 48 uur. Coaches die dat halen, blijven. Coaches die het uitstellen, haken af. Dus: begin vandaag, niet na het weekend.</p>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 1 -->
+    <div class="chapter">
+      <div class="chapter-num">// HOOFDSTUK 01</div>
+      <h2 class="chapter-title">Wat Is<br><span class="gold">Smart11 BASE?</span></h2>
+      <div class="chapter-rule"></div>
+      <p class="chapter-intro">
+        Niet alle tools voor coaches zijn hetzelfde. Smart11 BASE is specifiek gebouwd voor één ding: het verbinden van jouw analyse aan de ontwikkeling van je spelers.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Teamomgeving</div>
+        <p class="feature-desc">Eén plek voor coach, assistent en spelers. Geen versnipperde apps of WhatsApp-threads met clipjes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Individuele analyse</div>
+        <p class="feature-desc">Zie precies wat elke speler doet — niet alleen het team. Zo geef je gerichte feedback die ook echt landt.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-title">Spelerseigenaarschap</div>
+        <p class="feature-desc">Spelers ontvangen inzichten direct in hun eigen app. Ze reageren, reflecteren en nemen verantwoordelijkheid.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Snelle nabespreking</div>
+        <p class="feature-desc">Bereid je nabespreking voor in 15 minuten. Filter automatisch de relevante momenten eruit.</p>
+      </div>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <span class="stat-num">15 min</span>
+        <div class="stat-desc">Gemiddelde tijd voor een volledige wedstrijdanalyse met Clairence</div>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">92%</span>
+        <div class="stat-desc">Nauwkeurigheid bij herkenning van individuele spelers op rugnummer</div>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">48 uur</span>
+        <div class="stat-desc">Gemiddelde tijd tot eerste echte inzicht voor nieuwe BASE-gebruikers</div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 2 -->
+    <div class="chapter">
+      <div class="chapter-num">// HOOFDSTUK 02</div>
+      <h2 class="chapter-title">De Eerste<br><span class="gold">7 Dagen</span></h2>
+      <div class="chapter-rule"></div>
+      <p class="chapter-intro">
+        Hieronder staat je exacte actieplan. Per dag één doel. Geen overweldigend stappenplan — gewoon de kortste route naar je eerste resultaat.
+      </p>
+    </div>
+
+    <div class="day-grid">
+      <div class="day-card">
+        <div>
+          <div class="day-tag">Dag</div>
+          <div class="day-number">01</div>
+        </div>
+        <div>
+          <div class="day-title">Account activeren & team aanmaken</div>
+          <p class="day-desc">Maak je team aan, voeg je spelers toe met hun rugnummers en nodig je assistent uit. Dit duurt 10 minuten. Na dag 1 staat je basisomgeving klaar.</p>
+          <div class="day-action">Doel: team staat klaar</div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div>
+          <div class="day-tag">Dag</div>
+          <div class="day-number">02</div>
+        </div>
+        <div>
+          <div class="day-title">Upload je eerste wedstrijdvideo</div>
+          <p class="day-desc">Upload de video van je laatste wedstrijd. Laat Clairence automatisch de momenten filteren. Je hoeft de volledige video niet te kijken — kies 3 momenten die je wilt bespreken.</p>
+          <div class="day-action">Doel: eerste analyse klaar</div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div>
+          <div class="day-tag">Dag</div>
+          <div class="day-number">03</div>
+        </div>
+        <div>
+          <div class="day-title">Stuur inzicht naar één speler</div>
+          <p class="day-desc">Kies één moment van één speler. Stuur dat moment met een korte notitie naar hem via BASE. Kijk of hij reageert. Dit is je eerste win: speler ontvangt gerichte feedback.</p>
+          <div class="day-action">Doel: eerste speler geactiveerd</div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div>
+          <div class="day-tag">Dag</div>
+          <div class="day-number">04</div>
+        </div>
+        <div>
+          <div class="day-title">Bereid je nabespreking voor in BASE</div>
+          <p class="day-desc">Gebruik BASE als basis voor je volgende teamgesprek. Selecteer 3-5 momenten, geef ze context en structureer de bespreking. Zo wordt jouw nabespreking concreet in plaats van vaag.</p>
+          <div class="day-action">Doel: nabespreking klaar in BASE</div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div>
+          <div class="day-tag">Dag</div>
+          <div class="day-number">05</div>
+        </div>
+        <div>
+          <div class="day-title">Voer de nabespreking uit</div>
+          <p class="day-desc">Doe de nabespreking met je team. Gebruik de momenten uit BASE. Let op: zijn spelers actiever dan normaal? Stellen ze vragen? Zo voelt een betere nabespreking.</p>
+          <div class="day-action">Doel: eerste nabespreking via BASE</div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div>
+          <div class="day-tag">Dag</div>
+          <div class="day-number">06</div>
+        </div>
+        <div>
+          <div class="day-title">Voeg meer spelers toe & check reacties</div>
+          <p class="day-desc">Stuur nu naar je volledige selectie. Bekijk wie heeft gereageerd op dag 3. Wat zeggen spelers terug? Dit is het moment dat je de waarde zichtbaar ziet worden.</p>
+          <div class="day-action">Doel: hele team actief in BASE</div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div>
+          <div class="day-tag">Dag</div>
+          <div class="day-number">07</div>
+        </div>
+        <div>
+          <div class="day-title">Evalueer je eerste week</div>
+          <p class="day-desc">Stel jezelf drie vragen: Bespaar ik tijd? Reageren spelers anders op feedback? Zie ik meer dan voor? Als je twee van de drie met ja beantwoordt, weet je wat je moet doen.</p>
+          <div class="day-action">Doel: beslissing nemen over vervolg</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-bar">
+      <span>🎯</span>
+      <p>Dag 3 is het breekpunt. Als je op dag 3 een inzicht naar een speler hebt gestuurd, gaat de rest bijna vanzelf.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 3 -->
+    <div class="chapter">
+      <div class="chapter-num">// HOOFDSTUK 03</div>
+      <h2 class="chapter-title">Zo Werkt<br><span class="gold">Clairence</span></h2>
+      <div class="chapter-rule"></div>
+      <p class="chapter-intro">
+        Clairence is de AI-analist die in Smart11 BASE zit. Geen extra app, geen extra kosten in je trial. Dit is hoe je het effectief inzet.
+      </p>
+    </div>
+
+    <ul class="step-list">
+      <li class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <strong>Upload de video na de wedstrijd</strong>
+          <p>Stuur je wedstrijdvideo in BASE. Clairence analyseert automatisch: spelers herkennen op rugnummer, balposities, actietypes. Je hoeft niets handmatig te taggen.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <strong>Filter op wat relevant is</strong>
+          <p>Gebruik de filters om te zoeken: specifieke speler, ballocatie, actie type. Clairence toont alleen de momenten die jij wilt zien. Van 90 minuten naar 15 minuten.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <strong>Deel direct vanuit de analyse</strong>
+          <p>Klik op een moment en stuur het direct naar de speler, het team of sla het op voor de nabespreking. Geen exporteren, geen kopiëren. Eén klik.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <strong>Voeg je eigen notitie toe</strong>
+          <p>Geef context bij een moment. "Hier kies je te vroeg voor de lange bal" heeft meer waarde dan een clip zonder woorden. Die combinatie zorgt dat spelers het begrijpen.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="tip-box">
+      <div class="tip-icon">💡</div>
+      <div class="tip-content">
+        <strong>Pro tip voor coaches</strong>
+        <p>Begin met één speler die open staat voor feedback. Als die positief reageert, gebruik dat als voorbeeld voor de rest van je selectie. Adoptie gaat van binnen naar buiten.</p>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 4 -->
+    <div class="chapter">
+      <div class="chapter-num">// HOOFDSTUK 04</div>
+      <h2 class="chapter-title">Veelgestelde<br><span class="gold">Vragen</span></h2>
+      <div class="chapter-rule"></div>
+    </div>
+
+    <ul class="step-list">
+      <li class="step-item">
+        <div class="step-num">?</div>
+        <div class="step-body">
+          <strong>Hoe lang duurt het uploaden van een video?</strong>
+          <p>Afhankelijk van de videogrootte en verbinding: 5–15 minuten. Clairence begint direct met analyseren zodra de upload klaar is. Je krijgt een melding.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">?</div>
+        <div class="step-body">
+          <strong>Moeten mijn spelers ook iets installeren?</strong>
+          <p>Ja. Spelers downloaden de Smart11 app (gratis). Ze ontvangen daar hun inzichten, video's en feedback. Aanmaken duurt 2 minuten.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">?</div>
+        <div class="step-body">
+          <strong>Werkt het met elke videoopname?</strong>
+          <p>Clairence werkt het beste met stabiele, volledige beelden van het veld (statief of drone). Telefooncamera's op bewegende handen werken minder goed voor spelersherkenning.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">?</div>
+        <div class="step-body">
+          <strong>Wat als ik vastloop?</strong>
+          <p>Stuur een bericht naar support@smart11.com of start een chat in de app. Gemiddelde reactietijd: onder de 4 uur op werkdagen. Je bent nooit alleen.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">?</div>
+        <div class="step-body">
+          <strong>Wat kost Smart11 BASE na de trial?</strong>
+          <p>Dat bespreek je direct met het Smart11-team na je trial. Geen automatische bijschrijving. Je beslist zelf of en wanneer je doorstart.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <!-- QUOTE -->
+    <div class="quote-block">
+      <p class="quote-text">
+        "De coaches die het verschil maken,<br>
+        <span class="gold">analyseren anders</span> — niet meer."
+      </p>
+      <div class="quote-source">— Smart11 BASE filosofie</div>
+    </div>
+
+    <!-- CHECKLIST -->
+    <div class="chapter">
+      <div class="chapter-num">// HOOFDSTUK 05</div>
+      <h2 class="chapter-title">Jouw<br><span class="gold">Checklist</span></h2>
+      <div class="chapter-rule"></div>
+      <p class="chapter-intro">Gebruik dit als je snelle referentie. Vink af, stap voor stap.</p>
+    </div>
+
+    <ul class="checklist" style="margin-top: 40px;">
+      <li>
+        <div class="check-icon"></div>
+        Team aangemaakt en spelers toegevoegd met rugnummers
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        Eerste wedstrijdvideo geüpload in Smart11 BASE
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        Clairence-analyse bekeken en 3 momenten geselecteerd
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        Eerste inzicht gestuurd naar één speler met notitie
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        Nabespreking voorbereid via BASE
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        Nabespreking uitgevoerd met het team
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        Reacties van spelers bekeken
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        Week geëvalueerd: bespaar ik tijd? Reageren spelers anders? Zie ik meer?
+      </li>
+    </ul>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <div class="cta-label">Klaar om door te gaan?</div>
+      <h2 class="cta-title">Zet de Volgende<br><span class="gold">Stap</span></h2>
+      <p class="cta-body">
+        Je trial loopt. Je hebt de gids. Nu is het aan jou. Plan een gesprek met het Smart11-team als je vragen hebt over BASE voor jouw club.
+      </p>
+      <a href="mailto:info@smart11.com" class="btn-primary">
+        Plan een gesprek →
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <div class="footer-logo">SMART11</div>
+    <p class="footer-text">smart11.com · Versterkt ambitieuze voetballers en coaches</p>
+  </footer>
+
+</body>
+</html>

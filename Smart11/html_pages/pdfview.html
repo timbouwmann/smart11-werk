@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><style>body{margin:0;background:#888}canvas{display:block}</style></head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+import * as pdfjsLib from "/node_modules/pdfjs-dist/build/pdf.mjs";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "/node_modules/pdfjs-dist/build/pdf.worker.mjs";
+window.pageRendered = false;
+window.currentPage = 1;
+let pdfDoc = null;
+
+async function renderPage(num) {
+  window.pageRendered = false;
+  const page = await pdfDoc.getPage(num);
+  const scale = 1.8;
+  const vp = page.getViewport({scale});
+  const canvas = document.getElementById("c");
+  canvas.width = vp.width;
+  canvas.height = vp.height;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  await page.render({canvasContext: ctx, viewport: vp}).promise;
+  window.pageRendered = true;
+  window.currentPage = num;
+}
+
+window.goToPage = renderPage;
+
+const pdf = await pdfjsLib.getDocument({
+  url: "/brandguide.pdf"
+}).promise;
+pdfDoc = pdf;
+window.totalPages = pdf.numPages;
+await renderPage(1);
+</script>
+</body>
+</html>

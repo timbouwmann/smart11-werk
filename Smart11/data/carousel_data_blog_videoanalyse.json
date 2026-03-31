@@ -1,0 +1,74 @@
+{
+  "topic": "Individuele videoanalyse in het amateurvoetbal — blog carousel",
+  "slides": [
+    {
+      "type": "cover",
+      "title": "Jouw beelden\nhebben meer\nin zich",
+      "accent_words": ["meer", "in", "zich"]
+    },
+    {
+      "type": "content",
+      "slug": "herkenning",
+      "title": "Beelden\nfilmen.\nMaar dan?",
+      "accent_words": ["dan?"],
+      "step_number": "",
+      "body": "Beelden staan op de server. Screenshots in de groepsapp.\nEen losse opmerking in de kleedkamer — en de kans is weg.\nHet kan zoveel beter.",
+      "orange_words": ["BETER."]
+    },
+    {
+      "type": "insight",
+      "quote": "Spelers die zichzelf\nterugzien, ontwikkelen\naantoonbaar sneller.",
+      "source": "Visuele feedback versnelt voetbalintelligentie bij 12–21 jaar",
+      "accent_words": ["aantoonbaar", "sneller."]
+    },
+    {
+      "type": "content",
+      "slug": "methodiek1-2",
+      "title": "Methode\n1 & 2",
+      "accent_words": ["1", "&", "2"],
+      "step_number": "01",
+      "body": "Wekelijkse videoopdrachten: spelers kiezen zelf 3 clips.\nAsynchrone coaching: jij geeft feedback wanneer het jou uitkomt.\nDe speler leert. Jij houdt regie.",
+      "orange_words": ["REGIE."]
+    },
+    {
+      "type": "content",
+      "slug": "methodiek3-4",
+      "title": "Methode\n3 & 4",
+      "accent_words": ["3", "&", "4"],
+      "step_number": "02",
+      "body": "Peer-to-peer analyse: spelers beoordelen elkaars beelden.\nVertaling naar training: gebruik analyses als blauwdruk voor oefeningen.\nTactiek wordt tastbaar.",
+      "orange_words": ["TASTBAAR."]
+    },
+    {
+      "type": "content",
+      "slug": "methodiek5",
+      "title": "Methode\n5",
+      "accent_words": ["5"],
+      "step_number": "03",
+      "body": "Maandelijkse zelfreflectie met leerdoelen.\nSpelers leggen doelen vast. Na elke wedstrijd toetsen ze via video.\nProgressie wordt zichtbaar en motiverend.",
+      "orange_words": ["MOTIVEREND."]
+    },
+    {
+      "type": "content",
+      "slug": "smart11-stappen",
+      "title": "Smart11\nBASE:\n4 stappen.",
+      "accent_words": ["BASE:", "4", "stappen."],
+      "step_number": "",
+      "body": "1. Gratis account aanmaken.\n2. Spelers activeren via de app.\n3. Clairence (AI) herkent automatisch sleutelmomenten.\n4. Gepersonaliseerde clips delen met spelers.",
+      "orange_words": ["CLAIRENCE"]
+    },
+    {
+      "type": "cta",
+      "title": "14 dagen\nvolledig\ngratis.",
+      "accent_words": ["14", "dagen"],
+      "preview_label": "📖 Lees de volledige blog op smart11.ai",
+      "cta_text": "Klik op de link",
+      "cta_highlight": "IN DE BIO",
+      "cta_rest": "en ontdek alle 5 methodieken"
+    },
+    {
+      "type": "follow",
+      "lines": ["VOLG", "SMART11", "VOOR MEER"]
+    }
+  ]
+}

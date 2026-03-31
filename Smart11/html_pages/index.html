@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart11 | Football Intelligence Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* ── SMART11 BRAND COLORS (Huisstijlhandboek) ── */
+      --gold: #DC9600;        /* Geel — primaire accentkleur */
+      --gold-light: #F0AB14;
+      --gold-dark: #B07800;
+      --teal: #177E89;        /* Blauw — toevoeging */
+      --green: #4F9D69;       /* Groen — positief */
+      --red: #B3001C;         /* Rood — negatief */
+      /* Basis: Zwart + Wit + Geel */
+      --bg-darkest: #000000;  /* Zwart */
+      --bg-dark: #0d0d0d;
+      --bg-card: #111111;
+      --bg-elevated: #1a1a1a;
+      --text-primary: #FFFFFF; /* Wit */
+      --text-secondary: #888888;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-darkest);
+      color: var(--text-primary);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.022;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+      height: 70px;
+      display: flex; align-items: center;
+      padding: 0 max(2rem, calc((100vw - 1240px) / 2));
+      background: rgba(8,9,11,0.82);
+      backdrop-filter: blur(24px) saturate(1.8);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-logo { margin-right: 3rem; text-decoration: none; }
+    .nav-logo img { height: 34px; display: block; }
+    .logo-text { font-size: 1.375rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; }
+    .logo-text span { color: var(--gold); }
+
+    .nav-menu { display: flex; align-items: center; gap: 0.125rem; list-style: none; flex: 1; }
+
+    .nav-item { position: relative; }
+    .nav-item > a {
+      display: block; padding: 0.5rem 0.875rem;
+      font-size: 0.875rem; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none; border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-item > a:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+    .nav-item > a.has-drop::after {
+      content: '▾'; font-size: 0.7rem; margin-left: 0.3rem; opacity: 0.6;
+    }
+
+    .drop {
+      position: absolute; top: calc(100% + 6px); left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 0.375rem; min-width: 192px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .nav-item:hover .drop {
+      opacity: 1; visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .drop a {
+      display: block; padding: 0.5rem 0.875rem;
+      font-size: 0.8125rem; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none; border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .drop a:hover { color: var(--gold); background: rgba(220,150,0,0.08); }
+
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; margin-left: auto; }
+
+    .btn-lang {
+      display: flex; align-items: center; gap: 0.3rem;
+      padding: 0.375rem 0.75rem; font-size: 0.8rem; font-weight: 600;
+      color: var(--text-secondary); background: var(--bg-elevated);
+      border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+      text-decoration: none; transition: color 0.2s, border-color 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-lang:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.14); }
+
+    .btn-cta {
+      padding: 0.5rem 1.25rem; font-size: 0.875rem; font-weight: 700;
+      color: #08090b; background: var(--gold); border: none; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 4px 16px rgba(220,150,0,0.28);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-cta:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(220,150,0,0.4); }
+    .btn-cta:active { transform: translateY(0); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 8rem 2rem 5rem; overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(220,150,0,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 90% 70%, rgba(220,150,0,0.08) 0%, transparent 50%),
+        #000000;
+    }
+
+    /* Brand diagonal block — right side gold strip like in huisstijl */
+    .hero-diagonal {
+      position: absolute; top: 0; right: 0; bottom: 0; z-index: 1;
+      width: 40%;
+      clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+      background: linear-gradient(180deg, rgba(220,150,0,0.06) 0%, rgba(220,150,0,0.02) 100%);
+      border-left: 1px solid rgba(220,150,0,0.12);
+    }
+
+    /* Pitch grid */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 1;
+      opacity: 0.035;
+      background-image:
+        linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      text-align: center; max-width: 880px; width: 100%;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 1rem; margin-bottom: 1.875rem;
+      background: var(--gold); border: none;
+      border-radius: 3px; font-size: 0.75rem; font-weight: 800;
+      color: #000; letter-spacing: 0.1em; text-transform: uppercase;
+      animation: fadeUp 0.55s ease both; font-style: italic;
+    }
+    .badge-dot { display: none; }
+    @keyframes blink {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.4; transform:scale(1.5); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.75rem, 7.5vw, 5.75rem);
+      font-weight: 900; line-height: 1.02; letter-spacing: -0.03em;
+      font-style: italic;
+      color: var(--text-primary); margin-bottom: 1.5rem;
+      animation: fadeUp 0.55s 0.08s ease both;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+
+    .hero-desc {
+      font-size: clamp(0.9375rem, 1.8vw, 1.1875rem);
+      font-weight: 400; color: var(--text-secondary); line-height: 1.75;
+      max-width: 580px; margin: 0 auto 2.5rem;
+      animation: fadeUp 0.55s 0.16s ease both;
+    }
+
+    .hero-btns {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.875rem; flex-wrap: wrap;
+      animation: fadeUp 0.55s 0.24s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2.125rem; font-size: 0.9375rem; font-weight: 700;
+      color: #08090b; background: var(--gold); border: none; border-radius: 10px;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 28px rgba(220,150,0,0.34);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(220,150,0,0.44); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2.125rem; font-size: 0.9375rem; font-weight: 600;
+      color: var(--text-primary); background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); transform: translateY(-2px); }
+    .btn-ghost:active { transform: translateY(0); }
+
+    .hero-stats {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin-top: 4.5rem;
+      border: 1px solid var(--border); border-radius: 16px;
+      background: rgba(255,255,255,0.02); overflow: hidden;
+      animation: fadeUp 0.55s 0.32s ease both;
+    }
+
+    .hstat {
+      flex: 1; padding: 1.5rem 2rem; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .hstat:last-child { border-right: none; }
+    .hstat-val {
+      font-size: 1.875rem; font-weight: 800; color: var(--gold);
+      line-height: 1; letter-spacing: -0.03em;
+    }
+    .hstat-lbl {
+      font-size: 0.775rem; font-weight: 500; color: var(--text-secondary);
+      margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(22px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── PARTNERS ── */
+    .partners {
+      padding: 3.5rem 0;
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .partners-lbl {
+      text-align: center; font-size: 0.75rem; font-weight: 600;
+      color: var(--text-secondary); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 2rem;
+    }
+
+    .scroll-track {
+      overflow: hidden; position: relative;
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+      mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    }
+    .scroll-inner {
+      display: flex; align-items: center; gap: 3.5rem;
+      width: max-content; animation: slide 30s linear infinite;
+    }
+    .scroll-inner:hover { animation-play-state: paused; }
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .partner-name {
+      font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.9);
+      opacity: 0.35; letter-spacing: 0.04em; white-space: nowrap;
+      transition: opacity 0.2s; cursor: default; flex-shrink: 0;
+    }
+    .partner-name:hover { opacity: 0.8; }
+
+    /* ── SECTIONS ── */
+    .sec { padding: 6.5rem max(2rem, calc((100vw - 1240px) / 2)); }
+    .sec-dark { background: var(--bg-dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .lbl {
+      display: inline-flex; align-items: center; gap: 0.625rem;
+      font-size: 0.7rem; font-weight: 800; color: var(--gold);
+      letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.875rem;
+      font-style: italic;
+    }
+    .lbl::before {
+      content: ''; width: 20px; height: 3px; background: var(--gold); flex-shrink: 0;
+    }
+    .ttl {
+      font-size: clamp(1.75rem, 3.5vw, 2.875rem);
+      font-weight: 900; line-height: 1.1; letter-spacing: -0.03em;
+      color: var(--text-primary); margin-bottom: 1.125rem;
+      font-style: italic;
+    }
+    .sub {
+      font-size: 1.0625rem; font-weight: 400;
+      color: var(--text-secondary); line-height: 1.72; max-width: 540px;
+    }
+
+    /* ── AUDIENCE CARDS ── */
+    .aud-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+
+    .aud-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2.25rem; position: relative; overflow: hidden;
+      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), border-color 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .aud-card::after {
+      content: '';position:absolute;top:0;left:0;right:0;height:2.5px;
+      background: linear-gradient(90deg,var(--gold),var(--gold-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .aud-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(220,150,0,0.2);
+      box-shadow: 0 28px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(220,150,0,0.08);
+    }
+    .aud-card:hover::after { transform: scaleX(1); }
+
+    .aud-icon {
+      width: 54px; height: 54px; border-radius: 14px;
+      background: rgba(220,150,0,0.1); border: 1px solid rgba(220,150,0,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.375rem;
+    }
+    .aud-card h3 {
+      font-size: 1.3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.625rem;
+    }
+    .aud-card p {
+      font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1.75rem;
+    }
+
+    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .feat-list li {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.85rem; color: var(--text-secondary);
+    }
+    .feat-list li::before {
+      content: '';
+      width: 17px; height: 17px; flex-shrink: 0;
+      background: rgba(220,150,0,0.1);
+      border: 1px solid rgba(220,150,0,0.22); border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg width='9' height='7' viewBox='0 0 9 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 3.5L3.2 5.8L8 1' stroke='%23dc9600' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center;
+    }
+
+    .card-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1.875rem; font-size: 0.85rem; font-weight: 600;
+      color: var(--gold); text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .card-link:hover { gap: 0.7rem; }
+
+    /* ── PLATFORM SECTION ── */
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+
+    .mockup-wrap {
+      position: relative;
+    }
+    .mockup {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      box-shadow: 0 40px 90px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .mockup-bar {
+      height: 44px; background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 1.125rem; gap: 0.5rem;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .mockup-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .video-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(130deg, #14161e, #0d0e12);
+      border-radius: 10px; border: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .video-thumb::before {
+      content: '';position:absolute;inset:0;
+      background: linear-gradient(135deg,rgba(23,126,137,0.12) 0%,transparent 55%,rgba(220,150,0,0.08) 100%);
+    }
+    .video-thumb::after {
+      content: '';position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+      background-size: 40px 28px;
+    }
+    .play-btn {
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:50px;height:50px;border-radius:50%;
+      background:rgba(220,150,0,0.88);
+      display:flex;align-items:center;justify-content:center;z-index:2;
+      box-shadow:0 0 0 14px rgba(220,150,0,0.12);
+      transition:transform 0.2s,box-shadow 0.2s;cursor:pointer;
+    }
+    .play-btn:hover { transform:translate(-50%,-50%) scale(1.08); box-shadow:0 0 0 20px rgba(220,150,0,0.08); }
+    .play-btn svg { width:18px;height:18px;fill:#08090b;margin-left:3px; }
+
+    .chip-row { display:flex;gap:0.5rem;flex-wrap:wrap; }
+    .chip {
+      padding:0.25rem 0.7rem;border-radius:6px;font-size:0.75rem;font-weight:600;
+      background:rgba(220,150,0,0.1);border:1px solid rgba(220,150,0,0.2);color:var(--gold);
+    }
+    .chip.blue { background:rgba(23,126,137,0.15);border-color:rgba(23,126,137,0.3);color:#1AA6B3; }
+
+    .float-pill {
+      position:absolute;background:var(--bg-elevated);
+      border:1px solid var(--border);border-radius:10px;
+      padding:0.625rem 0.875rem;font-size:0.775rem;font-weight:600;
+      box-shadow:0 16px 48px rgba(0,0,0,0.45);white-space:nowrap;
+    }
+    .float-top { top:-16px;right:-16px;color:var(--gold);animation:bob 3s ease-in-out infinite; }
+    .float-bot { bottom:-16px;left:-16px;color:var(--teal);animation:bob 3s 1.5s ease-in-out infinite; }
+    @keyframes bob {
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-7px);}
+    }
+
+    .feat-items { display:flex;flex-direction:column;gap:1.25rem;margin-top:2.25rem; }
+    .fi {
+      display:flex;gap:1.125rem;align-items:flex-start;padding:1.125rem;
+      border-radius:12px;border:1px solid transparent;
+      transition:background 0.2s,border-color 0.2s; cursor:default;
+    }
+    .fi:hover { background:rgba(255,255,255,0.025);border-color:var(--border); }
+    .fi-icon {
+      width:42px;height:42px;border-radius:11px;flex-shrink:0;
+      background:rgba(220,150,0,0.1);border:1px solid rgba(220,150,0,0.15);
+      display:flex;align-items:center;justify-content:center;font-size:1.125rem;
+    }
+    .fi h4 { font-size:0.9375rem;font-weight:700;color:var(--text-primary);margin-bottom:0.3rem; }
+    .fi p { font-size:0.875rem;color:var(--text-secondary);line-height:1.6; }
+
+    /* ── SMARTCOACH ── */
+    .chat-box {
+      background:var(--bg-card);border:1px solid var(--border);
+      border-radius:4px;overflow:hidden;
+      box-shadow:0 40px 90px rgba(0,0,0,0.45);
+    }
+    .chat-head {
+      padding:1.125rem 1.375rem;background:var(--bg-elevated);
+      border-bottom:1px solid var(--border);
+      display:flex;align-items:center;gap:0.75rem;
+    }
+    .av {
+      width:36px;height:36px;border-radius:50%;
+      background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+      display:flex;align-items:center;justify-content:center;font-size:0.875rem;
+    }
+    .chat-head-info h4 { font-size:0.875rem;font-weight:700;color:var(--text-primary); }
+    .chat-head-info p { font-size:0.75rem;color:var(--gold);font-weight:500; }
+    .online {
+      margin-left:auto;display:flex;align-items:center;gap:0.35rem;
+      font-size:0.75rem;color:#4ade80;font-weight:500;
+    }
+    .online::before {
+      content:'';width:6px;height:6px;border-radius:50%;
+      background:#4ade80;animation:blink 2s infinite;
+    }
+
+    .chat-msgs { padding:1.375rem;display:flex;flex-direction:column;gap:0.875rem;min-height:290px; }
+    .msg {
+      max-width:82%;padding:0.8rem 1rem;border-radius:14px;
+      font-size:0.875rem;line-height:1.55;
+    }
+    .msg.ai {
+      background:var(--bg-elevated);border:1px solid var(--border);
+      color:var(--text-primary);align-self:flex-start;border-bottom-left-radius:4px;
+    }
+    .msg.user {
+      background:var(--gold);color:#08090b;align-self:flex-end;
+      font-weight:500;border-bottom-right-radius:4px;
+    }
+
+    .chat-foot {
+      padding:0.875rem 1.375rem;border-top:1px solid var(--border);
+      display:flex;align-items:center;gap:0.625rem;
+    }
+    .chat-inp {
+      flex:1;background:var(--bg-elevated);border:1px solid var(--border);
+      border-radius:10px;padding:0.6rem 0.875rem;font-size:0.875rem;
+      color:var(--text-secondary);outline:none;font-family:'Poppins',sans-serif;
+    }
+    .chat-send {
+      width:36px;height:36px;border-radius:8px;background:var(--gold);
+      border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background 0.2s;flex-shrink:0;
+    }
+    .chat-send:hover { background:var(--gold-light); }
+
+    /* ── TESTIMONIALS ── */
+    .test-grid {
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;margin-top:3rem;
+    }
+    .test-card {
+      background:var(--bg-card);border:1px solid var(--border);
+      border-radius:4px;padding:1.875rem;
+      transition:transform 0.25s ease,border-color 0.25s,box-shadow 0.25s;
+    }
+    .test-card:hover {
+      transform:translateY(-5px);
+      border-color:rgba(220,150,0,0.18);
+      box-shadow:0 20px 56px rgba(0,0,0,0.3);
+    }
+    .qmark { font-size:2.5rem;color:var(--gold);opacity:0.45;line-height:1;margin-bottom:0.875rem; }
+    .test-text { font-size:0.9375rem;color:var(--text-secondary);line-height:1.7;margin-bottom:1.375rem; }
+    .test-author { display:flex;align-items:center;gap:0.75rem; }
+    .test-av {
+      width:42px;height:42px;border-radius:50%;
+      background:var(--bg-elevated);border:2px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      font-size:0.875rem;font-weight:700;color:var(--gold);flex-shrink:0;
+    }
+    .test-name { font-size:0.875rem;font-weight:700;color:var(--text-primary); }
+    .test-role { font-size:0.775rem;color:var(--text-secondary);margin-top:0.1rem; }
+
+    /* ── FAQ ── */
+    .faq-grid {
+      display:grid;grid-template-columns:5fr 7fr;
+      gap:4rem;align-items:start;margin-top:1rem;
+    }
+    .faq-acc {
+      border-radius:4px;overflow:hidden;
+      border:1px solid var(--border);background:var(--bg-card);
+    }
+    .faq-q {
+      width:100%;padding:1.125rem 1.375rem;
+      display:flex;justify-content:space-between;align-items:center;gap:1rem;
+      font-size:0.9375rem;font-weight:600;color:var(--text-primary);
+      text-align:left;background:none;border:none;border-bottom:1px solid var(--border);
+      cursor:pointer;font-family:'Poppins',sans-serif;
+      transition:color 0.15s,background 0.15s;
+    }
+    .faq-q:last-of-type { border-bottom:none; }
+    .faq-q:hover { background:rgba(255,255,255,0.02); }
+    .faq-item { background:var(--bg-card); }
+    .faq-item:not(:last-child) { border-bottom:1px solid var(--border); }
+    .chevron { width:18px;height:18px;flex-shrink:0;color:var(--gold);transition:transform 0.25s; }
+    .faq-a {
+      max-height:0;overflow:hidden;
+      transition:max-height 0.35s ease;
+    }
+    .faq-a-inner {
+      padding:0 1.375rem 1.125rem;
+      font-size:0.9rem;color:var(--text-secondary);line-height:1.7;
+    }
+    .faq-item.open .faq-a { max-height:200px; }
+    .faq-item.open .chevron { transform:rotate(180deg); }
+    .faq-item.open .faq-q { color:var(--gold); }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      max-width:780px;margin:0 auto;text-align:center;
+      padding:4.5rem;background:var(--bg-card);
+      border:1px solid var(--border);border-radius:6px;
+      position:relative;overflow:hidden;
+    }
+    .cta-wrap::before {
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 65% 45% at 50% 0%,rgba(220,150,0,0.13) 0%,transparent 60%);
+      pointer-events:none;
+    }
+    .cta-wrap h2 {
+      font-size:clamp(1.75rem,4vw,2.75rem);font-weight:800;
+      color:var(--text-primary);letter-spacing:-0.03em;margin-bottom:1rem;position:relative;
+    }
+    .cta-wrap p {
+      font-size:1.0625rem;color:var(--text-secondary);line-height:1.65;
+      margin-bottom:2.25rem;position:relative;max-width:520px;margin-left:auto;margin-right:auto;
+    }
+    .cta-btns { display:flex;align-items:center;justify-content:center;gap:0.875rem;flex-wrap:wrap;position:relative; }
+    .cta-note { margin-top:1.125rem;font-size:0.8rem;color:var(--text-secondary);position:relative; }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--bg-dark);border-top:1px solid var(--border);
+      padding:4rem max(2rem, calc((100vw - 1240px) / 2)) 2rem;
+    }
+    .footer-top {
+      display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;
+      gap:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border);
+    }
+    .footer-brand p {
+      font-size:0.875rem;color:var(--text-secondary);line-height:1.65;
+      margin:1rem 0 1.5rem;max-width:270px;
+    }
+    .socials { display:flex;gap:0.625rem; }
+    .soc {
+      width:34px;height:34px;border-radius:8px;
+      background:var(--bg-elevated);border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--text-secondary);text-decoration:none;font-size:0.8125rem;
+      transition:color 0.2s,border-color 0.2s,background 0.2s;
+    }
+    .soc:hover { color:var(--gold);border-color:rgba(220,150,0,0.28);background:rgba(220,150,0,0.07); }
+
+    .fcol h5 {
+      font-size:0.775rem;font-weight:700;color:var(--text-primary);
+      letter-spacing:0.07em;text-transform:uppercase;margin-bottom:1.125rem;
+    }
+    .fcol ul { list-style:none;display:flex;flex-direction:column;gap:0.55rem; }
+    .fcol ul a {
+      font-size:0.875rem;color:var(--text-secondary);text-decoration:none;
+      transition:color 0.2s;
+    }
+    .fcol ul a:hover { color:var(--text-primary); }
+
+    .footer-bot {
+      display:flex;align-items:center;justify-content:space-between;
+      padding-top:1.875rem;font-size:0.8rem;color:var(--text-secondary);
+      flex-wrap:wrap;gap:0.75rem;
+    }
+    .footer-bot a { color:var(--text-secondary);text-decoration:none;transition:color 0.2s; }
+    .footer-bot a:hover { color:var(--text-primary); }
+
+    /* ── REVEAL ANIMATION ── */
+    .fade-up {
+      opacity:0; transform:translateY(28px);
+      transition:opacity 0.6s ease,transform 0.6s ease;
+    }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+    .d1 { transition-delay:0.1s; }
+    .d2 { transition-delay:0.2s; }
+    .d3 { transition-delay:0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px) {
+      .aud-grid,.test-grid { grid-template-columns:repeat(2,1fr); }
+      .two-col,.faq-grid { grid-template-columns:1fr;gap:3rem; }
+      .footer-top { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:768px) {
+      .nav-menu,.nav-right { display:none; }
+      .aud-grid,.test-grid { grid-template-columns:1fr; }
+      .hero-stats { flex-direction:column; }
+      .hstat { border-right:none;border-bottom:1px solid var(--border); }
+      .hstat:last-child { border-bottom:none; }
+      .cta-wrap { padding:2.5rem 1.5rem; }
+      .footer-top { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">
+    <img src="https://smart11.ai/app/uploads/2024/05/T2024010_SMART11_LOGO_WIT_GEEL_RGB-300x48.png"
+         alt="Smart11"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="logo-text" style="display:none">Smart<span>11</span></div>
+  </a>
+
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a href="#" class="has-drop">For Clubs</a>
+      <div class="drop">
+        <a href="#">Smart11 App</a>
+        <a href="#">AI on the Ball</a>
+        <a href="#">Workshops</a>
+        <a href="#">Use Cases</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="has-drop">For Coaches</a>
+      <div class="drop">
+        <a href="#">SmartCoach AI</a>
+        <a href="#">Smart11 BASE</a>
+        <a href="#">Community</a>
+        <a href="#">Impact Course</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="has-drop">For Players</a>
+      <div class="drop">
+        <a href="#">Mobile App</a>
+        <a href="#">Elite Coaching</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="#">SmartCoach</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <button class="btn-lang" id="langBtn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span id="langLabel">EN</span>
+    </button>
+    <a href="https://meetings-eu1.hubspot.com/kevin-brander" target="_blank" class="btn-cta">Book a demo</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-diagonal"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="badge">Increase Your Impact</div>
+    <h1>Boost Your<br><em>Football</em> Intelligence</h1>
+    <p class="hero-desc">
+      Het toonaangevende video-analyse platform voor spelers, coaches en clubs —
+      aangedreven door AI die het spel écht begrijpt.
+    </p>
+    <div class="hero-btns">
+      <a href="https://meetings-eu1.hubspot.com/kevin-brander" target="_blank" class="btn-primary">
+        Start gratis
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#platform" class="btn-ghost">
+        Bekijk het platform
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">500+</div><div class="hstat-lbl">Clubs worldwide</div></div>
+      <div class="hstat"><div class="hstat-val">15K+</div><div class="hstat-lbl">Analyses / month</div></div>
+      <div class="hstat"><div class="hstat-val">98%</div><div class="hstat-lbl">Satisfaction</div></div>
+      <div class="hstat"><div class="hstat-val">16</div><div class="hstat-lbl">Pro clubs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARTNERS ── -->
+<section class="partners">
+  <div class="partners-lbl">Trusted by clubs at every level</div>
+  <div class="scroll-track">
+    <div class="scroll-inner">
+      <span class="partner-name">Ajax</span>
+      <span class="partner-name">Feyenoord</span>
+      <span class="partner-name">Arsenal FC</span>
+      <span class="partner-name">Bayern Munich</span>
+      <span class="partner-name">Tottenham Hotspur</span>
+      <span class="partner-name">FC Groningen</span>
+      <span class="partner-name">KNVB</span>
+      <span class="partner-name">KRC Genk</span>
+      <span class="partner-name">SC Cambuur</span>
+      <span class="partner-name">VfL Wolfsburg</span>
+      <span class="partner-name">Union Berlin</span>
+      <span class="partner-name">KAA Gent</span>
+      <span class="partner-name">VfB Stuttgart</span>
+      <span class="partner-name">SC Heerenveen</span>
+      <span class="partner-name">Heracles</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="partner-name">Ajax</span>
+      <span class="partner-name">Feyenoord</span>
+      <span class="partner-name">Arsenal FC</span>
+      <span class="partner-name">Bayern Munich</span>
+      <span class="partner-name">Tottenham Hotspur</span>
+      <span class="partner-name">FC Groningen</span>
+      <span class="partner-name">KNVB</span>
+      <span class="partner-name">KRC Genk</span>
+      <span class="partner-name">SC Cambuur</span>
+      <span class="partner-name">VfL Wolfsburg</span>
+      <span class="partner-name">Union Berlin</span>
+      <span class="partner-name">KAA Gent</span>
+      <span class="partner-name">VfB Stuttgart</span>
+      <span class="partner-name">SC Heerenveen</span>
+      <span class="partner-name">Heracles</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── AUDIENCE ── -->
+<section class="sec fade-up" id="audience">
+  <div class="lbl fade-up">Built for everyone in football</div>
+  <div class="ttl fade-up">Één platform, drie doelgroepen</div>
+  <p class="sub fade-up">Of je nu speler, trainer of clubmanager bent — Smart11 geeft je de tools om impact te maken.</p>
+
+  <div class="aud-grid">
+    <div class="aud-card fade-up d1">
+      <div class="aud-icon">⚽</div>
+      <h3>Voor Spelers</h3>
+      <p>Analyseer je eigen wedstrijden, ontvang persoonlijke feedback van je coach en volg je groei in real-time.</p>
+      <ul class="feat-list">
+        <li>Persoonlijke video-analyse</li>
+        <li>Doelstellingen & progressie</li>
+        <li>Coach-feedback direct in-app</li>
+        <li>Eerste 3 wedstrijden gratis</li>
+      </ul>
+      <a href="#" class="card-link">Meer voor spelers →</a>
+    </div>
+
+    <div class="aud-card fade-up d2">
+      <div class="aud-icon">📋</div>
+      <h3>Voor Coaches</h3>
+      <p>Analyseer wedstrijden efficiënter, geef gerichte feedback en ontwikkel elke speler individueel met SmartCoach AI.</p>
+      <ul class="feat-list">
+        <li>SmartCoach AI-assistent</li>
+        <li>Smart11 BASE omgeving</li>
+        <li>Impact Course (44 lessen)</li>
+        <li>Community & kennisdeling</li>
+      </ul>
+      <a href="#" class="card-link">Meer voor coaches →</a>
+    </div>
+
+    <div class="aud-card fade-up d3">
+      <div class="aud-icon">🏟️</div>
+      <h3>Voor Clubs</h3>
+      <p>Implementeer een complete analyse-infrastructuur en verhoog prestaties club-breed met Smart11.</p>
+      <ul class="feat-list">
+        <li>Smart11 club-omgeving</li>
+        <li>AI on the Ball tagging</li>
+        <li>Workshops & onboarding</li>
+        <li>Use cases & ROI-tracking</li>
+      </ul>
+      <a href="#" class="card-link">Meer voor clubs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLATFORM ── -->
+<section class="sec sec-dark" id="platform">
+  <div class="two-col">
+    <div class="fade-up">
+      <div class="lbl">Het platform</div>
+      <div class="ttl">Video-analyse die<br>écht werkt</div>
+      <p class="sub">Smart11 BASE is de videoanalyseomgeving waar trainers wedstrijden analyseren en spelers directe feedback ontvangen op hun telefoon.</p>
+      <div class="feat-items">
+        <div class="fi">
+          <div class="fi-icon">🎬</div>
+          <div>
+            <h4>Slimme videotags</h4>
+            <p>Tag acties razendsnel met AI-ondersteunde tagging — individuele acties, duels en transities in seconden.</p>
+          </div>
+        </div>
+        <div class="fi">
+          <div class="fi-icon">🤖</div>
+          <div>
+            <h4>AI-gestuurde inzichten</h4>
+            <p>Automatisch gegenereerde analyses op basis van patroonherkenning in het speelgedrag van iedere speler.</p>
+          </div>
+        </div>
+        <div class="fi">
+          <div class="fi-icon">📱</div>
+          <div>
+            <h4>Mobiele speler-app</h4>
+            <p>Spelers ontvangen clips, feedback en doelstellingen direct op hun telefoon — iOS & Android.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-wrap fade-up d2">
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="dot" style="background:#ff5f57"></div>
+          <div class="dot" style="background:#ffbd2e"></div>
+          <div class="dot" style="background:#28c841"></div>
+          <div style="flex:1;height:8px;background:var(--border);border-radius:4px;margin-left:1rem"></div>
+        </div>
+        <div class="mockup-body">
+          <div class="video-thumb">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+            </div>
+          </div>
+          <div class="chip-row">
+            <span class="chip">▶ 12:34 — Duel gewonnen</span>
+            <span class="chip blue">AI: pressing trigger</span>
+            <span class="chip">+7 acties getagd</span>
+          </div>
+          <div style="display:flex;gap:0.5rem">
+            <div style="flex:1;height:8px;background:var(--bg-elevated);border-radius:4px;overflow:hidden">
+              <div style="width:68%;height:100%;background:var(--gold);border-radius:4px"></div>
+            </div>
+            <span style="font-size:0.75rem;color:var(--gold);font-weight:700">68%</span>
+          </div>
+        </div>
+      </div>
+      <div class="float-pill float-top">🎯 AI tagging actief</div>
+      <div class="float-pill float-bot">📊 23 analyses vandaag</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SMARTCOACH ── -->
+<section class="sec">
+  <div class="two-col" style="grid-template-columns:1fr 1fr">
+    <div class="fade-up">
+      <div class="chat-box">
+        <div class="chat-head">
+          <div class="av">⚡</div>
+          <div class="chat-head-info">
+            <h4>SmartCoach AI</h4>
+            <p>Jouw digitale analyse-assistent</p>
+          </div>
+          <div class="online">Online</div>
+        </div>
+        <div class="chat-msgs">
+          <div class="msg user">Hoe presteert Joris in zijn 1v1 duels de laatste 3 wedstrijden?</div>
+          <div class="msg ai">Joris won <strong>68% van zijn 1v1 duels</strong> — een stijging van 12% t.o.v. zijn seizoensgemiddelde. Zijn sterkste moment is bij hoog druk (60-75'). Ik raad aan te focussen op zijn <em>positie bij defensieve transities</em>. Zie clip 3.</div>
+          <div class="msg user">Geef me een trainingsadvies voor komende week.</div>
+          <div class="msg ai"><strong>3 oefeningen gericht op pressing triggers</strong> + 1 individuele sessie voor Joris op positioneel bewustzijn. Wil je een volledig weekplan met tijdschema?</div>
+        </div>
+        <div class="chat-foot">
+          <input class="chat-inp" type="text" placeholder="Stel SmartCoach een vraag..." readonly>
+          <button class="chat-send">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#08090b" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-up d2">
+      <div class="lbl">SmartCoach AI</div>
+      <div class="ttl">Je AI-coach staat<br>altijd klaar</div>
+      <p class="sub">Stel vragen over je spelersdata in gewone taal. SmartCoach analyseert patronen en geeft je direct bruikbare inzichten.</p>
+      <div class="feat-items" style="margin-top:1.875rem">
+        <div class="fi">
+          <div class="fi-icon">💬</div>
+          <div>
+            <h4>Praat met je data</h4>
+            <p>Geen dashboards. Gewoon een vraag stellen en een antwoord krijgen op basis van echte wedstrijddata.</p>
+          </div>
+        </div>
+        <div class="fi">
+          <div class="fi-icon">📈</div>
+          <div>
+            <h4>Spelersontwikkeling volgen</h4>
+            <p>Bekijk trends over meerdere weken en maak objectieve beslissingen over trainingsinhoud en opstelling.</p>
+          </div>
+        </div>
+      </div>
+      <a href="https://meetings-eu1.hubspot.com/kevin-brander" target="_blank" class="btn-primary" style="margin-top:2rem;display:inline-flex">
+        Probeer SmartCoach gratis →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="sec sec-dark">
+  <div style="text-align:center;margin-bottom:0.75rem" class="fade-up"><div class="lbl" style="display:inline-block">Wat coaches zeggen</div></div>
+  <div style="text-align:center" class="fade-up"><div class="ttl" style="display:inline-block">Resultaten die spreken</div></div>
+
+  <div class="test-grid">
+    <div class="test-card fade-up d1">
+      <div class="qmark">"</div>
+      <p class="test-text">Smart11's Impact Course heeft me zelfvertrouwen gegeven op het trainingsveld. Ik gebruik nu een gestructureerde aanpak die écht werkt voor individuele spelersontwikkeling.</p>
+      <div class="test-author">
+        <div class="test-av">AV</div>
+        <div>
+          <div class="test-name">Alex van der Veen</div>
+          <div class="test-role">Founder, VEENS Football Academy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-card fade-up d2">
+      <div class="qmark">"</div>
+      <p class="test-text">Met Smart11 BASE kan ik individuele wedstrijdanalyses schaalbaar maken voor mijn hele selectie. Spelers ontvangen feedback direct op hun telefoon — dat maakt een enorm verschil.</p>
+      <div class="test-author">
+        <div class="test-av">JB</div>
+        <div>
+          <div class="test-name">Jordi Biemolt</div>
+          <div class="test-role">Trainer/Coach, FC Groningen</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-card fade-up d3">
+      <div class="qmark">"</div>
+      <p class="test-text">Als Head of Football zocht ik een tool waarmee trainers én spelers op hetzelfde niveau kunnen communiceren over prestaties. Smart11 is precies dat — en meer.</p>
+      <div class="test-author">
+        <div class="test-av">RK</div>
+        <div>
+          <div class="test-name">Robin ten Katen</div>
+          <div class="test-role">Head of Football, ONS Sneek</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="sec">
+  <div class="faq-grid">
+    <div class="fade-up">
+      <div class="lbl">FAQ</div>
+      <div class="ttl">Veelgestelde<br>vragen</div>
+      <p class="sub" style="margin-top:0.875rem">Heb je een andere vraag? Neem contact op of plan een gratis demo met ons team.</p>
+      <a href="https://meetings-eu1.hubspot.com/kevin-brander" target="_blank" class="btn-primary" style="margin-top:2rem;display:inline-flex">
+        Plan een demo
+      </a>
+    </div>
+
+    <div class="faq-acc fade-up d2">
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Wat is Smart11 BASE?
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Smart11 BASE is een videoanalyseomgeving voor clubs, waarin trainers wedstrijden analyseren en spelers feedback ontvangen via de Smart11 app. Het vormt de kern van het platform.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Voor wie is Smart11 BASE bedoeld?
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Voor trainers van clubs die gestructureerd willen werken aan spelersontwikkeling — van amateurverenigingen tot betaald voetbal.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Kunnen spelers zelf analyseren?
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Ja! Spelers kunnen hun wedstrijden bekijken en de eerste drie wedstrijden volledig gratis analyseren via de Smart11 spelers-app.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Wat is de Impact Course?
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Een online cursus van 44 lessen voor ambitieuze coaches en analisten. Inclusief introductory workshop van 2,5 uur en sessies van 75–90 minuten per stuk.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Werkt Smart11 ook op mobiel?
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Ja, de Smart11 spelers-app is beschikbaar voor iOS en Android. De coach-webomgeving is volledig responsief en mobiel-vriendelijk.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="sec sec-dark">
+  <div class="cta-wrap fade-up">
+    <h2>Klaar om je voetbal<br>intelligentie te boosten?</h2>
+    <p>Start vandaag gratis en ontdek hoe Smart11 je club, coaching of spelersprestaties naar een hoger niveau tilt.</p>
+    <div class="cta-btns">
+      <a href="https://meetings-eu1.hubspot.com/kevin-brander" target="_blank" class="btn-primary">Boek een gratis demo →</a>
+      <a href="#audience" class="btn-ghost">Meer informatie</a>
+    </div>
+    <p class="cta-note">Geen creditcard vereist · Gratis te starten · Setup in 5 minuten</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="https://smart11.ai/app/uploads/2024/05/T2024010_SMART11_LOGO_WIT_GEEL_RGB-300x48.png"
+           alt="Smart11" style="height:30px;margin-bottom:0"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="logo-text" style="display:none">Smart<span>11</span></div>
+      <p>Het toonaangevende football intelligence platform voor spelers, coaches en clubs wereldwijd.</p>
+      <div class="socials">
+        <a href="#" class="soc">in</a>
+        <a href="#" class="soc">ig</a>
+        <a href="#" class="soc">𝕏</a>
+        <a href="#" class="soc">fb</a>
+      </div>
+    </div>
+
+    <div class="fcol">
+      <h5>Platform</h5>
+      <ul>
+        <li><a href="#">Smart11 BASE</a></li>
+        <li><a href="#">SmartCoach AI</a></li>
+        <li><a href="#">Mobile App</a></li>
+        <li><a href="#">AI on the Ball</a></li>
+      </ul>
+    </div>
+
+    <div class="fcol">
+      <h5>Doelgroepen</h5>
+      <ul>
+        <li><a href="#">Voor Clubs</a></li>
+        <li><a href="#">Voor Coaches</a></li>
+        <li><a href="#">Voor Spelers</a></li>
+        <li><a href="#">Impact Course</a></li>
+      </ul>
+    </div>
+
+    <div class="fcol">
+      <h5>Bedrijf</h5>
+      <ul>
+        <li><a href="#">Over Smart11</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacybeleid</a></li>
+        <li><a href="#">Algemene Voorwaarden</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bot">
+    <span>© 2026 Smart11. Alle rechten voorbehouden.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#">Privacy</a>
+      <a href="#">Cookies</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── FAQ
+  function faq(btn) {
+    const item = btn.closest('.faq-item');
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  }
+
+  // ── SCROLL REVEAL
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // ── NAV SCROLL
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').style.background =
+      window.scrollY > 20 ? 'rgba(8,9,11,0.97)' : 'rgba(8,9,11,0.82)';
+  }, { passive: true });
+
+  // ── LANGUAGE TOGGLE
+  let nl = false;
+  document.getElementById('langBtn').addEventListener('click', () => {
+    nl = !nl;
+    document.getElementById('langLabel').textContent = nl ? 'NL' : 'EN';
+  });
+</script>
+</body>
+</html>

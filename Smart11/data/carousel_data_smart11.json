@@ -1,0 +1,74 @@
+{
+  "topic": "Optimaal gebruik van camerabeelden als ambitieuze trainer",
+  "slides": [
+    {
+      "type": "cover",
+      "title": "Zo haal jij meer\nuit je\ncamerabeelden",
+      "accent_words": ["meer", "camerabeelden"]
+    },
+    {
+      "type": "content",
+      "slug": "waarom",
+      "title": "Waarom\ncamerabeelden\nhet verschil maken",
+      "accent_words": ["camerabeelden"],
+      "step_number": "",
+      "body": "De meeste trainers kijken langs de lijn. Ze zien het halve plaatje.\nMet camerabeelden zie je looplijnen, ruimtes en keuzes. Dat is echte analyse.",
+      "orange_words": ["ECHTE"]
+    },
+    {
+      "type": "content",
+      "slug": "stap1",
+      "title": "Film\nvanaf hoogte",
+      "accent_words": ["hoogte"],
+      "step_number": "01",
+      "body": "Film vanuit een tribune of statief op hoogte.\nZo zie je alle 22 spelers tegelijk — positie, ruimtes en teamstructuur.\nVanuit de grond mis je de helft.",
+      "orange_words": []
+    },
+    {
+      "type": "content",
+      "slug": "stap2",
+      "title": "Kies\nmaximal 5\nmomenten",
+      "accent_words": ["5"],
+      "step_number": "02",
+      "body": "Meer dan 5 momenten? Dan haken spelers af.\nMeng positieve en leerpunten. Kort en to the point.\nKwaliteit wint van kwantiteit.",
+      "orange_words": ["KWALITEIT"]
+    },
+    {
+      "type": "content",
+      "slug": "stap3",
+      "title": "Label\nelke\ngame action",
+      "accent_words": ["game", "action"],
+      "step_number": "03",
+      "body": "Elke Game Action heeft twee lagen: keuze en uitvoering.\nDoor dit te labelen bouw je een objectief beeld op van iedere speler.\nGeen gevoel — data.",
+      "orange_words": ["DATA."]
+    },
+    {
+      "type": "content",
+      "slug": "stap4",
+      "title": "Betrek\nje spelers\nactief",
+      "accent_words": ["actief"],
+      "step_number": "04",
+      "body": "Daag spelers uit: 'Wat had jij anders gedaan?'\nDoor zelf mee te denken over beelden begrijpen ze dieper.\nDat vertaalt zich naar betere keuzes op het veld.",
+      "orange_words": ["BETERE"]
+    },
+    {
+      "type": "insight",
+      "quote": "De beste trainers kijken twee keer.\nEerst de wedstrijd.\nDan de beelden.",
+      "source": "Zo bouw je aan echte voetbalintelligentie",
+      "accent_words": ["twee", "keer.", "Dan", "beelden."]
+    },
+    {
+      "type": "cta",
+      "title": "Wil je dit\ndirect\ntoepassen?",
+      "accent_words": ["direct"],
+      "preview_label": "📋 Gratis analyse-checklist voor trainers",
+      "cta_text": "Reageer met",
+      "cta_highlight": "ANALYSE",
+      "cta_rest": "en ik stuur het direct op"
+    },
+    {
+      "type": "follow",
+      "lines": ["VOLG", "VOOR", "MEER"]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "topic": "Optimaal gebruik van camerabeelden als ambitieuze trainer",
+  "slides": [
+    {
+      "type": "cover",
+      "title": "Zo haal jij\nmeer uit je\ncamerabeelden",
+      "accent_lines": ["meer uit je"],
+      "tagline": "De trainer die slim kijkt, coacht beter"
+    },
+    {
+      "type": "getting_started",
+      "title_parts": [["Waarom ", false], ["camerabeelden\nhet verschil maken.", true]],
+      "body": "De meeste trainers kijken langs de lijn. Ze zien het halve plaatje. Met camerabeelden zie je alles — looplijnen, ruimtes, keuzes. Dat is de basis van echte analyse.",
+      "annotation": "Dit is wat jouw spelers missen zonder analyse"
+    },
+    {
+      "type": "tutorial_step",
+      "title": "Stap 1: Film vanaf hoogte",
+      "intro": "Een hoge camerahoek geeft je het volledige overzicht.",
+      "body": "Film vanuit een tribune, ladderpaal of statief op hoogte. Zo zie je alle 22 spelers tegelijk — hun positie, de ruimtes en de teamstructuur. Vanuit de grond mis je de helft.",
+      "image_position": "right"
+    },
+    {
+      "type": "tutorial_step",
+      "title": "Stap 2: Kies 5 momenten",
+      "intro": "Meer dan 5 momenten? Dan haken spelers af.",
+      "body": "Kies na de wedstrijd maximaal 5 clips. Meng positieve en leerpunten. Spelers onthouden wat ze zien als het kort en to the point is. Kwaliteit wint van kwantiteit."
+    },
+    {
+      "type": "tutorial_step",
+      "title": "Stap 3: Label elke actie",
+      "intro": "Codeer wat je ziet — keuze én uitvoering.",
+      "body": "Elke Game Action heeft twee lagen: maakte de speler de juiste keuze? En voerde hij het goed uit? Door dit te labelen, bouw je een objectief beeld op van iedere speler. Geen gevoel — data."
+    },
+    {
+      "type": "tutorial_step",
+      "title": "Stap 4: Betrek je spelers",
+      "intro": "Laat ze zelf analyseren. Niet alleen kijken.",
+      "body": "Daag spelers uit: 'Wat had jij anders gedaan?' Door zelf mee te denken over beelden, begrijpen ze de situatie dieper. Dat vertaalt zich naar bewustere keuzes op het veld."
+    },
+    {
+      "type": "insight",
+      "quote": "De beste trainers kijken twee keer. Eerst de wedstrijd. Dan de beelden.",
+      "source": "Zo bouw je aan echte voetbalintelligentie"
+    },
+    {
+      "type": "cta",
+      "title_line1": "Wil je dit",
+      "title_line2": "direct toepassen?",
+      "preview_label": "📋 Gratis analyse-checklist voor trainers",
+      "cta_text": "Reageer met",
+      "cta_highlight": "ANALYSE",
+      "cta_rest": "en ik stuur het direct op"
+    },
+    {
+      "type": "follow",
+      "lines": ["VOLG", "VOOR", "MEER"]
+    }
+  ]
+}

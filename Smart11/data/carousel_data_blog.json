@@ -1,0 +1,50 @@
+{
+  "topic": "Lees de Smart11 blog — gratis kennis voor ambitieuze coaches",
+  "slides": [
+    {
+      "type": "cover",
+      "slug": "cover",
+      "title": "DE BESTE\nCOACHES\nSTOPPEN NOOIT\nMET LEREN",
+      "accent_words": ["LEREN"],
+      "tagline": "De kennis die jou onderscheidt. Gratis op de Smart11 blog."
+    },
+    {
+      "type": "content",
+      "slug": "herkenning",
+      "title": "JE ZIET HET\nOP HET VELD.\nMAAR JE WEET NIET\nHOE JE HET UITLEGT.",
+      "accent_words": ["UITLEGT."],
+      "step_number": "",
+      "body": "VEEL COACHES ZIEN WAT ER MISGAAT.\nHET OMZETTEN NAAR EEN GOEDE TRAINING —\nDAT IS WAAR HET VERSCHIL ZIT.",
+      "orange_words": ["DAT", "IS", "WAAR", "HET", "VERSCHIL", "ZIT."]
+    },
+    {
+      "type": "content",
+      "slug": "waarde",
+      "title": "WAT JE GRATIS\nKRIJGT OP DE\nSMART11 BLOG",
+      "accent_words": ["GRATIS"],
+      "step_number": "",
+      "image_path": "Referentie_afbeeldingen/videoanalyse voetbal ai.jpg",
+      "body": "✓ TACTISCHE ANALYSES VAN ECHTE WEDSTRIJDEN\n✓ UITLEG VAN GAME ACTIONS: KEUZE EN UITVOERING\n✓ TRAININGSVORMEN DIE JE MORGEN AL GEBRUIKT",
+      "orange_words": ["MORGEN", "AL"]
+    },
+    {
+      "type": "content",
+      "slug": "resultaat",
+      "title": "BETERE SPELERS\nBEGINNEN BIJ EEN\nSLIMMERE TRAINER",
+      "accent_words": ["BETERE"],
+      "step_number": "",
+      "body": "EEN TRAINER DIE WEET WAT HIJ ZIET,\nCOMMUNICEERT SCHERPER.\nZIJN TRAININGEN SLUITEN ALTIJD\nAAN OP DE WEDSTRIJD.",
+      "orange_words": ["COMMUNICEERT", "SCHERPER."]
+    },
+    {
+      "type": "cta",
+      "slug": "cta",
+      "title": "LEES\nDE BLOG.\nGRATIS.",
+      "accent_words": ["GRATIS."],
+      "preview_label": "SMART11.AI/NL/BLOG/",
+      "cta_text": "Reageer met",
+      "cta_highlight": "BLOG",
+      "cta_rest": "en ik stuur de beste artikelen op"
+    }
+  ]
+}

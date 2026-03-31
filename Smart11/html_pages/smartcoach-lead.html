@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartCoach — Van wedstrijd naar training in 15 minuten</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#F0A514',
+            'gold-light': '#F5C04A',
+            dark: '#0D0D0D',
+            surface: '#161616',
+            'surface-2': '#1E1E1E',
+            border: '#2A2A2A',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { background: #0D0D0D; color: #fff; font-family: 'Inter', sans-serif; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .option-card { transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease; }
+    .option-card:hover:not([disabled]) { transform: translateY(-1px); }
+    .option-card.selected { border-color: #F0A514; background: rgba(240,165,20,0.08); }
+    .result-card { animation: slideUp 0.4s ease forwards; opacity: 0; }
+    .result-card:nth-child(1) { animation-delay: 0.1s; }
+    .result-card:nth-child(2) { animation-delay: 0.2s; }
+    .result-card:nth-child(3) { animation-delay: 0.3s; }
+    .result-card:nth-child(4) { animation-delay: 0.4s; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn-primary { transition: background-color 0.15s ease, transform 0.1s ease; }
+    .btn-primary:hover:not(:disabled) { background-color: #F5C04A; transform: translateY(-1px); }
+    .btn-primary:active:not(:disabled) { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-secondary { transition: border-color 0.15s ease, color 0.15s ease; }
+    .btn-secondary:hover { border-color: #F0A514; color: #F0A514; }
+    .progress-bar-fill { transition: width 0.4s ease; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #161616; }
+    ::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const MOMENTS = [
+  {
+    id: 1,
+    label: "Moment 1 — Opbouwfase",
+    tag: "⏱ 0:14",
+    situation: "Jouw centrale verdediger heeft de bal. Er staat druk van een aanvaller. Een middenvelder staat vrij tussen de linies en vraagt de bal.",
+    question: "Wat is hier het hoofdprobleem?",
+    options: [
+      { id: 'a', text: "De CV dribbelt terwijl een vrije middenvelder aanspeelbaar is", correct: true },
+      { id: 'b', text: "De verdediging staat te hoog opgesteld", correct: false },
+      { id: 'c', text: "Er is te weinig druk van de tegenstander", correct: false },
+    ]
+  },
+  {
+    id: 2,
+    label: "Moment 2 — Inspeelpoging",
+    tag: "⏱ 0:31",
+    situation: "Het team probeert op te bouwen. De middenvelders staan te vlak en zijn moeilijk te bespelen. De CV gooit lang omdat er geen optie dichtbij is.",
+    question: "Wat is hier het hoofdprobleem?",
+    options: [
+      { id: 'a', text: "De keeper had de bal moeten houden", correct: false },
+      { id: 'b', text: "De middenvelders positioneren zich niet goed tussen de linies", correct: true },
+      { id: 'c', text: "De aanvallers lopen te vroeg de diepte in", correct: false },
+    ]
+  },
+  {
+    id: 3,
+    label: "Moment 3 — Herhaling van patroon",
+    tag: "⏱ 1:08",
+    situation: "Opnieuw heeft de CV de bal. De middenvelder staat iets beter, maar de CV kiest wederom voor dribbelen en verliest de bal.",
+    question: "Wat valt je op aan dit patroon?",
+    options: [
+      { id: 'a', text: "De CV mist technische kwaliteit aan de bal", correct: false },
+      { id: 'b', text: "Dit is een terugkerend patroon: CV dribbelt, middenvelders staan niet goed", correct: true },
+      { id: 'c', text: "De tegenstander speelt erg goed druk", correct: false },
+    ]
+  }
+];
+
+const RESULTS = {
+  focus: [
+    { label: "Trainingsfocus 1", text: "Centrale verdedigers herkennen sneller wanneer passen beter is dan dribbelen" },
+    { label: "Trainingsfocus 2", text: "Middenvelders positioneren zich beter tussen de linies om aanspeelbaar te worden" }
+  ],
+  exercises: [
+    {
+      title: "Oefening 1",
+      subtitle: "Opbouwvorm 6v4",
+      details: ["Halve speelhelft", "Start altijd bij centrale verdediger", "Vertraagde druk vanuit de tegenstander", "Focus: indribbelen of middenvelder inspelen?"]
+    },
+    {
+      title: "Oefening 2",
+      subtitle: "4v4 + 3 neutraal",
+      details: ["Veld 25×20 meter", "Punt als team via midden tussen de linies speelt", "Dribbelen alleen als er geen inspeeloptie is"]
+    }
+  ],
+  teamAgreement: "Zie je een vrije man tussen de linies? Dan gaat de bal — niet dribbelen."
+};
+
+const BENEFITS = [
+  { icon: "⚡", title: "Sneller zien wat er echt misgaat", desc: "Stop met gissen. Zie het patroon al na drie momenten." },
+  { icon: "📋", title: "Vaste structuur in elke analyse", desc: "Niet elke keer opnieuw beginnen. Een systeem dat werkt." },
+  { icon: "🔄", title: "Terugkerende patronen herkennen", desc: "Eén fout is toeval. Drie keer is een trainingspunt." },
+  { icon: "📈", title: "Individuele groei zichtbaar maken", desc: "Laat spelers zien hoe ze zich per wedstrijd ontwikkelen." },
+  { icon: "🔗", title: "Training koppelen aan de wedstrijd", desc: "Wat je ziet op zaterdag, train je op dinsdag. Altijd." },
+  { icon: "⏰", title: "Tijd besparen in voorbereiding", desc: "Minder urenlang terugkijken. Meer gericht coachen." },
+];
+
+function useFadeIn() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const timer = setTimeout(() => el.classList.add('visible'), 300);
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { el.classList.add('visible'); obs.disconnect(); }
+    }, { threshold: 0.05, rootMargin: '0px 0px 120px 0px' });
+    obs.observe(el);
+    return () => { obs.disconnect(); clearTimeout(timer); };
+  }, []);
+  return ref;
+}
+
+function Tag({ children }) {
+  return (
+    <span className="inline-block text-xs font-semibold tracking-widest text-gold uppercase bg-gold/10 border border-gold/20 rounded px-3 py-1">
+      {children}
+    </span>
+  );
+}
+
+function GoldLine() {
+  return <div className="w-10 h-0.5 bg-gold my-5" />;
+}
+
+function Nav({ phase, onReset }) {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-dark/90 backdrop-blur-sm">
+      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="font-black text-white text-lg tracking-tight">SMART<span className="text-gold">11</span></span>
+          <span className="text-white/20 text-sm ml-2 hidden sm:inline">· SmartCoach</span>
+        </div>
+        {phase !== 'landing'
+          ? <button onClick={onReset} className="text-sm text-white/30 hover:text-white/60 transition-colors">↩ Opnieuw</button>
+          : <a href="https://smart11.ai" target="_blank" rel="noopener noreferrer" className="text-sm text-white/30 hover:text-gold transition-colors">smart11.ai →</a>
+        }
+      </div>
+    </nav>
+  );
+}
+
+function HeroSection({ onStart }) {
+  const ref = useFadeIn();
+  return (
+    <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 py-24 relative overflow-hidden">
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gold/5 blur-3xl pointer-events-none" />
+      <div ref={ref} className="fade-in max-w-3xl mx-auto relative z-10">
+        <div className="mb-6"><Tag>SmartCoach · Demo</Tag></div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight tracking-tight mb-6">
+          Van wedstrijd<br />naar training in<br /><span className="text-gold">15 minuten.</span>
+        </h1>
+        <p className="text-lg text-white/60 max-w-xl mx-auto mb-4 leading-relaxed">
+          De meeste amateurcoaches laten veel waarde liggen in hun wedstrijdbeelden —
+          niet omdat ze het nut niet zien, maar omdat het te veel tijd kost en ze niet weten waar te beginnen.
+        </p>
+        <p className="text-base text-white/40 max-w-lg mx-auto mb-10 leading-relaxed">
+          Met deze demo ervaar je hoe simpel de vertaalslag van wedstrijd naar training kan zijn.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button onClick={onStart} className="btn-primary bg-gold text-dark font-bold text-base px-8 py-4 rounded-xl w-full sm:w-auto">
+            Gebruik demo →
+          </button>
+          <button disabled className="btn-primary relative bg-surface border border-border text-white/30 font-medium text-base px-8 py-4 rounded-xl w-full sm:w-auto">
+            Upload eigen video
+            <span className="absolute -top-2 -right-2 bg-gold text-dark text-[10px] font-bold px-2 py-0.5 rounded-full">Binnenkort</span>
+          </button>
+        </div>
+        <p className="text-sm text-white/25 mt-6">Geen account. Geen gedoe. Kost 2 minuten.</p>
+      </div>
+    </section>
+  );
+}
+
+function ProblemSection({ onStart }) {
+  const ref = useFadeIn();
+  return (
+    <section className="py-20 px-6 border-t border-border">
+      <div ref={ref} className="fade-in max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <p className="text-white/30 text-xs font-semibold tracking-widest uppercase mb-4">Herkenbaar?</p>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight">Dit zien we bij de meeste<br />amateurcoaches</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+          {[
+            { icon: "📹", text: "Je kijkt af en toe de wedstrijd terug, maar weet niet goed wat je ermee moet" },
+            { icon: "🔄", text: "Je training sluit niet altijd goed aan op wat je in de wedstrijd zag" },
+            { icon: "💬", text: "Feedback blijft vaag. 'Meer bewegen' of 'beter communiceren' zegt niet genoeg" }
+          ].map((p, i) => (
+            <div key={i} className="bg-surface border border-border rounded-xl p-6">
+              <div className="text-3xl mb-4">{p.icon}</div>
+              <p className="text-white/70 leading-relaxed text-base">{p.text}</p>
+            </div>
+          ))}
+        </div>
+        <div className="bg-surface-2 border border-border rounded-2xl p-8 text-center">
+          <p className="text-white/50 text-base leading-relaxed mb-6 max-w-xl mx-auto">
+            Het probleem is niet jouw inzet — het ontbreekt aan een <span className="text-white font-semibold">systeem</span>.
+            Met deze demo zie je in 2 minuten hoe dat systeem eruitziet.
+          </p>
+          <button onClick={onStart} className="btn-primary bg-gold text-dark font-bold text-base px-8 py-4 rounded-xl">
+            Start de demo →
+          </button>
+          <p className="text-white/20 text-sm mt-3">Direct bruikbaar voor je eerstvolgende training</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProgressBar({ current, total }) {
+  const pct = ((current + 1) / total) * 100;
+  return (
+    <div className="mb-8">
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-sm text-white/40 font-medium">Moment {current + 1} van {total}</span>
+        <span className="text-sm text-gold font-semibold">{Math.round(pct)}%</span>
+      </div>
+      <div className="h-1.5 bg-border rounded-full overflow-hidden">
+        <div className="h-full bg-gold rounded-full progress-bar-fill" style={{ width: `${pct}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function MomentCard({ moment, onNext, isLast }) {
+  const [selected, setSelected] = useState(null);
+  const [revealed, setRevealed] = useState(false);
+
+  function handleSelect(opt) {
+    if (revealed) return;
+    setSelected(opt.id);
+    setRevealed(true);
+  }
+
+  return (
+    <div className="bg-surface border border-border rounded-2xl overflow-hidden">
+      <div className="border-b border-border px-6 py-4 flex items-center gap-3">
+        <div className="w-2 h-2 rounded-full bg-gold" />
+        <span className="text-sm font-semibold text-white/60">{moment.label}</span>
+        <span className="ml-auto text-xs text-white/30 font-mono">{moment.tag}</span>
+      </div>
+
+      {/* Video placeholder */}
+      <div className="relative bg-black/40 mx-6 my-5 rounded-xl overflow-hidden" style={{ aspectRatio: '16/7' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-surface-2 to-black/60" />
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border border-white" />
+        </div>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full">
+          <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-2">
+            <svg className="w-6 h-6 text-white/30 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <p className="text-white/20 text-xs">Demo wedstrijdclip · {moment.tag}</p>
+        </div>
+      </div>
+
+      <div className="px-6 mb-6">
+        <div className="bg-surface-2 border border-border rounded-xl p-5">
+          <p className="text-xs font-semibold text-white/30 uppercase tracking-widest mb-2">Situatie</p>
+          <p className="text-white/80 leading-relaxed">{moment.situation}</p>
+        </div>
+      </div>
+
+      <div className="px-6 mb-6">
+        <p className="text-xs font-semibold text-white/40 uppercase tracking-widest mb-3">{moment.question}</p>
+        <div className="flex flex-col gap-3">
+          {moment.options.map(opt => {
+            let cls = 'option-card w-full bg-surface-2 border border-border rounded-xl p-4 text-left';
+            if (revealed) {
+              if (opt.correct) cls += ' border-gold/50 bg-gold/8';
+              else if (selected === opt.id) cls += ' border-red-500/30 opacity-50';
+              else cls += ' opacity-30';
+            } else {
+              cls += ' cursor-pointer hover:border-gold/30';
+              if (selected === opt.id) cls += ' selected';
+            }
+            return (
+              <button key={opt.id} className={cls} onClick={() => handleSelect(opt)} disabled={revealed}>
+                <div className="flex items-start gap-3">
+                  <div className={`mt-0.5 w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center text-xs font-bold transition-colors
+                    ${revealed && opt.correct ? 'border-gold bg-gold text-dark' : ''}
+                    ${revealed && selected === opt.id && !opt.correct ? 'border-red-400 text-red-400' : ''}
+                    ${!revealed ? 'border-white/20' : ''}
+                  `}>
+                    {revealed && opt.correct && '✓'}
+                    {revealed && selected === opt.id && !opt.correct && '✗'}
+                  </div>
+                  <span className="text-sm leading-relaxed text-white/80">{opt.text}</span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {revealed && (
+        <div className="px-6 pb-6">
+          <div className={`rounded-xl p-4 mb-4 text-sm text-white/70 leading-relaxed ${
+            moment.options.find(o => o.id === selected)?.correct
+              ? 'bg-gold/8 border border-gold/20'
+              : 'bg-surface-2 border border-border'
+          }`}>
+            {moment.options.find(o => o.id === selected)?.correct
+              ? '✓ Precies. Dit is wat we terugzien in wedstrijdbeelden. Herken je dit ook bij jouw team?'
+              : `Het goede antwoord is: "${moment.options.find(o => o.correct)?.text}". Dit patroon zie je vaak.`
+            }
+          </div>
+          <button onClick={onNext} className="btn-primary w-full bg-gold text-dark font-bold py-4 rounded-xl text-base">
+            {isLast ? 'Bekijk mijn trainingsplan →' : 'Volgende moment →'}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DemoSection({ onComplete }) {
+  const [currentMoment, setCurrentMoment] = useState(0);
+  const ref = useRef(null);
+
+  function handleNext() {
+    if (currentMoment < MOMENTS.length - 1) {
+      setCurrentMoment(prev => prev + 1);
+      setTimeout(() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    } else {
+      onComplete();
+    }
+  }
+
+  return (
+    <section ref={ref} className="py-12 px-6 scroll-mt-16">
+      <div className="max-w-2xl mx-auto">
+        <div className="text-center mb-8">
+          <Tag>Demo · Gebaseerd op herkenbare wedstrijdsituaties</Tag>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight mt-4 mb-2">Analyseer 3 wedstrijdmomenten</h2>
+          <p className="text-white/40 text-sm">Direct bruikbaar voor je eerstvolgende training</p>
+        </div>
+        <ProgressBar current={currentMoment} total={MOMENTS.length} />
+        <MomentCard key={currentMoment} moment={MOMENTS[currentMoment]} onNext={handleNext} isLast={currentMoment === MOMENTS.length - 1} />
+      </div>
+    </section>
+  );
+}
+
+function ResultsSection() {
+  const ref = useRef(null);
+  useEffect(() => {
+    setTimeout(() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }, []);
+
+  return (
+    <section ref={ref} className="py-12 px-6 scroll-mt-16">
+      <div className="max-w-2xl mx-auto">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/20 rounded-full px-4 py-2 mb-4">
+            <span className="text-gold text-sm font-semibold">✓ Analyse voltooid</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-3">Jouw trainingsplan</h2>
+          <p className="text-white/40">Op basis van 3 wedstrijdmomenten — direct bruikbaar</p>
+          <GoldLine />
+        </div>
+
+        <div className="mb-6">
+          <p className="text-xs font-semibold text-white/30 uppercase tracking-widest mb-3">Trainingsfocus</p>
+          <div className="flex flex-col gap-3">
+            {RESULTS.focus.map((f, i) => (
+              <div key={i} className="result-card flex gap-4 bg-surface border border-gold/20 rounded-xl p-5">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gold/15 border border-gold/30 flex items-center justify-center text-gold font-black text-sm">{i + 1}</div>
+                <div>
+                  <p className="text-xs text-gold font-semibold mb-1">{f.label}</p>
+                  <p className="text-white/80 leading-relaxed">{f.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <p className="text-xs font-semibold text-white/30 uppercase tracking-widest mb-3">Oefeningen</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {RESULTS.exercises.map((ex, i) => (
+              <div key={i} className="result-card bg-surface border border-border rounded-xl p-5">
+                <p className="text-xs text-white/30 font-semibold mb-1">{ex.title}</p>
+                <p className="text-base font-bold text-white mb-4">{ex.subtitle}</p>
+                <ul className="flex flex-col gap-2">
+                  {ex.details.map((d, j) => (
+                    <li key={j} className="flex gap-2 text-sm text-white/60 leading-relaxed">
+                      <span className="text-gold flex-shrink-0 mt-0.5">—</span><span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="result-card bg-surface-2 border border-gold/30 rounded-xl p-6 text-center mb-8">
+          <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-3">Teamafspraak</p>
+          <p className="text-xl sm:text-2xl font-black text-white leading-snug">"{RESULTS.teamAgreement}"</p>
+        </div>
+
+        <p className="text-center text-white/30 text-sm">
+          Dit is wat je in 2 minuten haalt uit 3 wedstrijdmomenten.<br />
+          Stel je voor wat je structureel kunt doen.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function SmartCoachSection() {
+  const ref = useFadeIn();
+  return (
+    <section className="py-20 px-6 border-t border-border">
+      <div ref={ref} className="fade-in max-w-4xl mx-auto">
+        <div className="text-center mb-14">
+          <Tag>SmartCoach</Tag>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight mt-4 mb-4">
+            Wil je dit niet één keer doen,<br />maar <span className="text-gold">elke week?</span>
+          </h2>
+          <p className="text-white/50 max-w-xl mx-auto leading-relaxed">
+            Je hebt nu ervaren hoe waardevol analyse kan zijn. Maar losse inzichten worden
+            pas echt waardevol als je er een vast systeem van maakt.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
+          {BENEFITS.map((b, i) => (
+            <div key={i} className="bg-surface border border-border rounded-xl p-5 hover:border-gold/30 transition-colors duration-200">
+              <div className="text-2xl mb-3">{b.icon}</div>
+              <p className="font-bold text-white mb-2">{b.title}</p>
+              <p className="text-white/40 text-sm leading-relaxed">{b.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-surface-2 border border-border rounded-2xl p-8 text-center max-w-2xl mx-auto">
+          <p className="text-xl sm:text-2xl font-black text-white mb-3 leading-snug">
+            "Minder ruis. Meer inzicht.<br />Beter coachen."
+          </p>
+          <p className="text-white/40 text-sm">SmartCoach geeft amateurcoaches de structuur die bij profs al jaren werkt.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FinalCTA() {
+  const ref = useFadeIn();
+  return (
+    <section className="py-24 px-6 text-center border-t border-border">
+      <div ref={ref} className="fade-in max-w-xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-4">
+          Klaar om structureel<br />beter te coachen?
+        </h2>
+        <p className="text-white/40 mb-10 leading-relaxed">14 dagen gratis proberen. Geen creditcard nodig.</p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+          <a href="https://smart11.ai/en/coaches/" target="_blank" rel="noopener noreferrer"
+            className="btn-primary bg-gold text-dark font-bold text-base px-8 py-4 rounded-xl inline-block">
+            Probeer SmartCoach 14 dagen gratis
+          </a>
+          <a href="https://smart11.ai/en/coaches/" target="_blank" rel="noopener noreferrer"
+            className="btn-secondary border border-border text-white/60 font-medium text-base px-8 py-4 rounded-xl inline-block">
+            Plan een demo
+          </a>
+        </div>
+        <p className="text-white/20 text-sm">Gebruikt door coaches bij amateurclubs door heel Nederland</p>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const [phase, setPhase] = useState('landing');
+  const demoRef = useRef(null);
+
+  function handleStart() {
+    setPhase('demo');
+    setTimeout(() => demoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+
+  function handleComplete() {
+    setPhase('results');
+  }
+
+  function handleReset() {
+    setPhase('landing');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  return (
+    <div className="min-h-screen bg-dark">
+      <Nav phase={phase} onReset={handleReset} />
+      <div className="pt-14">
+        {phase === 'landing' && (
+          <>
+            <HeroSection onStart={handleStart} />
+            <ProblemSection onStart={handleStart} />
+            <SmartCoachSection />
+            <FinalCTA />
+          </>
+        )}
+        <div ref={demoRef}>
+          {phase === 'demo' && <DemoSection onComplete={handleComplete} />}
+        </div>
+        {phase === 'results' && (
+          <>
+            <ResultsSection />
+            <SmartCoachSection />
+            <FinalCTA />
+          </>
+        )}
+      </div>
+      <footer className="border-t border-border py-8 px-6 text-center">
+        <p className="text-white/20 text-sm">© 2026 Smart11 · <a href="https://smart11.ai" className="hover:text-gold transition-colors">smart11.ai</a></p>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

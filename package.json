@@ -1,0 +1,10 @@
+{
+  "name": "smart11-website",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "pdfjs-dist": "^5.5.207",
+    "puppeteer": "^24.40.0"
+  }
+}

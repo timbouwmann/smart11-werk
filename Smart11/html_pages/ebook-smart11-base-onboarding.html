@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jouw Eerste 7 Dagen met Smart11 BASE — Activatiegids</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
       --gold: #dc9600;
@@ -25,7 +25,7 @@
     body {
       background: var(--black);
       color: var(--text);
-      font-family: 'Barlow', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 16px;
       line-height: 1.7;
       overflow-x: hidden;
@@ -80,25 +80,13 @@
     }
 
     .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      letter-spacing: 0.12em;
-      color: var(--gold);
       margin-bottom: 64px;
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .logo-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--gold);
-      border-radius: 50%;
     }
 
     .cover-label {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.2em;
@@ -119,10 +107,11 @@
     }
 
     .cover-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(56px, 10vw, 96px);
-      line-height: 0.92;
-      letter-spacing: 0.01em;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
       color: #FFFFFF;
       margin-bottom: 32px;
     }
@@ -162,7 +151,7 @@
     }
 
     .meta-value {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 20px;
       font-weight: 700;
       color: var(--text);
@@ -175,6 +164,17 @@
       bottom: 0;
       width: 420px;
       opacity: 0.06;
+    }
+
+    /* ── BRAND ILLUSTRATIONS ── */
+    .brand-circle {
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 360px;
+      opacity: 0.35;
+      pointer-events: none;
+      mix-blend-mode: screen;
     }
 
     /* ── SECTION DIVIDER ── */
@@ -201,7 +201,7 @@
       position: absolute;
       top: -20px;
       left: 32px;
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
       font-size: 180px;
       color: var(--gold);
       opacity: 0.05;
@@ -227,7 +227,7 @@
     }
 
     .chapter-num {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
       font-size: 13px;
       letter-spacing: 0.25em;
       color: var(--gold);
@@ -235,9 +235,10 @@
     }
 
     .chapter-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(40px, 6vw, 64px);
-      line-height: 0.95;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.05;
+      text-transform: uppercase;
       color: #FFFFFF;
       margin-bottom: 8px;
     }
@@ -296,7 +297,7 @@
     }
 
     .day-tag {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
       font-size: 13px;
       letter-spacing: 0.2em;
       color: var(--muted);
@@ -305,15 +306,15 @@
     }
 
     .day-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 56px;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: 44px;
       line-height: 1;
       color: rgba(245, 197, 24, 0.15);
       margin-top: 4px;
     }
 
     .day-title {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 22px;
       font-weight: 800;
       letter-spacing: 0.02em;
@@ -366,7 +367,7 @@
 
     .tip-content strong {
       display: block;
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 14px;
       font-weight: 800;
       letter-spacing: 0.15em;
@@ -403,7 +404,7 @@
     }
 
     .step-num {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
       font-size: 36px;
       line-height: 1;
       color: var(--gold);
@@ -413,7 +414,7 @@
 
     .step-body strong {
       display: block;
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 18px;
       font-weight: 700;
       color: #FFFFFF;
@@ -441,8 +442,8 @@
     }
 
     .stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 56px;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: 44px;
       line-height: 1;
       color: var(--gold);
       display: block;
@@ -463,9 +464,9 @@
     }
 
     .quote-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(28px, 5vw, 44px);
-      line-height: 1.15;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: clamp(22px, 4vw, 36px);
+      line-height: 1.2;
       color: #FFFFFF;
       max-width: 700px;
       margin: 0 auto 20px;
@@ -514,7 +515,7 @@
     }
 
     .feature-title {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 17px;
       font-weight: 800;
       color: #FFFFFF;
@@ -551,7 +552,7 @@
     }
 
     .cta-label {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.25em;
@@ -561,9 +562,10 @@
     }
 
     .cta-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(36px, 6vw, 56px);
-      line-height: 1;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: clamp(28px, 5vw, 44px);
+      text-transform: uppercase;
+      line-height: 1.05;
       color: #FFFFFF;
       margin-bottom: 20px;
     }
@@ -584,7 +586,7 @@
       gap: 12px;
       background: var(--gold);
       color: #0C0C0C;
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 15px;
       font-weight: 800;
       letter-spacing: 0.12em;
@@ -650,11 +652,9 @@
     }
 
     .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      letter-spacing: 0.12em;
-      color: var(--gold);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: center;
     }
 
     .footer-text {
@@ -673,7 +673,7 @@
     }
 
     .callout-bar p {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 16px;
       font-weight: 800;
       color: #0C0C0C;
@@ -715,8 +715,7 @@
     <div class="cover-inner">
 
       <div class="logo">
-        <div class="logo-dot"></div>
-        SMART11
+        <img src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" style="height: 36px; width: auto;">
       </div>
 
       <div class="cover-label">Activatiegids — Smart11 BASE</div>
@@ -747,6 +746,9 @@
       </div>
 
     </div>
+
+    <!-- Brand illustration: gold circle corner decoration -->
+    <img class="brand-circle" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png" alt="">
 
     <!-- Pitch SVG background -->
     <svg class="pitch-graphic" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1103,7 +1105,9 @@
 
   <!-- ══════════ FOOTER ══════════ -->
   <footer>
-    <div class="footer-logo">SMART11</div>
+    <div class="footer-logo">
+      <img src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" style="height: 28px; width: auto; opacity: 0.75;">
+    </div>
     <p class="footer-text">smart11.com · Versterkt ambitieuze voetballers en coaches</p>
   </footer>
 

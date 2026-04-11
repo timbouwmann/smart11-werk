@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Level Courses — Smart11</title>
+  <style>
+    @font-face {
+      font-family: 'Poppins';
+      src: url('../brand_assets/font/Poppins-Regular.ttf') format('truetype');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'Poppins';
+      src: url('../brand_assets/font/Poppins-ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+    }
+
+    :root {
+      --gold: #C8900A;
+      --gold-light: rgba(200,144,10,0.15);
+      --gold-border: rgba(200,144,10,0.28);
+      --black: #0E0E0E;
+      --surface: #161616;
+      --surface-2: #1E1E1E;
+      --text: #EFEFEF;
+      --muted: #9A9A9A;
+      --body: #CACACA;
+      --white: #FFFFFF;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── WRAPPER ── */
+    .lc-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ══════════════════════════════════════
+       HERO / COVER
+    ══════════════════════════════════════ */
+    .lc-hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border-bottom: 1px solid var(--gold-border);
+      padding: 80px 24px 72px;
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .lc-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,144,10,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .lc-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .lc-logo {
+      height: 36px;
+      margin-bottom: 40px;
+    }
+
+    .lc-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .lc-hero-title {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .lc-hero-title span {
+      color: var(--gold);
+    }
+
+    .lc-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--gold);
+      margin: 0 auto 24px;
+    }
+
+    .lc-hero-subtitle {
+      font-size: clamp(14px, 2vw, 16px);
+      font-weight: 400;
+      color: #BFBFBF;
+      line-height: 1.75;
+      max-width: 480px;
+      margin: 0 auto 36px;
+    }
+
+    .lc-badge-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .lc-badge {
+      background: var(--gold-light);
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 9px 22px;
+      border-radius: 2px;
+    }
+
+    /* ══════════════════════════════════════
+       LEVEL SECTIONS
+    ══════════════════════════════════════ */
+    .lc-level {
+      margin-bottom: 16px;
+      border: 1px solid var(--gold-border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    /* Accordion trigger header (Level 2 & 3) */
+    .lc-level-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 28px;
+      cursor: pointer;
+      user-select: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .lc-level-trigger:hover {
+      background: rgba(200,144,10,0.04);
+    }
+
+    .lc-level--open .lc-level-trigger {
+      border-bottom-color: var(--gold-border);
+    }
+
+    .lc-trigger-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lc-level-badge {
+      background: var(--gold);
+      color: #000;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .lc-level-name {
+      font-size: clamp(18px, 3vw, 24px);
+      font-weight: 800;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .lc-toggle-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--gold-border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+
+    .lc-toggle-icon svg {
+      transition: transform 0.3s ease;
+    }
+
+    .lc-level--open .lc-toggle-icon svg {
+      transform: rotate(180deg);
+    }
+
+    /* Static header for Level 1 (no accordion) */
+    .lc-level-header-static {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--gold-border);
+    }
+
+    /* ── Collapsible body ── */
+    .lc-level-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.42s ease;
+    }
+
+    .lc-level--open .lc-level-body {
+      max-height: 2000px;
+    }
+
+    /* Level 1 is always open — no transition needed */
+    .lc-level--always-open .lc-level-body {
+      max-height: none;
+      overflow: visible;
+    }
+
+    .lc-level-body-inner {
+      padding: 28px 28px 24px;
+    }
+
+    /* ── Modules grid ── */
+    .lc-modules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .lc-module-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--gold-border);
+      border-radius: 3px;
+      padding: 20px 18px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lc-module-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .lc-module-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .lc-module-body {
+      font-size: 13px;
+      color: var(--body);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .lc-module-body p {
+      margin-bottom: 8px;
+    }
+
+    .lc-module-body ul {
+      padding-left: 16px;
+      margin-bottom: 8px;
+    }
+
+    .lc-module-body ul li {
+      margin-bottom: 4px;
+    }
+
+    .lc-module-body strong {
+      color: var(--white);
+      font-weight: 800;
+    }
+
+    .lc-module-goal {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(200,144,10,0.2);
+      font-size: 11.5px;
+      color: var(--gold);
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    /* ── Results section ── */
+    .lc-results {
+      background: var(--gold-light);
+      border: 1px solid var(--gold-border);
+      border-radius: 3px;
+      padding: 20px 22px;
+    }
+
+    .lc-results-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .lc-results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 28px;
+    }
+
+    .lc-result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #D4D4D4;
+      line-height: 1.5;
+      padding: 3px 0;
+    }
+
+    .lc-result-item::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      min-width: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      margin-top: 6px;
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE — TABLET
+    ══════════════════════════════════════ */
+    @media (max-width: 800px) {
+      .lc-hero {
+        padding: 60px 20px 56px;
+        margin-bottom: 40px;
+      }
+
+      .lc-modules {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .lc-results-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lc-level-body-inner {
+        padding: 20px 20px 18px;
+      }
+
+      .lc-level-trigger,
+      .lc-level-header-static {
+        padding: 18px 20px;
+      }
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE — MOBILE
+    ══════════════════════════════════════ */
+    @media (max-width: 560px) {
+      .lc-wrap {
+        padding: 0 16px 56px;
+      }
+
+      .lc-hero {
+        padding: 48px 16px 44px;
+        margin-bottom: 28px;
+      }
+
+      .lc-logo {
+        height: 28px;
+        margin-bottom: 28px;
+      }
+
+      .lc-hero-title {
+        font-size: 32px;
+      }
+
+      .lc-badge-row {
+        gap: 8px;
+      }
+
+      .lc-badge {
+        font-size: 10px;
+        padding: 8px 16px;
+      }
+
+      .lc-level {
+        margin-bottom: 12px;
+      }
+
+      .lc-level-trigger,
+      .lc-level-header-static {
+        padding: 16px;
+        gap: 12px;
+      }
+
+      .lc-trigger-left {
+        gap: 12px;
+      }
+
+      .lc-level-name {
+        font-size: 16px;
+      }
+
+      .lc-level-badge {
+        font-size: 9px;
+        padding: 4px 10px;
+      }
+
+      .lc-level-body-inner {
+        padding: 16px;
+      }
+
+      .lc-modules {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .lc-module-card {
+        padding: 16px 14px 14px;
+      }
+
+      .lc-module-title {
+        font-size: 13px;
+      }
+
+      .lc-module-body {
+        font-size: 12.5px;
+      }
+
+      .lc-module-goal {
+        font-size: 11px;
+      }
+
+      .lc-results {
+        padding: 16px;
+      }
+
+      .lc-results-grid {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .lc-result-item {
+        font-size: 12.5px;
+      }
+
+      .lc-toggle-icon {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<div class="lc-hero">
+  <div class="lc-hero-inner">
+    <img class="lc-logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" />
+    <div class="lc-eyebrow">Smart11 — SmartCoach</div>
+    <div class="lc-hero-title">Content<br><span>Level</span><br>Courses</div>
+    <div class="lc-divider"></div>
+    <p class="lc-hero-subtitle">
+      A complete overview of what you learn in each level of the Smart11 methodology — from foundational analysis to advanced performance coaching.
+    </p>
+    <div class="lc-badge-row">
+      <div class="lc-badge">Level 1</div>
+      <div class="lc-badge">Level 2</div>
+      <div class="lc-badge">Level 3</div>
+    </div>
+  </div>
+</div>
+
+<div class="lc-wrap">
+
+  <!-- ══════════════════════════════════════
+       LEVEL 1 — always open
+  ══════════════════════════════════════ -->
+  <div class="lc-level lc-level--always-open">
+    <div class="lc-level-header-static">
+      <div class="lc-level-badge">Level 1</div>
+      <div class="lc-level-name">Content</div>
+    </div>
+    <div class="lc-level-body">
+      <div class="lc-level-body-inner">
+
+        <div class="lc-modules">
+
+          <!-- Module 1 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 1</div>
+            <div class="lc-module-title">Introduction to the Methodology</div>
+            <div class="lc-module-body">
+              <p>Introduction to analyzing players individually.</p>
+              <p>Foundation of the Smart11 methodology:</p>
+              <ul>
+                <li>Game Actions</li>
+                <li>Football roles</li>
+                <li>Decisions and execution of individual actions</li>
+              </ul>
+              <p><strong>Practical:</strong></p>
+              <ul>
+                <li>Working with SmartCoach</li>
+                <li>How to create and analyze clips</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">Goal: you understand how we look at football</div>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 2</div>
+            <div class="lc-module-title">Match Themes &amp; Game Actions</div>
+            <div class="lc-module-body">
+              <p>You learn to recognize and understand optimal responses in the most important match situations across 4 themes:</p>
+              <ul>
+                <li>Build-up</li>
+                <li>1v1 defending &amp; attacking</li>
+                <li>Depth defending &amp; attacking</li>
+                <li>Defending &amp; attacking crosses</li>
+              </ul>
+              <p>For each theme you learn:</p>
+              <ul>
+                <li>What is the player's objective</li>
+                <li>What is the maximum result</li>
+                <li>Which decisions players make in that situation</li>
+                <li>What often goes wrong (and why)</li>
+                <li>How players can execute optimally</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">Goal: you understand how players can optimally respond to the most recurring match situations</div>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 3</div>
+            <div class="lc-module-title">From Analysis to Training</div>
+            <div class="lc-module-body">
+              <p>Now you apply it on the pitch.</p>
+              <ul>
+                <li>How to create mini-lessons per situation</li>
+                <li>How to translate analysis into concrete behavior</li>
+                <li>Concrete training exercises (PDFs) per theme</li>
+                <li>Demo: how to teach players to analyze themselves</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">Goal: you know how to analyze, make it trainable, and give players ownership over their development</div>
+          </div>
+
+        </div>
+
+        <!-- Results -->
+        <div class="lc-results">
+          <div class="lc-results-label">Result after Level 1</div>
+          <div class="lc-results-grid">
+            <div class="lc-result-item">You understand the power of analyzing players individually</div>
+            <div class="lc-result-item">You can create individual analyses using SmartCoach</div>
+            <div class="lc-result-item">You recognize the key individual football actions (Game Actions)</div>
+            <div class="lc-result-item">You know how to translate analysis to the training pitch</div>
+            <div class="lc-result-item">You understand the objective and maximum result per Game Action</div>
+            <div class="lc-result-item">You can use mini-lessons to quickly teach players a specific theme</div>
+            <div class="lc-result-item">You see the decisions players make and where things often go wrong</div>
+            <div class="lc-result-item">You can explain to players how to analyze themselves</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       LEVEL 2 — collapsed by default
+  ══════════════════════════════════════ -->
+  <div class="lc-level" id="level-2">
+    <div class="lc-level-trigger" role="button" aria-expanded="false" aria-controls="level-2-body" tabindex="0">
+      <div class="lc-trigger-left">
+        <div class="lc-level-badge">Level 2</div>
+        <div class="lc-level-name">Content</div>
+      </div>
+      <div class="lc-toggle-icon" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 5L7 10L12 5" stroke="#C8900A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="lc-level-body" id="level-2-body" role="region">
+      <div class="lc-level-body-inner">
+
+        <div class="lc-modules">
+
+          <!-- Module 1 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 1</div>
+            <div class="lc-module-title">Advanced Match Theme Analysis</div>
+            <div class="lc-module-body">
+              <p>You deepen your understanding of all Level 1 themes:</p>
+              <ul>
+                <li>Build-up</li>
+                <li>1v1 defending &amp; attacking</li>
+                <li>Depth defending &amp; attacking</li>
+                <li>Defending &amp; attacking crosses</li>
+              </ul>
+              <p>You learn:</p>
+              <ul>
+                <li>To recognize situations earlier</li>
+                <li>All preparatory Game Actions</li>
+                <li>To identify patterns in player behavior</li>
+                <li>To see where things structurally go wrong</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">Goal: you quickly recognize recurring patterns per position</div>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 2</div>
+            <div class="lc-module-title">Position-Specific Analysis</div>
+            <div class="lc-module-body">
+              <p>You learn to analyze decisions and behavior per position:</p>
+              <ul>
+                <li>Centre-back</li>
+                <li>Fullback</li>
+                <li>Midfielder</li>
+                <li>Winger</li>
+                <li>Striker</li>
+              </ul>
+              <p>You learn:</p>
+              <ul>
+                <li>What typical behavior looks like per position</li>
+                <li>What happens when players display certain behaviors</li>
+                <li>To recognize interactions (e.g. centre-back + midfielder, fullback + winger)</li>
+                <li>How one player's decisions affect others</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">You move from individual moments to understanding behavior and interaction</div>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 3</div>
+            <div class="lc-module-title">From Analysis to Concrete Advice</div>
+            <div class="lc-module-body">
+              <p>You turn patterns into clear improvements.</p>
+              <ul>
+                <li>Translate patterns into concrete insights</li>
+                <li>Determine the most important improvement point</li>
+                <li>Formulate clear advice for the player or (performance) coach</li>
+              </ul>
+              <p>You learn:</p>
+              <ul>
+                <li>This is happening → this is how to fix it</li>
+                <li>How to communicate this simply and clearly</li>
+                <li>How to use analysis within performance coaching</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">Goal: you create analyses that lead to directly applicable advice</div>
+          </div>
+
+        </div>
+
+        <!-- Results -->
+        <div class="lc-results">
+          <div class="lc-results-label">Result after Level 2</div>
+          <div class="lc-results-grid">
+            <div class="lc-result-item">You recognize patterns in player behavior</div>
+            <div class="lc-result-item">You can translate analysis into clear and practical advice</div>
+            <div class="lc-result-item">You understand what is happening per position and in interactions</div>
+            <div class="lc-result-item">You coach more effectively on what truly matters</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       LEVEL 3 — collapsed by default
+  ══════════════════════════════════════ -->
+  <div class="lc-level" id="level-3">
+    <div class="lc-level-trigger" role="button" aria-expanded="false" aria-controls="level-3-body" tabindex="0">
+      <div class="lc-trigger-left">
+        <div class="lc-level-badge">Level 3</div>
+        <div class="lc-level-name">Content</div>
+      </div>
+      <div class="lc-toggle-icon" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 5L7 10L12 5" stroke="#C8900A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="lc-level-body" id="level-3-body" role="region">
+      <div class="lc-level-body-inner">
+
+        <div class="lc-modules">
+
+          <!-- Module 1 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 1</div>
+            <div class="lc-module-title">From Analysis to Development Plan</div>
+            <div class="lc-module-body">
+              <p>You learn how to turn an analysis (e.g. from Level 2) into a focused development plan per player.</p>
+              <p>You learn:</p>
+              <ul>
+                <li>How to determine the most important improvement point</li>
+                <li>How to set priorities based on impact</li>
+                <li>What to focus on and what not</li>
+                <li>How long to work on specific areas</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">Goal: you turn analysis into a structured development cycle instead of loose insights</div>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 2</div>
+            <div class="lc-module-title">Building an Individual Development Path</div>
+            <div class="lc-module-body">
+              <p>You learn how to guide a player within a structured trajectory.</p>
+              <ul>
+                <li>Define focus together with the player</li>
+                <li>Set up a clear trajectory (e.g. 4–6 weeks)</li>
+                <li>Bring structure into development</li>
+              </ul>
+              <p>You learn:</p>
+              <ul>
+                <li>How to involve players in their own development</li>
+                <li>How to set clear expectations</li>
+                <li>How to track progress</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">Goal: you guide players in a structured development process with clear focus, purpose, and timeline</div>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="lc-module-card">
+            <div class="lc-module-label">Module 3</div>
+            <div class="lc-module-title">Performance Coaching &amp; Sessions</div>
+            <div class="lc-module-body">
+              <p>You learn how to guide players at a high level and make them more independent.</p>
+              <ul>
+                <li>Build and deliver 1-on-1 sessions</li>
+                <li>Work with players who analyzed themselves or were analyzed by you</li>
+                <li>Help players reflect on their own behavior</li>
+                <li>Connect development to data and performance</li>
+                <li>Make progress visible</li>
+              </ul>
+            </div>
+            <div class="lc-module-goal">Goal: you can run effective 1-on-1 sessions, stimulate reflection, and guide players toward independence and better performance</div>
+          </div>
+
+        </div>
+
+        <!-- Results -->
+        <div class="lc-results">
+          <div class="lc-results-label">Result after Level 3</div>
+          <div class="lc-results-grid">
+            <div class="lc-result-item">You turn analyses into structured development plans</div>
+            <div class="lc-result-item">You run effective 1-on-1 sessions</div>
+            <div class="lc-result-item">You guide players through clear development trajectories</div>
+            <div class="lc-result-item">You work with both self-analyzing players and your own analyses</div>
+            <div class="lc-result-item">You connect development to measurable progress (data)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- /lc-wrap -->
+
+<script>
+  (function () {
+    var triggers = document.querySelectorAll('.lc-level-trigger');
+
+    triggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        var level = trigger.closest('.lc-level');
+        var isOpen = level.classList.contains('lc-level--open');
+
+        // Close all other open levels
+        document.querySelectorAll('.lc-level--open').forEach(function (el) {
+          el.classList.remove('lc-level--open');
+          var t = el.querySelector('.lc-level-trigger');
+          if (t) t.setAttribute('aria-expanded', 'false');
+        });
+
+        // Toggle current
+        if (!isOpen) {
+          level.classList.add('lc-level--open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      // Keyboard support
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          trigger.click();
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

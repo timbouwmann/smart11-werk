@@ -4,6 +4,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Serve from project root (one level up from scripts/)
+const ROOT = path.join(__dirname, '..');
 const PORT = 3000;
 
 const MIME = {
@@ -23,10 +25,11 @@ const MIME = {
 };
 
 const server = http.createServer((req, res) => {
-  let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
+  const decodedUrl = decodeURIComponent(req.url);
+  let filePath = path.join(ROOT, decodedUrl === '/' ? 'index.html' : decodedUrl);
 
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
-    filePath = path.join(__dirname, 'index.html');
+    filePath = path.join(ROOT, 'index.html');
   }
 
   const ext = path.extname(filePath).toLowerCase();

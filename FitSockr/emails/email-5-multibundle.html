@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitSockr — Stel jouw combinatie samen</title>
+  <!--
+    SUBJECT:    Slim gesport: haal meer uit je FitSockr
+    PREHEADER:  3 paar voor €44,95 — de keuze die de meeste sporters maken.
+    SEND TIME:  Dag 5
+    KLAVIYO:    Gebruik {{ first_name }}, {{ discount_code }}, sport-conditionals
+  -->
+</head>
+<body style="margin:0; padding:0; background-color:#1a1a1a; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#1a1a1a;">
+    <tr>
+      <td align="center" style="padding:24px 16px;">
+
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; width:100%;">
+
+          <!-- Logo -->
+          <tr>
+            <td align="center" style="padding:32px 0 24px;">
+              <img src="https://fitsockr.nl/cdn/shop/files/logo-fitsockr.png" alt="FitSockr" width="140" style="display:block;">
+            </td>
+          </tr>
+
+          <!-- Hero -->
+          <tr>
+            <td>
+              <img src="https://placehold.co/600x240/282828/FA2603?text=Stel+je+combinatie+samen" alt="FitSockr combodeal" width="600" style="display:block; width:100%; border-radius:8px 8px 0 0;">
+            </td>
+          </tr>
+
+          <!-- Main card -->
+          <tr>
+            <td style="background-color:#282828; border-radius:0 0 8px 8px; padding:40px 40px 32px;">
+
+              <p style="color:#ffffff; font-size:20px; font-weight:700; margin:0 0 16px;">Hey 👊</p>
+
+              <!-- Sport-specific intro -->
+              {% if sport == 'voetbal' %}
+              <p style="color:#cccccc; font-size:15px; margin:0 0 24px; line-height:1.7;">
+                Als je meerdere keren per week op het veld staat — dan weet je dit:<br><br>
+                Je wil niet elke training én wedstrijd met hetzelfde paar spelen.<br>
+                <strong style="color:#ffffff;">Training. Wedstrijd. Reservepaar.</strong>
+              </p>
+              {% endif %}
+
+              {% if sport == 'padel' %}
+              <p style="color:#cccccc; font-size:15px; margin:0 0 24px; line-height:1.7;">
+                Padel speel je vaak meerdere keren per week.<br>
+                En eerlijk: je wil niet elke keer hetzelfde paar dragen.<br><br>
+                <strong style="color:#ffffff;">Altijd een goed paar klaar — voor je volgende potje én die daarna.</strong>
+              </p>
+              {% endif %}
+
+              {% if sport == 'fitness' or sport == 'hyrox' %}
+              <p style="color:#cccccc; font-size:15px; margin:0 0 24px; line-height:1.7;">
+                Als je serieus traint, weet je dit:<br>
+                Je gebruikt je sokken intensief. Je wil altijd een fris paar klaar hebben liggen.<br><br>
+                <strong style="color:#ffffff;">Voor je volgende workout. En die daarna.</strong>
+              </p>
+              {% endif %}
+
+              {% if sport == 'pilates' %}
+              <p style="color:#cccccc; font-size:15px; margin:0 0 24px; line-height:1.7;">
+                Bij pilates draait alles om controle — ook om comfort en hygiëne.<br>
+                Je wil altijd een schoon paar klaar hebben liggen.<br><br>
+                <strong style="color:#ffffff;">Zeker als je meerdere keren per week traint.</strong>
+              </p>
+              {% endif %}
+
+              <!-- Pricing table -->
+              <p style="color:#9a9a9a; font-size:12px; text-transform:uppercase; letter-spacing:1.5px; margin:0 0 16px;">Kies jouw deal</p>
+
+              <!-- 3 pair — HIGHLIGHTED as most popular -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 12px;">
+                <tr>
+                  <td style="background-color:#FA2603; border-radius:8px 8px 0 0; padding:8px 20px;">
+                    <p style="color:#ffffff; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; margin:0;">⭐ Meest gekozen</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="background-color:#333333; border-radius:0 0 8px 8px; padding:20px 24px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <p style="color:#ffffff; font-size:17px; font-weight:700; margin:0;">3 paar gripsokken</p>
+                          <p style="color:#9a9a9a; font-size:13px; margin:4px 0 0;">Kies zelf je kleuren</p>
+                        </td>
+                        <td align="right">
+                          <p style="color:#FA2603; font-size:22px; font-weight:900; margin:0;">€44,95</p>
+                          <p style="color:#9a9a9a; font-size:12px; margin:4px 0 0; text-decoration:line-through;">€59,85</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- 4 pair -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 12px;">
+                <tr>
+                  <td style="background-color:#2e2e2e; border:1px solid #404040; border-radius:8px; padding:16px 24px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <p style="color:#ffffff; font-size:16px; font-weight:600; margin:0;">4 paar gripsokken</p>
+                          <p style="color:#9a9a9a; font-size:13px; margin:4px 0 0;">Kies zelf je kleuren</p>
+                        </td>
+                        <td align="right">
+                          <p style="color:#ffffff; font-size:20px; font-weight:800; margin:0;">€54,95</p>
+                          <p style="color:#9a9a9a; font-size:12px; margin:4px 0 0; text-decoration:line-through;">€79,80</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- 5 pair -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px;">
+                <tr>
+                  <td style="background-color:#2e2e2e; border:1px solid #404040; border-radius:8px; padding:16px 24px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <p style="color:#ffffff; font-size:16px; font-weight:600; margin:0;">5 paar gripsokken</p>
+                          <p style="color:#9a9a9a; font-size:13px; margin:4px 0 0;">Kies zelf je kleuren</p>
+                        </td>
+                        <td align="right">
+                          <p style="color:#ffffff; font-size:20px; font-weight:800; margin:0;">€59,95</p>
+                          <p style="color:#9a9a9a; font-size:12px; margin:4px 0 0; text-decoration:line-through;">€99,75</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 20px;">
+                <tr>
+                  <td align="center">
+                    <a href="https://fitsockr.nl/collections/all" style="display:inline-block; background-color:#FA2603; color:#ffffff; font-size:16px; font-weight:800; text-decoration:none; padding:16px 40px; border-radius:6px;">
+                      Stel jouw combinatie samen →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="color:#9a9a9a; font-size:13px; margin:0; text-align:center; line-height:1.6;">
+                Kortingscode: <strong style="color:#FA2603;">{{ discount_code }}</strong><br>
+                <span style="font-size:12px;">Gratis verzending vanaf €25 &nbsp;·&nbsp; Besteld voor 22:00 = zelfde dag verstuurd</span>
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="padding:28px 16px;">
+              <p style="color:#666666; font-size:12px; margin:0 0 8px; line-height:1.6;">
+                FitSockr &nbsp;·&nbsp; fitsockr.nl
+              </p>
+              <p style="color:#666666; font-size:12px; margin:0;">
+                <a href="{{ unsubscribe_url }}" style="color:#666666;">Uitschrijven</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

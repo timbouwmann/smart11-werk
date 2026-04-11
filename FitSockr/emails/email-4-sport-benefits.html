@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitSockr — voor jouw sport</title>
+  <!--
+    SUBJECT:    [SPORT-VARIANT — zie per blok hieronder]
+    PREHEADER:  [SPORT-VARIANT — zie per blok hieronder]
+    SEND TIME:  Dag 4
+    KLAVIYO:    Gebruik {{ first_name }}, {{ discount_code }}, sport-conditionals
+
+    SPORT SUBJECTS:
+    - Voetbal:  "Geen speling meer in je schoen op het veld"  |  preheader: "Dit is wat profs weten."
+    - Padel:    "Snelheid zonder controle is geen voordeel"   |  preheader: "Stop met glijden in je schoen."
+    - Fitness:  "Elke beweging begint bij je voeten"          |  preheader: "Waarom serieuze trainers gripsokken dragen."
+    - Pilates:  "Grip en stabiliteit op elke reformer"        |  preheader: "Minder nadenken. Meer voelen."
+  -->
+</head>
+<body style="margin:0; padding:0; background-color:#1a1a1a; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#1a1a1a;">
+    <tr>
+      <td align="center" style="padding:24px 16px;">
+
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; width:100%;">
+
+          <!-- Logo -->
+          <tr>
+            <td align="center" style="padding:32px 0 24px;">
+              <img src="https://fitsockr.nl/cdn/shop/files/logo-fitsockr.png" alt="FitSockr" width="140" style="display:block;">
+            </td>
+          </tr>
+
+          <!-- ======================================================
+               VOETBAL VERSIE
+          ====================================================== -->
+          {% if sport == 'voetbal' %}
+
+          <tr>
+            <td>
+              <img src="https://placehold.co/600x260/282828/FA2603?text=Voetbal+FitSockr" alt="FitSockr voetbal" width="600" style="display:block; width:100%; border-radius:8px 8px 0 0;">
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#282828; border-radius:0 0 8px 8px; padding:40px 40px 32px;">
+              <p style="color:#ffffff; font-size:20px; font-weight:700; margin:0 0 20px;">Hey 👊</p>
+              <p style="color:#ffffff; font-size:17px; font-weight:600; margin:0 0 16px; line-height:1.5;">Op het veld draait alles om details.</p>
+              <p style="color:#cccccc; font-size:15px; margin:0 0 20px; line-height:1.7;">
+                Een sprint. Een draai. Een eerste aanname.<br>
+                Dan wil je dat je voet <strong style="color:#ffffff;">één geheel is</strong> met je schoen.
+              </p>
+              <div style="background-color:#333333; border-radius:6px; padding:20px 24px; margin:0 0 24px;">
+                <p style="color:#cccccc; font-size:14px; margin:0; line-height:2.0;">
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer grip</strong> bij elk schot en elke sprint<br>
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer stabiliteit</strong> bij snelle richtingsveranderingen<br>
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer controle</strong> bij het afzetten
+                </p>
+              </div>
+              <p style="color:#cccccc; font-size:15px; margin:0 0 32px; line-height:1.7;">
+                Geen geschuif. Geen energieverlies. Gewoon spelen.
+              </p>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px;">
+                <tr>
+                  <td align="center">
+                    <a href="https://fitsockr.nl/collections/all?discount={{ discount_code }}" style="display:inline-block; background-color:#FA2603; color:#ffffff; font-size:16px; font-weight:800; text-decoration:none; padding:16px 40px; border-radius:6px;">
+                      Ervaar het verschil op het veld →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          {% endif %}
+
+          <!-- ======================================================
+               PADEL VERSIE
+          ====================================================== -->
+          {% if sport == 'padel' %}
+
+          <tr>
+            <td>
+              <img src="https://placehold.co/600x260/282828/FA2603?text=Padel+FitSockr" alt="FitSockr padel" width="600" style="display:block; width:100%; border-radius:8px 8px 0 0;">
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#282828; border-radius:0 0 8px 8px; padding:40px 40px 32px;">
+              <p style="color:#ffffff; font-size:20px; font-weight:700; margin:0 0 20px;">Hey 👊</p>
+              <p style="color:#ffffff; font-size:17px; font-weight:600; margin:0 0 16px; line-height:1.5;">Padel is snelheid. Maar vooral: controle.</p>
+              <p style="color:#cccccc; font-size:15px; margin:0 0 20px; line-height:1.7;">
+                Snelle richtingsveranderingen. Korte sprints. Direct reageren op elke bal.<br><br>
+                Dan wil je dat je voeten <strong style="color:#ffffff;">precies doen wat jij wilt</strong>.
+              </p>
+              <div style="background-color:#333333; border-left:3px solid #FA2603; padding:16px 20px; border-radius:0 6px 6px 0; margin:0 0 24px;">
+                <p style="color:#cccccc; font-size:15px; margin:0; line-height:1.7;">
+                  Toch gaat het daar vaak mis — dat kleine beetje glijden in je schoen waardoor je nét controle verliest.
+                </p>
+              </div>
+              <div style="background-color:#333333; border-radius:6px; padding:20px 24px; margin:0 0 24px;">
+                <p style="color:#cccccc; font-size:14px; margin:0; line-height:2.0;">
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer grip</strong> bij elke beweging<br>
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer stabiliteit</strong> bij snelle wendingen<br>
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer controle</strong> in je spel
+                </p>
+              </div>
+              <p style="color:#FA2603; font-size:15px; font-weight:700; margin:0 0 32px;">
+                Snelheid zonder controle… is geen voordeel.
+              </p>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px;">
+                <tr>
+                  <td align="center">
+                    <a href="https://fitsockr.nl/collections/all?discount={{ discount_code }}" style="display:inline-block; background-color:#FA2603; color:#ffffff; font-size:16px; font-weight:800; text-decoration:none; padding:16px 40px; border-radius:6px;">
+                      Ervaar het verschil op de baan →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          {% endif %}
+
+          <!-- ======================================================
+               FITNESS / HYROX VERSIE
+          ====================================================== -->
+          {% if sport == 'fitness' or sport == 'hyrox' %}
+
+          <tr>
+            <td>
+              <img src="https://placehold.co/600x260/282828/FA2603?text=Fitness+FitSockr" alt="FitSockr fitness" width="600" style="display:block; width:100%; border-radius:8px 8px 0 0;">
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#282828; border-radius:0 0 8px 8px; padding:40px 40px 32px;">
+              <p style="color:#ffffff; font-size:20px; font-weight:700; margin:0 0 20px;">Hey 👊</p>
+              <p style="color:#ffffff; font-size:17px; font-weight:600; margin:0 0 16px; line-height:1.5;">In de gym begint alles bij je voeten.</p>
+              <p style="color:#cccccc; font-size:15px; margin:0 0 20px; line-height:1.7;">
+                Deadlifts. Squats. Box jumps.<br>
+                Toch trainen veel mensen nog met standaard sokken.<br><br>
+                <strong style="color:#ffffff;">Terwijl juist daar winst te halen is.</strong>
+              </p>
+              <div style="background-color:#333333; border-radius:6px; padding:20px 24px; margin:0 0 24px;">
+                <p style="color:#cccccc; font-size:14px; margin:0; line-height:2.0;">
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer grip</strong> tijdens lifts<br>
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer stabiliteit</strong> bij explosieve bewegingen<br>
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer controle</strong> bij elke rep
+                </p>
+              </div>
+              <p style="color:#cccccc; font-size:15px; margin:0 0 32px; line-height:1.7;">
+                Kleine aanpassing. <strong style="color:#ffffff;">Groot verschil.</strong>
+              </p>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px;">
+                <tr>
+                  <td align="center">
+                    <a href="https://fitsockr.nl/collections/all?discount={{ discount_code }}" style="display:inline-block; background-color:#FA2603; color:#ffffff; font-size:16px; font-weight:800; text-decoration:none; padding:16px 40px; border-radius:6px;">
+                      Ervaar het in je training →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          {% endif %}
+
+          <!-- ======================================================
+               PILATES VERSIE
+          ====================================================== -->
+          {% if sport == 'pilates' %}
+
+          <tr>
+            <td>
+              <img src="https://placehold.co/600x260/282828/FA2603?text=Pilates+FitSockr" alt="FitSockr pilates" width="600" style="display:block; width:100%; border-radius:8px 8px 0 0;">
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#282828; border-radius:0 0 8px 8px; padding:40px 40px 32px;">
+              <p style="color:#ffffff; font-size:20px; font-weight:700; margin:0 0 20px;">Hey 👊</p>
+              <p style="color:#ffffff; font-size:17px; font-weight:600; margin:0 0 16px; line-height:1.5;">Bij pilates draait alles om controle.</p>
+              <p style="color:#cccccc; font-size:15px; margin:0 0 20px; line-height:1.7;">
+                Balans. Precisie. Stabiliteit.<br><br>
+                Dan wil je niet nadenken over je sokken —<br>
+                maar <strong style="color:#ffffff;">vertrouwen op je basis</strong>.
+              </p>
+              <div style="background-color:#333333; border-radius:6px; padding:20px 24px; margin:0 0 24px;">
+                <p style="color:#cccccc; font-size:14px; margin:0; line-height:2.0;">
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer grip</strong> op de reformer<br>
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer stabiliteit</strong> in je beweging<br>
+                  👉 &nbsp;<strong style="color:#ffffff;">Meer focus</strong> op je techniek
+                </p>
+              </div>
+              <p style="color:#cccccc; font-size:15px; margin:0 0 32px; line-height:1.7;">
+                Steeds meer sporters kiezen daarom voor FitSockr.
+              </p>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px;">
+                <tr>
+                  <td align="center">
+                    <a href="https://fitsockr.nl/collections/all?discount={{ discount_code }}" style="display:inline-block; background-color:#FA2603; color:#ffffff; font-size:16px; font-weight:800; text-decoration:none; padding:16px 40px; border-radius:6px;">
+                      Ervaar zelf het verschil →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          {% endif %}
+
+          <!-- Shared discount reminder -->
+          <tr>
+            <td align="center" style="padding:16px 0 0;">
+              <p style="color:#9a9a9a; font-size:13px; margin:0;">
+                Kortingscode: <strong style="color:#FA2603;">{{ discount_code }}</strong> &nbsp;(15% korting)
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="padding:28px 16px;">
+              <p style="color:#666666; font-size:12px; margin:0 0 8px; line-height:1.6;">
+                FitSockr &nbsp;·&nbsp; fitsockr.nl
+              </p>
+              <p style="color:#666666; font-size:12px; margin:0;">
+                <a href="{{ unsubscribe_url }}" style="color:#666666;">Uitschrijven</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

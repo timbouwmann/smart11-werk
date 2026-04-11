@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jouw Eerste 7 Dagen met Smart11 BASE</title>
+  <style>
+    @font-face {
+      font-family: 'Poppins';
+      src: url('../brand_assets/font/Poppins-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Poppins';
+      src: url('../brand_assets/font/Poppins-ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    :root {
+      --gold: #C8900A;
+      --gold-dim: rgba(200,144,10,0.13);
+      --gold-border: rgba(200,144,10,0.28);
+      --black: #0D0D0D;
+      --surface: #161616;
+      --surface2: #1C1C1C;
+      --text: #EFEFEF;
+      --muted: #6A6A6A;
+      --white: #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      line-height: 1.65;
+      width: 794px;
+      margin: 0 auto;
+    }
+
+    @page { size: A4; margin: 0; }
+
+    @media print {
+      body { width: 794px; }
+      .pdf-page { page-break-after: always; page-break-inside: avoid; }
+      .pdf-page:last-child { page-break-after: auto; }
+    }
+
+    /* ── PAGE SHELL ── */
+    .pdf-page {
+      width: 794px;
+      height: 1123px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--black);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .page-header img.hdr-logo {
+      height: 20px;
+      mix-blend-mode: screen;
+    }
+    .page-header-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .page-num {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── PAGE BODY ── */
+    .page-body {
+      flex: 1;
+      padding: 40px 48px 32px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── PAGE FOOTER ── */
+    .page-footer {
+      padding: 13px 48px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .page-footer span {
+      font-size: 9px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.12em;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .footer-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    /* ── SHARED CHAPTER STYLES ── */
+    .chapter-eyebrow {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 7px;
+    }
+    .chapter-title {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.0;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+    .chapter-title .gold { color: var(--gold); }
+    .chapter-rule {
+      width: 36px; height: 3px;
+      background: var(--gold);
+      margin: 13px 0 16px;
+    }
+    .chapter-intro {
+      font-size: 13px;
+      color: #AAAAAA;
+      line-height: 1.65;
+      max-width: 560px;
+      margin-bottom: 24px;
+    }
+
+    /* ── DECORATION ── */
+    .deco {
+      position: absolute;
+      pointer-events: none;
+    }
+
+
+    /* ════════════════════════════
+       PAGE 1 — COVER
+    ════════════════════════════ */
+    .cover-layout {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 290px;
+    }
+
+    .cover-left {
+      padding: 56px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cover-photo {
+      position: relative;
+      overflow: hidden;
+    }
+    .cover-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: brightness(0.65);
+    }
+    .cover-photo-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--black) 0%, rgba(13,13,13,0.2) 50%, transparent 100%);
+    }
+
+    .cover-logo img {
+      height: 28px;
+      mix-blend-mode: screen;
+      margin-bottom: 60px;
+      display: block;
+    }
+
+    .cover-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cover-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .cover-title {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 0.96;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .cover-title .gold { color: var(--gold); display: block; }
+
+    .cover-sub {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.6;
+      max-width: 360px;
+      margin-bottom: 52px;
+      font-weight: 400;
+    }
+
+    .cover-bottom {
+      border-top: 1px solid var(--gold-border);
+      padding-top: 24px;
+      display: flex;
+      gap: 36px;
+    }
+    .cover-meta-item .label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+    .cover-meta-item .value {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    /* gold glow behind photo */
+    .cover-glow {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(200,144,10,0.08) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+
+    /* ════════════════════════════
+       PAGE 2 — INTRO
+    ════════════════════════════ */
+    .intro-quote {
+      background: var(--surface);
+      border-left: 3px solid var(--gold);
+      padding: 24px 30px;
+      margin-bottom: 16px;
+    }
+    .intro-quote p {
+      font-size: 13.5px;
+      color: #DDDDDD;
+      line-height: 1.7;
+    }
+    .intro-quote strong { color: var(--gold); font-weight: 800; }
+
+    .intro-tip {
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      padding: 16px 24px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .tip-text strong {
+      display: block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+    .tip-text p { font-size: 12.5px; color: #BBBBBB; line-height: 1.6; }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+      margin: 20px 0;
+    }
+
+    .intro-promise {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+    }
+    .promise-item {
+      background: var(--surface);
+      padding: 32px 20px;
+      text-align: center;
+    }
+    .promise-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+    .promise-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+
+    /* ════════════════════════════
+       PAGE 3 — WAT IS BASE?
+    ════════════════════════════ */
+    .p3-layout {
+      display: grid;
+      grid-template-columns: 1fr 210px;
+      gap: 28px;
+      flex: 1;
+      overflow: hidden;
+    }
+    .p3-content { display: flex; flex-direction: column; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+    .feature-card {
+      background: var(--surface);
+      padding: 18px 16px;
+    }
+    .feature-icon-box {
+      width: 28px; height: 28px;
+      background: var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .feature-name {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .feature-desc {
+      font-size: 11px;
+      color: #888;
+      line-height: 1.55;
+    }
+
+    .usp-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .usp-item {
+      background: var(--surface2);
+      padding: 13px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .usp-check {
+      width: 15px; height: 15px;
+      border: 2px solid var(--gold);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .usp-check::after {
+      content: '';
+      width: 5px; height: 3px;
+      border-left: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      transform: rotate(-45deg) translateY(-1px);
+    }
+    .usp-text {
+      font-size: 11px;
+      color: #BBBBBB;
+      line-height: 1.5;
+    }
+    .usp-text strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .p3-photo {
+      position: relative;
+      overflow: hidden;
+    }
+    .p3-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: brightness(0.7);
+    }
+    .p3-photo-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--black) 100%);
+    }
+
+
+    /* ════════════════════════════
+       PAGE 4 — WALKTHROUGH
+    ════════════════════════════ */
+    .walk-steps {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 0;
+    }
+    .walk-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      flex: 1;
+    }
+    .walk-step:last-child { border-bottom: none; }
+    .walk-num-col {
+      padding: 14px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .walk-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .walk-line {
+      width: 1px; flex: 1;
+      background: var(--gold-border);
+      margin-top: 6px;
+    }
+    .walk-step:last-child .walk-line { display: none; }
+    .walk-content { padding: 14px 0 14px 16px; }
+    .walk-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .walk-desc {
+      font-size: 11.5px;
+      color: #999;
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    .walk-tag {
+      display: inline-block;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      padding: 2px 8px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+
+    /* ════════════════════════════
+       PAGE 5 — IMPLEMENTATIE
+    ════════════════════════════ */
+    .pain-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 18px;
+    }
+    .pain-card {
+      background: var(--surface);
+      padding: 18px 18px;
+      border-top: 2px solid var(--gold);
+    }
+    .pain-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .pain-problem {
+      font-size: 11.5px;
+      color: #888;
+      margin-bottom: 10px;
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .pain-solution {
+      font-size: 11.5px;
+      color: #CCCCCC;
+      line-height: 1.55;
+    }
+    .pain-solution strong { color: var(--gold); font-weight: 800; }
+
+    .tips-list { display: flex; flex-direction: column; gap: 1px; }
+    .tip-row {
+      background: var(--surface);
+      padding: 12px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .tip-num {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gold);
+      min-width: 22px;
+      flex-shrink: 0;
+      line-height: 1.1;
+    }
+    .tip-body strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .tip-body p { font-size: 11px; color: #888; line-height: 1.55; }
+
+
+    /* ════════════════════════════
+       PAGE 6 — CTA
+    ════════════════════════════ */
+    .cta-page .page-body {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .cta-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(100%) brightness(0.3);
+    }
+    .cta-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, var(--black) 0%, rgba(13,13,13,0.7) 40%, rgba(13,13,13,0.85) 100%);
+    }
+    .cta-inner { position: relative; z-index: 2; max-width: 490px; }
+    .cta-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .cta-title {
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 0.96;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+    }
+    .cta-title .gold { color: var(--gold); }
+    .cta-body {
+      font-size: 13.5px;
+      color: #AAAAAA;
+      line-height: 1.65;
+      margin-bottom: 32px;
+      max-width: 370px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: #0D0D0D;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 16px 42px;
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+    .cta-link {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .cta-checklist {
+      margin-top: 36px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      text-align: left;
+    }
+    .cta-check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 11.5px;
+      color: #888;
+      line-height: 1.5;
+    }
+    .mini-check {
+      width: 13px; height: 13px;
+      border: 1.5px solid var(--gold);
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mini-check::after {
+      content: '';
+      width: 5px; height: 3px;
+      border-left: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      transform: rotate(-45deg) translateY(-1px);
+    }
+
+    /* ════════════════════════════
+       PAGE 6 — CLAIRENCE
+    ════════════════════════════ */
+    .clairence-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      padding: 5px 14px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .clairence-feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .clairence-feature-row {
+      background: var(--surface);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .clairence-icon {
+      width: 36px; height: 36px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .clairence-feat-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      margin-bottom: 4px;
+    }
+    .clairence-feat-desc {
+      font-size: 11.5px;
+      color: #999;
+      line-height: 1.6;
+    }
+    .clairence-cta-strip {
+      background: var(--gold);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2px;
+    }
+    .clairence-cta-strip p {
+      font-size: 12px;
+      font-weight: 800;
+      color: #0D0D0D;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .clairence-cta-strip span {
+      font-size: 11px;
+      font-weight: 800;
+      color: rgba(0,0,0,0.55);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* grain */
+    .grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- ══════════════════════════════════
+     PAGE 1 — COVER
+══════════════════════════════════ -->
+<div class="pdf-page">
+  <div class="grain"></div>
+  <div class="cover-glow"></div>
+
+  <!-- Decorative circle — bottom left -->
+  <img class="deco" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png"
+       style="width:280px; bottom:-70px; left:-70px; opacity:0.07;" alt="">
+
+  <div class="cover-layout">
+    <!-- LEFT: content -->
+    <div class="cover-left">
+      <div>
+        <div class="cover-logo">
+          <img src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11">
+        </div>
+        <div class="cover-eyebrow">Activatiegids — Smart11 BASE</div>
+        <h1 class="cover-title">
+          Jouw Eerste<br>
+          <span class="gold">7 Dagen</span>
+          Met Smart11 BASE
+        </h1>
+        <p class="cover-sub">
+          Van account aanmaken tot je eerste echte inzicht op het veld. Stap voor stap, zonder gedoe.
+        </p>
+      </div>
+
+      <div class="cover-bottom">
+        <div class="cover-meta-item">
+          <div class="label">Leestijd</div>
+          <div class="value">~8 min</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="label">Voor</div>
+          <div class="value">Coaches & clubs</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="label">Doel</div>
+          <div class="value">Eerste win in 48u</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: photo -->
+    <div class="cover-photo">
+      <img src="../brand_assets/foto's/Smart11_V2-5.jpg" alt="Smart11 speler">
+      <div class="cover-photo-fade"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PAGE 2 — INTRODUCTIE
+══════════════════════════════════ -->
+<div class="pdf-page">
+  <div class="grain"></div>
+
+  <!-- Decorative circle — top right -->
+  <img class="deco" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png"
+       style="width:240px; top:-60px; right:-60px; opacity:0.05;" alt="">
+
+  <div class="page-header">
+    <img class="hdr-logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11">
+    <span class="page-header-label">Activatiegids — BASE</span>
+    <span class="page-num">02</span>
+  </div>
+
+  <div class="page-body">
+    <div class="chapter-eyebrow">Introductie</div>
+    <h2 class="chapter-title">Begin <span class="gold">Hier.</span></h2>
+    <div class="chapter-rule"></div>
+
+    <div class="intro-quote">
+      <p>
+        Je hebt een trial aangevraagd. Goed. Maar alleen een account aanmaken is nog geen verbetering.<br><br>
+        <strong>Deze gids zorgt dat je in 7 dagen weet of Smart11 BASE werkt voor jouw team.</strong>
+      </p>
+    </div>
+
+    <div class="intro-tip">
+      <div class="tip-icon">⚡</div>
+      <div class="tip-text">
+        <strong>De gouden regel</strong>
+        <p>Eerste win in 48 uur. Coaches die dat halen, blijven. Die het uitstellen, haken af.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p style="font-size:13px; color:#999; margin-bottom:24px; line-height:1.7;">
+      3 beloften die je na deze gids begrijpt en zelf kunt toepassen:
+    </p>
+
+    <div class="intro-promise">
+      <div class="promise-item">
+        <span class="promise-num">⏱</span>
+        <div class="promise-desc">Analyseer een wedstrijd in 15–30 minuten (ipv uren)</div>
+      </div>
+      <div class="promise-item">
+        <span class="promise-num">🗂</span>
+        <div class="promise-desc">Één centrale omgeving voor staf én selectie</div>
+      </div>
+      <div class="promise-item">
+        <span class="promise-num">🎯</span>
+        <div class="promise-desc">Gerichte feedback die bij elke individuele speler landt</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>smart11.ai</span>
+    <div class="footer-dot"></div>
+    <span>Boost Your Football Intelligence</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PAGE 3 — WAT IS SMART11 BASE?
+══════════════════════════════════ -->
+<div class="pdf-page">
+  <div class="grain"></div>
+
+  <div class="page-header">
+    <img class="hdr-logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11">
+    <span class="page-header-label">Activatiegids — BASE</span>
+    <span class="page-num">03</span>
+  </div>
+
+  <div class="page-body">
+    <div class="p3-layout">
+      <!-- Left: content -->
+      <div class="p3-content">
+        <div class="chapter-eyebrow">// Hoofdstuk 01</div>
+        <h2 class="chapter-title">Wat Is<br><span class="gold">Smart11 BASE?</span></h2>
+        <div class="chapter-rule"></div>
+        <p class="chapter-intro">
+          Smart11 BASE is een teamomgeving voor ambitieuze coaches en clubs. Het verbindt jouw wedstrijdanalyse direct aan de ontwikkeling van je spelers — zonder extra apps, zonder WhatsApp-chaos.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon-box">📊</div>
+            <div class="feature-name">Eén teamomgeving</div>
+            <p class="feature-desc">Coach, assistent en spelers in één gedeeld platform. Alles op één plek, altijd toegankelijk.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-box">🎯</div>
+            <div class="feature-name">Individuele analyse</div>
+            <p class="feature-desc">Zie precies wat elke speler doet. Geen algemene feedback meer — maar gericht en persoonlijk.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-box">📲</div>
+            <div class="feature-name">Speler in de app</div>
+            <p class="feature-desc">Spelers ontvangen jouw inzichten direct in de Smart11 app. Ze reageren en nemen eigenaarschap.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-box">⚡</div>
+            <div class="feature-name">Snelle nabespreking</div>
+            <p class="feature-desc">Bereid je nabespreking voor in 15 minuten. Altijd concreet, visueel en gebaseerd op beelden.</p>
+          </div>
+        </div>
+
+        <div class="usp-strip" style="margin-top:2px;">
+          <div class="usp-item">
+            <div class="usp-check"></div>
+            <div class="usp-text">
+              <strong>Geen dure of complexe software</strong>
+              Gebouwd voor amateurs, niet voor profs.
+            </div>
+          </div>
+          <div class="usp-item">
+            <div class="usp-check"></div>
+            <div class="usp-text">
+              <strong>Werkt met bestaande beelden</strong>
+              Geen speciale camera's nodig.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: photo -->
+      <div class="p3-photo">
+        <img src="../brand_assets/foto's/Smart11_V2-6.jpg" alt="Smart11 speler">
+        <div class="p3-photo-fade"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>smart11.ai</span>
+    <div class="footer-dot"></div>
+    <span>Boost Your Football Intelligence</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PAGE 4 — WALKTHROUGH
+══════════════════════════════════ -->
+<div class="pdf-page">
+  <div class="grain"></div>
+
+  <div class="page-header">
+    <img class="hdr-logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11">
+    <span class="page-header-label">Activatiegids — BASE</span>
+    <span class="page-num">04</span>
+  </div>
+
+  <div class="page-body">
+    <div class="chapter-eyebrow">// Hoofdstuk 02</div>
+    <h2 class="chapter-title">Zo Gebruik Je <span class="gold">Smart11 BASE</span></h2>
+    <div class="chapter-rule"></div>
+    <p class="chapter-intro">
+      Van eerste login tot feedback bij je speler. Dit zijn de vijf stappen die elke coach doorloopt in BASE.
+    </p>
+
+    <div class="walk-steps">
+      <div class="walk-step">
+        <div class="walk-num-col">
+          <div class="walk-num">01</div>
+          <div class="walk-line"></div>
+        </div>
+        <div class="walk-content">
+          <div class="walk-title">Maak je teamomgeving aan</div>
+          <p class="walk-desc">Log in op BASE en maak je team aan. Voeg je spelers toe met naam en rugnummer. Eenmalig, daarna staat je basis klaar.</p>
+          <span class="walk-tag">Eenmalig · 5 min</span>
+        </div>
+      </div>
+
+      <div class="walk-step">
+        <div class="walk-num-col">
+          <div class="walk-num">02</div>
+          <div class="walk-line"></div>
+        </div>
+        <div class="walk-content">
+          <div class="walk-title">Upload je wedstrijdvideo</div>
+          <p class="walk-desc">Upload de video van je wedstrijd direct in BASE. Geen aparte software nodig — bestaande beelden werken gewoon.</p>
+          <span class="walk-tag">Per wedstrijd · 1–5 min</span>
+        </div>
+      </div>
+
+      <div class="walk-step">
+        <div class="walk-num-col">
+          <div class="walk-num">03</div>
+          <div class="walk-line"></div>
+        </div>
+        <div class="walk-content">
+          <div class="walk-title">Analyseer met het Smart11 - Team paneel</div>
+          <p class="walk-desc">Focus op één onderdeel: opbouwen of druk zetten. Tag 3–5 momenten die jij relevant vindt. Voeg een korte notitie toe: wat zie je? Wat had anders gekund? Zo wordt een clip een leermoment.</p>
+          <span class="walk-tag">Analyse · 15–30 min</span>
+        </div>
+      </div>
+
+      <div class="walk-step">
+        <div class="walk-num-col">
+          <div class="walk-num">04</div>
+          <div class="walk-line"></div>
+        </div>
+        <div class="walk-content">
+          <div class="walk-title">Publiceer naar je team</div>
+          <p class="walk-desc">Stuur je analyse met één klik naar het hele team. Spelers ontvangen dit direct in de Smart11 app — en kunnen zelf ook hun eigen clips maken.</p>
+          <span class="walk-tag">Eén klik · direct beschikbaar</span>
+        </div>
+      </div>
+
+      <div class="walk-step">
+        <div class="walk-num-col">
+          <div class="walk-num">05</div>
+          <div class="walk-line"></div>
+        </div>
+        <div class="walk-content">
+          <div class="walk-title">Spelers reflecteren in de app</div>
+          <p class="walk-desc">Spelers bekijken hun momenten, reageren op jouw feedback en werken zelfstandig aan hun ontwikkeling — een echte dialoog, ook buiten het veld.</p>
+          <span class="walk-tag">Dialoog · ook buiten het veld</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>smart11.ai</span>
+    <div class="footer-dot"></div>
+    <span>Boost Your Football Intelligence</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PAGE 5 — IMPLEMENTATIE TIPS
+══════════════════════════════════ -->
+<div class="pdf-page">
+  <div class="grain"></div>
+
+  <div class="page-header">
+    <img class="hdr-logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11">
+    <span class="page-header-label">Activatiegids — BASE</span>
+    <span class="page-num">05</span>
+  </div>
+
+  <div class="page-body">
+    <div class="chapter-eyebrow">// Hoofdstuk 03</div>
+    <h2 class="chapter-title">Zo Implementeer Je <span class="gold">BASE In Je Team</span></h2>
+    <div class="chapter-rule"></div>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-label">Pijnpunt — Tijdgebrek</div>
+        <p class="pain-problem">"Ik heb geen tijd voor uitgebreide analyse elke week."</p>
+        <p class="pain-solution"><strong>Smart11 BASE is gebouwd voor 30 minuten per week.</strong> 3 momenten, notitie, deel. Meer heb je niet nodig.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-label">Pijnpunt — Structuur</div>
+        <p class="pain-problem">"Mijn feedback is versnipperd via WhatsApp en mail. Niks wordt opgevolgd."</p>
+        <p class="pain-solution"><strong>Alles op één plek.</strong> Niet meer versnipperd — één centrale omgeving voor staf én selectie.</p>
+      </div>
+    </div>
+
+    <div class="tips-list">
+      <div class="tip-row">
+        <div class="tip-num">01</div>
+        <div class="tip-body">
+          <strong>Begin met één speler — de meest ontvankelijke</strong>
+          <p>Kies de speler die openstaat voor feedback. Stuur hem het eerste moment. Als hij reageert, gebruik dat als voorbeeld voor je selectie.</p>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">02</div>
+        <div class="tip-body">
+          <strong>Stuur een individuele analyse van 1 ontwikkelpunt</strong>
+          <p>Bijvoorbeeld Passen. Kies 3 clips, voeg een korte notitie toe per moment. Gericht en concreet — dat landt.</p>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">03</div>
+        <div class="tip-body">
+          <strong>Kies 3 momenten — niet 30</strong>
+          <p>Drie gerichte clips met een goede notitie werken beter dan een map vol beelden zonder context.</p>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">04</div>
+        <div class="tip-body">
+          <strong>Gebruik Smart11 BASE als basis voor je teambespreking</strong>
+          <p>Bereid je nabespreking voor in BASE. Altijd concreet, visueel en gericht.</p>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">05</div>
+        <div class="tip-body">
+          <strong>Upload elke week — ook als het druk is</strong>
+          <p>Consistentie wint van perfectie. Een patroon van 3 weken is meer waard dan één uitgebreide analyse per maand.</p>
+        </div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-num">06</div>
+        <div class="tip-body">
+          <strong>Bespreek de app met je spelers op training</strong>
+          <p>Vertel kort wat ze kunnen verwachten. Spelers die weten waarom ze iets krijgen, openen het ook.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>smart11.ai</span>
+    <div class="footer-dot"></div>
+    <span>Boost Your Football Intelligence</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PAGE 6 — CLAIRENCE
+══════════════════════════════════ -->
+<div class="pdf-page">
+  <div class="grain"></div>
+
+  <img class="deco" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png"
+       style="width:260px; top:-60px; right:-60px; opacity:0.05;" alt="">
+
+  <div class="page-header">
+    <img class="hdr-logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11">
+    <span class="page-header-label">Activatiegids — BASE</span>
+    <span class="page-num">06</span>
+  </div>
+
+  <div class="page-body">
+    <div class="chapter-eyebrow">// Extra Hoofdstuk</div>
+    <h2 class="chapter-title">Ontmoet Onze<br><span class="gold">AI Analist Clairence</span></h2>
+    <div class="chapter-rule"></div>
+    <p class="chapter-intro">
+      Smart11 BASE geeft je al een enorme tijdsbesparing. Clairence gaat een stap verder: onze AI analist filtert automatisch de momenten die er toe doen — voor coaches én voor spelers.
+    </p>
+
+    <div class="clairence-feature-list">
+      <div class="clairence-feature-row">
+        <div class="clairence-icon">⚡</div>
+        <div>
+          <div class="clairence-feat-title">Nog meer tijdsbesparing</div>
+          <p class="clairence-feat-desc">Geen wedstrijd van 90 minuten meer doorzoeken. Clairence analyseert automatisch en geeft je direct de relevante momenten. Jij focust op de coaching — niet op het knippen.</p>
+        </div>
+      </div>
+      <div class="clairence-feature-row">
+        <div class="clairence-icon">🎯</div>
+        <div>
+          <div class="clairence-feat-title">Direct filteren op wat belangrijk is</div>
+          <p class="clairence-feat-desc">Kies een tactisch thema — druk zetten, opbouwen, omschakelen — en Clairence toont direct de bijpassende momenten. Geen ruis, geen zoekwerk.</p>
+        </div>
+      </div>
+      <div class="clairence-feature-row">
+        <div class="clairence-icon">👥</div>
+        <div>
+          <div class="clairence-feat-title">Beschikbaar voor trainer én speler</div>
+          <p class="clairence-feat-desc">Coaches gebruiken Clairence voor team- en wedstrijdanalyse. Spelers krijgen automatisch hun eigen inzichten aangeboden in de app — gepersonaliseerd, zonder extra werk van de trainer.</p>
+        </div>
+      </div>
+      <div class="clairence-feature-row">
+        <div class="clairence-icon">🔢</div>
+        <div>
+          <div class="clairence-feat-title">Spelerherkenning via rugnummer</div>
+          <p class="clairence-feat-desc">Clairence herkent spelers automatisch aan hun rugnummer. Zo vind je voor iedere speler razendsnel de meest relevante momenten — individuele analyses in seconden, niet in minuten.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="clairence-cta-strip">
+      <p>Clairence is beschikbaar als add-on op Smart11 BASE</p>
+      <span>smart11.ai/clairence →</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>smart11.ai</span>
+    <div class="footer-dot"></div>
+    <span>Boost Your Football Intelligence</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PAGE 7 — CTA
+══════════════════════════════════ -->
+<div class="pdf-page cta-page">
+  <div class="grain"></div>
+
+  <!-- Background photo -->
+  <div class="cta-bg">
+    <img src="../brand_assets/foto's/Smart11_V2-8.jpg" alt="">
+    <div class="cta-bg-overlay"></div>
+  </div>
+
+  <!-- Decorative circle — bottom right -->
+  <img class="deco" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png"
+       style="width:300px; bottom:-80px; right:-80px; opacity:0.06; z-index:1;" alt="">
+
+  <div class="page-header" style="position:relative; z-index:2;">
+    <img class="hdr-logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11">
+    <span class="page-header-label">Activatiegids — BASE</span>
+    <span class="page-num">07</span>
+  </div>
+
+  <div class="page-body">
+    <div class="cta-inner">
+      <div class="cta-eyebrow">Je bent er klaar voor</div>
+      <h2 class="cta-title">Ga Naar Je<br><span class="gold">Teamomgeving</span></h2>
+      <p class="cta-body">
+        Je weet wat Smart11 BASE is, hoe het werkt en hoe je het inzet. Nu is er nog maar één stap.
+      </p>
+      <a href="https://app.smart11.ai" class="cta-btn">
+        Open Smart11 BASE →
+      </a>
+      <span class="cta-link">app.smart11.ai</span>
+
+      <div class="cta-checklist">
+        <div class="cta-check-item">
+          <div class="mini-check"></div>
+          Team aangemaakt met spelers en rugnummers
+        </div>
+        <div class="cta-check-item">
+          <div class="mini-check"></div>
+          Eerste wedstrijdvideo geüpload
+        </div>
+        <div class="cta-check-item">
+          <div class="mini-check"></div>
+          3 sleutelmomenten geselecteerd en getagd
+        </div>
+        <div class="cta-check-item">
+          <div class="mini-check"></div>
+          Eerste inzicht verstuurd naar een speler
+        </div>
+        <div class="cta-check-item">
+          <div class="mini-check"></div>
+          Nabespreking voorbereid via BASE
+        </div>
+        <div class="cta-check-item">
+          <div class="mini-check"></div>
+          Reacties van spelers bekeken in BASE
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer" style="position:relative; z-index:2;">
+    <span>smart11.ai</span>
+    <div class="footer-dot"></div>
+    <span>© Smart11 — Boost Your Football Intelligence</span>
+  </div>
+</div>
+
+
+</body>
+</html>

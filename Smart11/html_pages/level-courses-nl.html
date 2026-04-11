@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inhoud Level Courses — Smart11</title>
+  <style>
+    @font-face {
+      font-family: 'Poppins';
+      src: url('../brand_assets/font/Poppins-Regular.ttf') format('truetype');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'Poppins';
+      src: url('../brand_assets/font/Poppins-ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+    }
+
+    :root {
+      --gold: #C8900A;
+      --black: #0E0E0E;
+      --text: #EFEFEF;
+      --muted: #9A9A9A;
+      --white: #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      width: 794px;
+      margin: 0 auto;
+    }
+
+    @page { size: A4; margin: 0; }
+
+    @media print {
+      body { width: 794px; }
+      .pdf-page { page-break-after: always; page-break-inside: avoid; }
+      .pdf-page:last-child { page-break-after: auto; }
+    }
+
+    /* ── PAGE SHELL ── */
+    .pdf-page {
+      width: 794px;
+      height: 1123px;
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    /* ── TEMPLATE DECORATIONS ── */
+    /* cover page — larger, more prominent decorations */
+    .cover-deco-x {
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      opacity: 0.90;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .cover-deco-circle {
+      position: absolute;
+      bottom: -90px;
+      right: -70px;
+      width: 210px;
+      height: 210px;
+      opacity: 0.75;
+      pointer-events: none;
+      z-index: 10;
+    }
+    /* level pages — pushed further off-screen so text is never covered */
+    .deco-x {
+      position: absolute;
+      top: -160px;
+      left: -160px;
+      width: 300px;
+      height: 300px;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .deco-circle {
+      position: absolute;
+      bottom: -155px;
+      right: -135px;
+      width: 210px;
+      height: 210px;
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    /* ── LOGO ── */
+    .logo {
+      position: absolute;
+      top: 36px;
+      right: 48px;
+      height: 32px;
+      z-index: 10;
+    }
+
+    /* ══════════════════════════════════════
+       COVER PAGE
+    ══════════════════════════════════════ */
+    .cover-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .cover-text {
+      flex: 0 0 57%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 48px 0 72px;
+    }
+
+    .cover-photo {
+      flex: 0 0 43%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .cover-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .cover-title {
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .cover-title span {
+      color: var(--gold);
+    }
+
+    .cover-divider {
+      width: 64px;
+      height: 3px;
+      background: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .cover-subtitle {
+      font-size: 15px;
+      font-weight: 400;
+      color: #BFBFBF;
+      line-height: 1.7;
+      max-width: 420px;
+    }
+
+    .cover-levels {
+      display: flex;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .cover-level-badge {
+      background: rgba(200,144,10,0.12);
+      border: 1px solid rgba(200,144,10,0.35);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 2px;
+    }
+
+    /* ══════════════════════════════════════
+       LEVEL PAGES
+    ══════════════════════════════════════ */
+    .level-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 52px 52px 44px 52px;
+    }
+
+    /* Header */
+    .level-header {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(200,144,10,0.25);
+    }
+
+    .level-badge {
+      background: var(--gold);
+      color: #000;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 2px;
+    }
+
+    .level-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    /* Modules grid */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+
+    .module-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(200,144,10,0.18);
+      border-radius: 3px;
+      padding: 14px 14px 12px 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .module-label {
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .module-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .module-body {
+      font-size: 9.5px;
+      color: #CACACA;
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .module-body p {
+      margin-bottom: 5px;
+    }
+
+    .module-body ul {
+      padding-left: 12px;
+      margin-bottom: 6px;
+    }
+
+    .module-body ul li {
+      margin-bottom: 2px;
+    }
+
+    .module-body strong {
+      color: var(--white);
+      font-weight: 800;
+    }
+
+    .module-goal {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(200,144,10,0.2);
+      font-size: 9px;
+      color: var(--gold);
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    /* Results section */
+    .results-section {
+      background: rgba(200,144,10,0.07);
+      border: 1px solid rgba(200,144,10,0.30);
+      border-radius: 3px;
+      padding: 14px 18px;
+    }
+
+    .results-label {
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px 24px;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 9px;
+      color: #D4D4D4;
+      line-height: 1.45;
+      padding: 2px 0;
+    }
+
+    .result-item::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      min-width: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     PAGE 1 — COVER
+══════════════════════════════════════ -->
+<div class="pdf-page">
+  <!-- Decorations -->
+  <img class="cover-deco-x" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-86.png" alt="" />
+  <img class="cover-deco-circle" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png" alt="" />
+
+  <!-- Logo -->
+  <img class="logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" />
+
+  <!-- Cover content -->
+  <div class="cover-inner">
+    <div class="cover-text">
+      <div class="cover-eyebrow">Smart11 — SmartCoach</div>
+      <div class="cover-title">Inhoud<br><span>Level</span><br>Courses</div>
+      <div class="cover-divider"></div>
+      <div class="cover-subtitle">
+        Een volledig overzicht van wat je leert in elk level van de Smart11 methodologie — van de basis van individuele analyse tot geavanceerde performance coaching.
+      </div>
+      <div class="cover-levels">
+        <div class="cover-level-badge">Level 1</div>
+        <div class="cover-level-badge">Level 2</div>
+        <div class="cover-level-badge">Level 3</div>
+      </div>
+    </div>
+    <div class="cover-photo">
+      <img src="../brand_assets/foto's/Smart11_V2-7.jpg" alt="" />
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 2 — LEVEL 1
+══════════════════════════════════════ -->
+<div class="pdf-page">
+  <img class="deco-x" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-86.png" alt="" />
+  <img class="deco-circle" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png" alt="" />
+  <img class="logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" />
+
+  <div class="level-inner">
+
+    <!-- Header -->
+    <div class="level-header">
+      <div class="level-badge">Level 1</div>
+      <div class="level-title">Inhoud</div>
+    </div>
+
+    <!-- Modules -->
+    <div class="modules-grid">
+
+      <!-- Module 1 -->
+      <div class="module-card">
+        <div class="module-label">Module 1</div>
+        <div class="module-title">Introductie Methodologie</div>
+        <div class="module-body">
+          <p>Intro in individueel kijken naar spelers</p>
+          <p>Basis van de Smart11 methodologie:</p>
+          <ul>
+            <li>Game Actions</li>
+            <li>Voetbalrollen</li>
+            <li>Keuzes en uitvoering individuele handelingen</li>
+          </ul>
+          <p><strong>Praktisch:</strong></p>
+          <ul>
+            <li>Werken met SmartCoach</li>
+            <li>Hoe je clips maakt en analyseert</li>
+          </ul>
+        </div>
+        <div class="module-goal">Doel: je weet hoe we naar voetbal gaan kijken</div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="module-card">
+        <div class="module-label">Module 2</div>
+        <div class="module-title">Wedstrijdthema's &amp; Game Actions</div>
+        <div class="module-body">
+          <p>Je leert de optimale reacties voor de belangrijkste wedstrijdsituaties herkennen en begrijpen binnen 4 thema's:</p>
+          <ul>
+            <li>Opbouw</li>
+            <li>1v1 verdedigen &amp; aanvallen</li>
+            <li>Diepte verdedigen &amp; aanvallen</li>
+            <li>Voorzetten verdedigen &amp; aanvallen</li>
+          </ul>
+          <p>Per thema leer je:</p>
+          <ul>
+            <li>Wat is het doel van de speler</li>
+            <li>Wat is het maximum resultaat</li>
+            <li>Welke keuzes spelers maken in die situatie</li>
+            <li>Wat vaak fout gaat (en waarom)</li>
+            <li>Hoe spelers het optimaal kunnen uitvoeren</li>
+          </ul>
+        </div>
+        <div class="module-goal">Doel: je weet hoe spelers optimaal kunnen reageren op de meest voorkomende wedstrijdsituaties</div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="module-card">
+        <div class="module-label">Module 3</div>
+        <div class="module-title">Van Analyse naar Training</div>
+        <div class="module-body">
+          <p>Nu ga je het toepassen op het veld.</p>
+          <ul>
+            <li>Hoe maak je mini-lessen (5–10 min) per wedstrijdsituatie</li>
+            <li>Hoe vertaal je analyse → naar concreet gedrag</li>
+            <li>Concrete trainingsvormen (PDF's) per thema</li>
+            <li>Demo: hoe je spelers zelf leert analyseren</li>
+          </ul>
+        </div>
+        <div class="module-goal">Doel: je weet hoe je dit kunt analyseren, trainbaar maken en spelers eigenaarschap geven over hun eigen ontwikkeling</div>
+      </div>
+
+    </div>
+
+    <!-- Results -->
+    <div class="results-section">
+      <div class="results-label">Resultaat na Level 1</div>
+      <div class="results-grid">
+        <div class="result-item">Je begrijpt wat de kracht is van het individueel naar spelers kijken</div>
+        <div class="result-item">Je kunt met SmartCoach individuele analyses maken</div>
+        <div class="result-item">Je (her)kent de belangrijkste individuele voetbalhandelingen (Game Action)</div>
+        <div class="result-item">Je weet hoe je de vertaalslag maakt naar het trainingsveld</div>
+        <div class="result-item">Je weet wat het doel en maximale resultaat is per Game Action</div>
+        <div class="result-item">Je weet hoe je middels mini-lessen je spelers snel een thema kan duidelijk maken</div>
+        <div class="result-item">Je ziet welke keuzes spelers maken en waar het vaak fout gaat</div>
+        <div class="result-item">Je kunt spelers uitleggen hoe ze zichzelf kunnen analyseren</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 3 — LEVEL 2
+══════════════════════════════════════ -->
+<div class="pdf-page">
+  <img class="deco-x" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-86.png" alt="" />
+  <img class="deco-circle" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png" alt="" />
+  <img class="logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" />
+
+  <div class="level-inner">
+
+    <div class="level-header">
+      <div class="level-badge">Level 2</div>
+      <div class="level-title">Inhoud</div>
+    </div>
+
+    <div class="modules-grid">
+
+      <!-- Module 1 -->
+      <div class="module-card">
+        <div class="module-label">Module 1</div>
+        <div class="module-title">Verdieping in Wedstrijdthema's</div>
+        <div class="module-body">
+          <p>Je maakt een verdiepingsslag in alle thema's uit Level 1:</p>
+          <ul>
+            <li>Opbouw</li>
+            <li>1v1 verdedigen &amp; aanvallen</li>
+            <li>Diepte verdedigen &amp; aanvallen</li>
+            <li>Voorzetten verdedigen &amp; aanvallen</li>
+          </ul>
+          <p>Je leert:</p>
+          <ul>
+            <li>In een eerder stadium herkennen wat er gebeurt</li>
+            <li>Alle voorbereidende Game Actions</li>
+            <li>Patronen herkennen in gedrag van spelers</li>
+            <li>Beter zien waar het structureel fout gaat</li>
+          </ul>
+        </div>
+        <div class="module-goal">Doel: je herkent snel terugkerend gedrag en patronen per positie</div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="module-card">
+        <div class="module-label">Module 2</div>
+        <div class="module-title">Analyse per Positie</div>
+        <div class="module-body">
+          <p>Je leert keuzes en gedrag analyseren per positie:</p>
+          <ul>
+            <li>Centrale verdediger</li>
+            <li>Fullback</li>
+            <li>Middenvelder</li>
+            <li>Buitenspeler</li>
+            <li>Spits</li>
+          </ul>
+          <p>Je leert:</p>
+          <ul>
+            <li>Herkennen wat typisch gedrag is per positie</li>
+            <li>Zien wat er gebeurt als een speler bepaald gedrag vertoont</li>
+            <li>Samenwerkingen herkennen (bijv. centrale verdediger + middenvelder, back + winger)</li>
+            <li>Begrijpen hoe keuzes van één speler invloed hebben op anderen</li>
+          </ul>
+        </div>
+        <div class="module-goal">Je gaat van individuele momenten naar inzicht in gedrag en samenwerking</div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="module-card">
+        <div class="module-label">Module 3</div>
+        <div class="module-title">Van Analyse naar Concreet Advies</div>
+        <div class="module-body">
+          <p>Je zet patronen om naar duidelijke verbetering.</p>
+          <ul>
+            <li>Patronen vertalen naar concrete inzichten</li>
+            <li>Bepalen wat het belangrijkste verbeterpunt is</li>
+            <li>Concreet advies formuleren voor de speler of (performance) coach</li>
+          </ul>
+          <p>Je leert:</p>
+          <ul>
+            <li>Dit gebeurt → zo kun je het oplossen</li>
+            <li>Hoe je dit simpel en duidelijk overbrengt</li>
+            <li>Hoe je analyses gebruikt richting performance coaching</li>
+          </ul>
+        </div>
+        <div class="module-goal">Doel: je maakt analyses die leiden tot direct toepasbaar advies</div>
+      </div>
+
+    </div>
+
+    <!-- Results -->
+    <div class="results-section">
+      <div class="results-label">Resultaat na Level 2</div>
+      <div class="results-grid">
+        <div class="result-item">Je herkent patronen in gedrag van spelers</div>
+        <div class="result-item">Je kunt analyses vertalen naar concreet en bruikbaar advies</div>
+        <div class="result-item">Je begrijpt wat er gebeurt per positie en in samenwerking</div>
+        <div class="result-item">Je coacht gerichter op wat er écht toe doet</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 4 — LEVEL 3
+══════════════════════════════════════ -->
+<div class="pdf-page">
+  <img class="deco-x" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-86.png" alt="" />
+  <img class="deco-circle" src="../brand_assets/illustraties/T2024010_SMART11_ILLUSTRATIES_RGB-21.png" alt="" />
+  <img class="logo" src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" />
+
+  <div class="level-inner">
+
+    <div class="level-header">
+      <div class="level-badge">Level 3</div>
+      <div class="level-title">Inhoud</div>
+    </div>
+
+    <div class="modules-grid">
+
+      <!-- Module 1 -->
+      <div class="module-card">
+        <div class="module-label">Module 1</div>
+        <div class="module-title">Van Analyse naar Ontwikkelplan</div>
+        <div class="module-body">
+          <p>Je leert hoe je een analyse (bijv. vanuit Level 2) omzet naar een gericht ontwikkelplan per speler.</p>
+          <p>Je leert:</p>
+          <ul>
+            <li>Bepalen wat het belangrijkste verbeterpunt is</li>
+            <li>Prioriteiten stellen op basis van impact</li>
+            <li>Kiezen waar je wel en niet op focust</li>
+            <li>Bepalen hoe lang je ergens aan werkt</li>
+          </ul>
+        </div>
+        <div class="module-goal">Doel: je maakt van een analyse een duidelijke ontwikkelcyclus in plaats van losse inzichten</div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="module-card">
+        <div class="module-label">Module 2</div>
+        <div class="module-title">Opbouwen van een Individueel Traject</div>
+        <div class="module-body">
+          <p>Je leert hoe je een speler begeleidt in een concreet traject.</p>
+          <ul>
+            <li>Samen met de speler focus bepalen</li>
+            <li>Opzetten van een gericht traject (bijv. 4–6 weken)</li>
+            <li>Structuur aanbrengen in ontwikkeling</li>
+          </ul>
+          <p>Je leert:</p>
+          <ul>
+            <li>Hoe je een speler meeneemt in zijn eigen ontwikkeling</li>
+            <li>Hoe je duidelijk maakt wat er verwacht wordt</li>
+            <li>Hoe je voortgang bewaakt binnen het traject</li>
+          </ul>
+        </div>
+        <div class="module-goal">Doel: je kunt een speler meenemen in een gestructureerd ontwikkeltraject, waarin duidelijk is wat er verbeterd wordt, waarom en hoe lang</div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="module-card">
+        <div class="module-label">Module 3</div>
+        <div class="module-title">Performance Coaching &amp; Sessies</div>
+        <div class="module-body">
+          <p>Je leert hoe je spelers op hoog niveau begeleidt én zelfstandig maakt.</p>
+          <ul>
+            <li>Opbouwen en uitvoeren van 1-op-1 sessies</li>
+            <li>Werken met spelers die zichzelf of door jou geanalyseerd zijn</li>
+            <li>Spelers laten reflecteren op hun eigen gedrag</li>
+            <li>Koppelen van ontwikkeling aan data en performance</li>
+            <li>Inzichtelijk maken van progressie</li>
+          </ul>
+        </div>
+        <div class="module-goal">Doel: je kunt effectieve 1-op-1 sessies uitvoeren, spelers laten reflecteren en hen begeleiden naar meer zelfstandigheid en betere performance</div>
+      </div>
+
+    </div>
+
+    <!-- Results -->
+    <div class="results-section">
+      <div class="results-label">Resultaat na Level 3</div>
+      <div class="results-grid">
+        <div class="result-item">Je zet analyses om in gerichte ontwikkelplannen</div>
+        <div class="result-item">Je voert effectieve 1-op-1 sessies met spelers</div>
+        <div class="result-item">Je begeleidt spelers in duidelijke trajecten</div>
+        <div class="result-item">Je werkt zowel met zelf-analyserende spelers als met eigen analyses</div>
+        <div class="result-item">Je koppelt ontwikkeling aan zichtbare progressie (data)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

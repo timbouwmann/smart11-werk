@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitSockr — Gripsokken voor Ambitieuze Sporters</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#FA2603',
+            dark: '#282828',
+            darker: '#1a1a1a',
+            card: '#333333',
+          },
+          fontFamily: {
+            sans: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Announcement bar animation */
+    .announcement-track {
+      animation: scrollAnnouncement 12s linear infinite;
+    }
+    @keyframes scrollAnnouncement {
+      0%, 30%   { transform: translateY(0); }
+      33%, 63%  { transform: translateY(-100%); }
+      66%, 96%  { transform: translateY(-200%); }
+      100%      { transform: translateY(-300%); }
+    }
+
+    /* Star rating */
+    .stars { color: #FA2603; }
+
+    /* Sport tile hover */
+    .sport-tile:hover .sport-overlay { opacity: 1; }
+    .sport-overlay { opacity: 0; background: rgba(250,38,3,0.7); }
+
+    /* Combideal badge pulse */
+    @keyframes badge-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    .badge-pulse { animation: badge-pulse 2s ease-in-out infinite; }
+  </style>
+</head>
+<body class="bg-dark text-white font-sans">
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="bg-brand text-white text-xs font-bold text-center py-2 overflow-hidden h-7 relative">
+    <div class="announcement-track absolute inset-0 flex flex-col">
+      <div class="h-7 flex items-center justify-center">⭐ COMBIDEAL: 3 paar gripsokken voor slechts €44,95 — Bespaar €15</div>
+      <div class="h-7 flex items-center justify-center">🚀 Besteld vóór 22:00 = vandaag verstuurd</div>
+      <div class="h-7 flex items-center justify-center">📦 Gratis verzending vanaf €25 — Levering in NL, BE & DE</div>
+      <div class="h-7 flex items-center justify-center">⭐ COMBIDEAL: 3 paar gripsokken voor slechts €44,95 — Bespaar €15</div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="bg-darker border-b border-white/10 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#" class="flex-shrink-0">
+        <img src="/FitSockr/brand_assets/logo-fitsockr.png" alt="FitSockr" class="h-9" />
+      </a>
+
+      <!-- Nav links (desktop) -->
+      <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
+        <a href="#" class="hover:text-brand">Gripsokken</a>
+        <a href="#combideal" class="hover:text-brand">Combideal</a>
+        <a href="#sporten" class="hover:text-brand">Jouw Sport</a>
+        <a href="#" class="hover:text-brand">Blog</a>
+      </div>
+
+      <!-- Cart + CTA -->
+      <div class="flex items-center gap-3">
+        <a href="#combideal" class="hidden sm:inline-block bg-brand text-white text-sm font-bold px-4 py-2 rounded hover:bg-red-600">
+          Scoor Combideal
+        </a>
+        <button class="relative p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span class="absolute -top-1 -right-1 bg-brand text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="relative overflow-hidden min-h-[560px] md:min-h-[640px] flex items-center">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img
+        src="/FitSockr/brand_assets/actiebeelden/homepage/timpact-1.png"
+        alt="FitSockr in actie"
+        class="w-full h-full object-cover object-center"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/60 to-transparent"></div>
+    </div>
+
+    <!-- Hero content -->
+    <div class="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
+      <div class="max-w-xl">
+        <!-- Social proof badge -->
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-5 text-sm">
+          <span class="stars text-base">★★★★★</span>
+          <span class="font-semibold">4.8/5</span>
+          <span class="text-white/70">· Gebruikt door 5.000+ sporters</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-tight mb-4">
+          Maximale Grip.<br/>
+          <span class="text-brand">Nul Blaren.</span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="text-lg md:text-xl text-white/80 mb-6 leading-relaxed">
+          De enige gripsok die je schoen perfect laat aansluiten — op het veld, de padelbaan of in de gym. Gebruikt door Marco Bizot &amp; Luuk Brouwers.
+        </p>
+
+        <!-- Urgency bar -->
+        <div class="flex items-center gap-2 text-sm text-white/70 mb-8">
+          <svg class="w-4 h-4 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+          </svg>
+          <span>Besteld vóór <strong class="text-white">22:00</strong> = vandaag verstuurd</span>
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3">
+          <a href="#combideal" class="bg-brand text-white font-bold text-lg px-8 py-4 rounded hover:bg-red-600 shadow-lg shadow-brand/30">
+            Scoor 3 paar voor €44,95
+          </a>
+          <a href="#producten" class="border border-white/30 text-white font-semibold text-lg px-8 py-4 rounded hover:border-white/60">
+            Bekijk collectie
+          </a>
+        </div>
+
+        <!-- Micro copy -->
+        <p class="mt-3 text-xs text-white/50">Gratis verzending vanaf €25 · 30 dagen retour · Veilig betalen</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST BAR ===== -->
+  <div class="bg-card border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
+      <div class="flex items-center justify-center gap-2">
+        <svg class="w-5 h-5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 12h12L19 8"/>
+        </svg>
+        <span><strong>Gratis verzending</strong> v.a. €25</span>
+      </div>
+      <div class="flex items-center justify-center gap-2">
+        <svg class="w-5 h-5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        <span><strong>Zelfde dag</strong> verstuurd &lt;22:00</span>
+      </div>
+      <div class="flex items-center justify-center gap-2">
+        <span class="stars text-base leading-none">★★★★★</span>
+        <span><strong>4.8/5</strong> — 200+ reviews</span>
+      </div>
+      <div class="flex items-center justify-center gap-2">
+        <svg class="w-5 h-5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        <span><strong>30 dagen</strong> retour</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== USP GRID ===== -->
+  <section class="max-w-7xl mx-auto px-4 py-16">
+    <div class="text-center mb-10">
+      <p class="text-brand text-sm font-bold uppercase tracking-widest mb-2">Waarom FitSockr?</p>
+      <h2 class="text-3xl md:text-4xl font-black uppercase">De Sokken Die Het Verschil Maken</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- USP 1 -->
+      <div class="bg-card rounded-xl p-6 border border-white/10">
+        <div class="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">Nul Blaren</h3>
+        <p class="text-white/60 text-sm leading-relaxed">De dubbele laag elimineert wrijving in je schoen — ook na 90 minuten.</p>
+      </div>
+      <!-- USP 2 -->
+      <div class="bg-card rounded-xl p-6 border border-white/10">
+        <div class="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">Sneller & Wendbaarder</h3>
+        <p class="text-white/60 text-sm leading-relaxed">Maximale grip zorgt voor explosievere eerste stappen en betere directieverandering.</p>
+      </div>
+      <!-- USP 3 -->
+      <div class="bg-card rounded-xl p-6 border border-white/10">
+        <div class="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">Enkelbescherming</h3>
+        <p class="text-white/60 text-sm leading-relaxed">Spandex compressie ondersteunt gevoelige enkels en verdeelt druk gelijkmatig.</p>
+      </div>
+      <!-- USP 4 -->
+      <div class="bg-card rounded-xl p-6 border border-white/10">
+        <div class="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">Gaan Niet Snel Kapot</h3>
+        <p class="text-white/60 text-sm leading-relaxed">Duurzame kwaliteit — de grip blijft ook na tientallen wasbeurten intact.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SPORT SELECTOR ===== -->
+  <section id="sporten" class="max-w-7xl mx-auto px-4 pb-16">
+    <div class="text-center mb-10">
+      <p class="text-brand text-sm font-bold uppercase tracking-widest mb-2">Kies je sport</p>
+      <h2 class="text-3xl md:text-4xl font-black uppercase">FitSockr Is Voor Jou</h2>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Voetbal -->
+      <a href="#" class="sport-tile relative rounded-xl overflow-hidden h-52 md:h-64 block cursor-pointer">
+        <img src="/FitSockr/brand_assets/actiebeelden/voetbal/banner.png" alt="Voetbal" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-dark/50"></div>
+        <div class="sport-overlay absolute inset-0 rounded-xl flex items-center justify-center">
+          <span class="text-white font-bold text-lg">Bekijk →</span>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4">
+          <p class="text-xs text-white/70 uppercase tracking-wider mb-1">Voetbal</p>
+          <p class="font-bold text-lg leading-tight">"Geen speling<br/>in je schoen"</p>
+        </div>
+      </a>
+      <!-- Padel -->
+      <a href="#" class="sport-tile relative rounded-xl overflow-hidden h-52 md:h-64 block cursor-pointer">
+        <img src="/FitSockr/brand_assets/actiebeelden/padel/banner.png" alt="Padel" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-dark/50"></div>
+        <div class="sport-overlay absolute inset-0 rounded-xl flex items-center justify-center">
+          <span class="text-white font-bold text-lg">Bekijk →</span>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4">
+          <p class="text-xs text-white/70 uppercase tracking-wider mb-1">Padel</p>
+          <p class="font-bold text-lg leading-tight">"Snelheid mét<br/>controle"</p>
+        </div>
+      </a>
+      <!-- Fitness & HYROX -->
+      <a href="#" class="sport-tile relative rounded-xl overflow-hidden h-52 md:h-64 block cursor-pointer">
+        <img src="/FitSockr/brand_assets/actiebeelden/fitness-hyrox/banner.png" alt="Fitness & HYROX" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-dark/50"></div>
+        <div class="sport-overlay absolute inset-0 rounded-xl flex items-center justify-center">
+          <span class="text-white font-bold text-lg">Bekijk →</span>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4">
+          <p class="text-xs text-white/70 uppercase tracking-wider mb-1">Fitness & HYROX</p>
+          <p class="font-bold text-lg leading-tight">"Elke beweging<br/>begint bij je voeten"</p>
+        </div>
+      </a>
+      <!-- Pilates -->
+      <a href="#" class="sport-tile relative rounded-xl overflow-hidden h-52 md:h-64 block cursor-pointer">
+        <img src="/FitSockr/brand_assets/actiebeelden/pilates/banner.png" alt="Pilates" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-dark/50"></div>
+        <div class="sport-overlay absolute inset-0 rounded-xl flex items-center justify-center">
+          <span class="text-white font-bold text-lg">Bekijk →</span>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4">
+          <p class="text-xs text-white/70 uppercase tracking-wider mb-1">Pilates</p>
+          <p class="font-bold text-lg leading-tight">"Grip op elke<br/>reformer"</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== COMBIDEAL ===== -->
+  <section id="combideal" class="bg-darker py-16 border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Image -->
+        <div class="relative">
+          <img
+            src="/FitSockr/brand_assets/actiebeelden/combideal/banner.png"
+            alt="FitSockr Combideal — 3 paar gripsokken"
+            class="rounded-2xl w-full"
+          />
+          <!-- Badge -->
+          <div class="badge-pulse absolute -top-4 -right-4 bg-brand text-white text-sm font-black px-4 py-2 rounded-full shadow-lg">
+            ⭐ Meest Gekozen
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div>
+          <p class="text-brand text-sm font-bold uppercase tracking-widest mb-3">Combideal</p>
+          <h2 class="text-3xl md:text-4xl font-black uppercase mb-4">
+            3 Paar Gripsokken<br/>voor <span class="text-brand">€44,95</span>
+          </h2>
+
+          <!-- Price comparison -->
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-3xl font-black text-brand">€44,95</span>
+            <span class="text-lg text-white/40 line-through">€59,85</span>
+            <span class="bg-brand/20 text-brand text-sm font-bold px-3 py-1 rounded-full">Bespaar €15</span>
+          </div>
+
+          <!-- What you get -->
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-start gap-3">
+              <span class="text-brand mt-0.5 flex-shrink-0">✓</span>
+              <span>Kies <strong>3 verschillende kleuren</strong> — perfect voor elk outfit of sport</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-brand mt-0.5 flex-shrink-0">✓</span>
+              <span>Alle maten beschikbaar: <strong>S (30–37) · M (38–43) · L (44–48)</strong></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-brand mt-0.5 flex-shrink-0">✓</span>
+              <span>10+ kleuren inclusief blauw, rood, oranje, geel, groen, roze, navy, zwart &amp; wit</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-brand mt-0.5 flex-shrink-0">✓</span>
+              <span>Gratis verzending inbegrepen</span>
+            </li>
+          </ul>
+
+          <!-- CTA -->
+          <a href="https://www.fitsockr.nl/collections/combideal" target="_blank" class="inline-block bg-brand text-white font-black text-xl px-10 py-5 rounded-lg hover:bg-red-600 shadow-xl shadow-brand/30 w-full sm:w-auto text-center">
+            Scoor je Combideal →
+          </a>
+          <p class="mt-3 text-xs text-white/40">Gratis verzending · Besteld vóór 22:00 = vandaag verstuurd</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section class="max-w-7xl mx-auto px-4 py-16">
+    <div class="text-center mb-10">
+      <!-- Aggregate score -->
+      <div class="inline-flex items-center gap-3 mb-4">
+        <span class="stars text-3xl">★★★★★</span>
+        <div class="text-left">
+          <p class="text-2xl font-black">4.8 / 5</p>
+          <p class="text-white/50 text-sm">Gebaseerd op 200+ beoordelingen</p>
+        </div>
+      </div>
+      <p class="text-brand text-sm font-bold uppercase tracking-widest mb-2">Wat sporters zeggen</p>
+      <h2 class="text-3xl md:text-4xl font-black uppercase">Niet Overtuigd? Zij Wel.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+      <!-- Review 1 — customer -->
+      <div class="bg-card rounded-xl p-5 border border-white/10">
+        <div class="stars mb-3 text-sm">★★★★★</div>
+        <p class="text-white/80 text-sm leading-relaxed mb-4">"Kwalitatief goede sokken, fijne stof met uitstekende grip. Ik doe inmiddels niet meer zonder, tijdens voetbaltraining én -wedstrijden."</p>
+        <p class="text-white font-bold text-sm">Jori Ebbinge</p>
+        <p class="text-white/40 text-xs">Voetballer · Nederland</p>
+      </div>
+      <!-- Review 2 — customer -->
+      <div class="bg-card rounded-xl p-5 border border-white/10">
+        <div class="stars mb-3 text-sm">★★★★★</div>
+        <p class="text-white/80 text-sm leading-relaxed mb-4">"Mijn zoon wil nooit meer andere sokken dragen tijdens het voetballen. Snelle levering ook, top service!"</p>
+        <p class="text-white font-bold text-sm">Melanie Eikenbroek</p>
+        <p class="text-white/40 text-xs">Voetbalmoeder · Nederland</p>
+      </div>
+      <!-- Review 3 — pro -->
+      <div class="bg-card rounded-xl p-5 border border-white/10 border-l-2 border-l-brand">
+        <div class="stars mb-3 text-sm">★★★★★</div>
+        <p class="text-white/80 text-sm leading-relaxed mb-4">"De gripsokken zijn top voor elk model of merk schoen. Ik gebruik ze al jaren en kom nergens anders meer aan."</p>
+        <p class="text-white font-bold text-sm">Marco Bizot</p>
+        <p class="text-white/40 text-xs">Goalkeeper · Stade Brest</p>
+      </div>
+      <!-- Review 4 — customer -->
+      <div class="bg-card rounded-xl p-5 border border-white/10">
+        <div class="stars mb-3 text-sm">★★★★★</div>
+        <p class="text-white/80 text-sm leading-relaxed mb-4">"Goeie kwaliteit, ook na een paar keer wassen sluiten ze nog goed aan. Geen last meer van blaren."</p>
+        <p class="text-white font-bold text-sm">Beau Peters</p>
+        <p class="text-white/40 text-xs">Padel &amp; Fitness · Nederland</p>
+      </div>
+    </div>
+
+    <!-- Ambassador strip -->
+    <div class="bg-card rounded-xl p-6 border border-white/10">
+      <p class="text-center text-white/50 text-xs uppercase tracking-widest mb-4">Vertrouwd door professionele voetballers</p>
+      <div class="flex flex-wrap justify-center gap-6 text-sm text-center text-white/60">
+        <span><strong class="text-white">Marco Bizot</strong><br/>Stade Brest</span>
+        <span class="text-white/20">|</span>
+        <span><strong class="text-white">Luuk Brouwers</strong><br/>SC Heerenveen</span>
+        <span class="text-white/20">|</span>
+        <span><strong class="text-white">Ivar Jenner</strong><br/>FC Utrecht</span>
+        <span class="text-white/20">|</span>
+        <span><strong class="text-white">Martijn Kaars</strong><br/>FC Magdeburg</span>
+        <span class="text-white/20">|</span>
+        <span><strong class="text-white">Mayckel Lahdo</strong><br/>AZ Alkmaar</span>
+        <span class="text-white/20">|</span>
+        <span><strong class="text-white">Danzell Gravenberch</strong><br/>FC Den Bosch</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCT GRID ===== -->
+  <section id="producten" class="bg-darker py-16 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-10">
+        <p class="text-brand text-sm font-bold uppercase tracking-widest mb-2">Collectie</p>
+        <h2 class="text-3xl md:text-4xl font-black uppercase">Onze Best Verkochte Sokken</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+        <!-- Product 1 -->
+        <a href="https://www.fitsockr.nl" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-transparent group">
+          <div class="aspect-square overflow-hidden">
+            <img src="/FitSockr/brand_assets/products/gripsokken-one/zwart-1.jpg" alt="FitSockr One Zwart" class="w-full h-full object-cover group-hover:scale-105" style="transition: transform 0.3s ease;" />
+          </div>
+          <div class="p-3">
+            <p class="text-xs text-white/50 mb-1">FitSockr One</p>
+            <p class="font-bold text-sm">Zwart</p>
+            <p class="text-brand font-black text-sm mt-1">€19,95</p>
+          </div>
+        </a>
+        <!-- Product 2 -->
+        <a href="https://www.fitsockr.nl" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-transparent group">
+          <div class="aspect-square overflow-hidden">
+            <img src="/FitSockr/brand_assets/products/gripsokken-one/wit-1.jpg" alt="FitSockr One Wit" class="w-full h-full object-cover group-hover:scale-105" style="transition: transform 0.3s ease;" />
+          </div>
+          <div class="p-3">
+            <p class="text-xs text-white/50 mb-1">FitSockr One</p>
+            <p class="font-bold text-sm">Wit</p>
+            <p class="text-brand font-black text-sm mt-1">€19,95</p>
+          </div>
+        </a>
+        <!-- Product 3 -->
+        <a href="https://www.fitsockr.nl" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-transparent group">
+          <div class="aspect-square overflow-hidden">
+            <img src="/FitSockr/brand_assets/products/gripsokken-one/rood-1.jpg" alt="FitSockr One Rood" class="w-full h-full object-cover group-hover:scale-105" style="transition: transform 0.3s ease;" />
+          </div>
+          <div class="p-3">
+            <p class="text-xs text-white/50 mb-1">FitSockr One</p>
+            <p class="font-bold text-sm">Rood</p>
+            <p class="text-brand font-black text-sm mt-1">€19,95</p>
+          </div>
+        </a>
+        <!-- Product 4 -->
+        <a href="https://www.fitsockr.nl" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-transparent group">
+          <div class="aspect-square overflow-hidden">
+            <img src="/FitSockr/brand_assets/products/gripsokken-one/navy-1.jpg" alt="FitSockr One Navy" class="w-full h-full object-cover group-hover:scale-105" style="transition: transform 0.3s ease;" />
+          </div>
+          <div class="p-3">
+            <p class="text-xs text-white/50 mb-1">FitSockr One</p>
+            <p class="font-bold text-sm">Navy</p>
+            <p class="text-brand font-black text-sm mt-1">€19,95</p>
+          </div>
+        </a>
+        <!-- Product 5 — 3pack -->
+        <a href="https://www.fitsockr.nl/collections/combideal" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-brand/50 group relative">
+          <div class="absolute top-2 left-2 bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full z-10">3-pack</div>
+          <div class="aspect-square overflow-hidden">
+            <img src="/FitSockr/brand_assets/products/gripsokken-one/zwart-3paar.jpg" alt="FitSockr Combideal Zwart 3-pack" class="w-full h-full object-cover group-hover:scale-105" style="transition: transform 0.3s ease;" />
+          </div>
+          <div class="p-3">
+            <p class="text-xs text-white/50 mb-1">Combideal</p>
+            <p class="font-bold text-sm">3 Paar Zwart</p>
+            <div class="flex items-center gap-1 mt-1">
+              <p class="text-brand font-black text-sm">€44,95</p>
+              <p class="text-white/40 text-xs line-through">€59,85</p>
+            </div>
+          </div>
+        </a>
+        <!-- Product 6 — pilates -->
+        <a href="https://www.fitsockr.nl" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-transparent group">
+          <div class="aspect-square overflow-hidden">
+            <img src="/FitSockr/brand_assets/products/gripsokken-balance-pilates/beige-1.jpg" alt="FitSockr Balance Pilates Beige" class="w-full h-full object-cover group-hover:scale-105" style="transition: transform 0.3s ease;" />
+          </div>
+          <div class="p-3">
+            <p class="text-xs text-white/50 mb-1">Balance Pilates</p>
+            <p class="font-bold text-sm">Beige</p>
+            <p class="text-brand font-black text-sm mt-1">€19,95</p>
+          </div>
+        </a>
+      </div>
+      <div class="text-center">
+        <a href="https://www.fitsockr.nl/collections" target="_blank" class="border border-white/30 text-white font-semibold px-8 py-3 rounded hover:border-white/60 inline-block">
+          Bekijk volledige collectie →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EMAIL OPT-IN ===== -->
+  <section class="py-16 px-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-brand text-sm font-bold uppercase tracking-widest mb-3">Exclusief aanbod</p>
+      <h2 class="text-3xl md:text-4xl font-black uppercase mb-4">
+        Ontvang <span class="text-brand">15% Korting</span><br/>op je Eerste Bestelling
+      </h2>
+      <p class="text-white/60 mb-8">Schrijf je in en ontvang direct je kortingscode. Plus: tips voor jouw sport en als eerste toegang tot nieuwe kleuren.</p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="return false;">
+        <input
+          type="email"
+          placeholder="jouw@email.nl"
+          class="flex-1 bg-card border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand"
+        />
+        <button type="submit" class="bg-brand text-white font-bold px-6 py-3 rounded-lg hover:bg-red-600 whitespace-nowrap">
+          Geef me 15% korting
+        </button>
+      </form>
+      <p class="mt-3 text-xs text-white/30">Geen spam. Altijd uitschrijven mogelijk. Kortingscode geldig op alle producten.</p>
+    </div>
+  </section>
+
+  <!-- ===== BLOG ===== -->
+  <section class="bg-darker py-16 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-10">
+        <p class="text-brand text-sm font-bold uppercase tracking-widest mb-2">Blog</p>
+        <h2 class="text-3xl md:text-4xl font-black uppercase">Lees Onze Verhalen</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="https://www.fitsockr.nl/blogs" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-white/10 group">
+          <img src="/FitSockr/brand_assets/actiebeelden/voetbal/lifestyle-1.jpg" alt="Voetbal blog" class="w-full h-48 object-cover group-hover:opacity-90" />
+          <div class="p-5">
+            <p class="text-brand text-xs font-bold uppercase mb-2">Voetbal</p>
+            <h3 class="font-bold leading-snug mb-2">5 redenen waarom FitSockr de beste keuze is voor voetbal gripsokken</h3>
+            <p class="text-white/50 text-sm">Zoek je betrouwbare gripsokken voor voetbal? Ontdek waarom duizenden voetballers kiezen voor FitSockr.</p>
+          </div>
+        </a>
+        <a href="https://www.fitsockr.nl/blogs" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-white/10 group">
+          <img src="/FitSockr/brand_assets/actiebeelden/padel/lifestyle-1.jpg" alt="Padel blog" class="w-full h-48 object-cover group-hover:opacity-90" />
+          <div class="p-5">
+            <p class="text-brand text-xs font-bold uppercase mb-2">Padel</p>
+            <h3 class="font-bold leading-snug mb-2">Waarom gripsokken onmisbaar zijn voor elke padeler</h3>
+            <p class="text-white/50 text-sm">Voetbal wordt steeds sneller en explosiever — ontdek hoe grip het verschil maakt op de padelbaan.</p>
+          </div>
+        </a>
+        <a href="https://www.fitsockr.nl/blogs" target="_blank" class="bg-card rounded-xl overflow-hidden hover:border-brand border border-white/10 group">
+          <img src="/FitSockr/brand_assets/actiebeelden/fitness-hyrox/lifestyle-1.jpg" alt="Fitness blog" class="w-full h-48 object-cover group-hover:opacity-90" />
+          <div class="p-5">
+            <p class="text-brand text-xs font-bold uppercase mb-2">Fitness & HYROX</p>
+            <h3 class="font-bold leading-snug mb-2">FitSockr voor Crossfit: Kracht, stabiliteit en explosieve prestaties</h3>
+            <p class="text-white/50 text-sm">Crossfit vraagt om ultieme controle. Ontdek waarom FitSockr de standaard is voor serieuze gym-sporters.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-darker border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <!-- Brand -->
+        <div class="col-span-1 md:col-span-2">
+          <img src="/FitSockr/brand_assets/logo-fitsockr.png" alt="FitSockr" class="h-8 mb-4" />
+          <p class="text-white/50 text-sm leading-relaxed max-w-xs">
+            Haal het maximale uit jouw talent met onze zelf ontwikkelde gripsokken voor maximale grip en prestatievoordeel.
+          </p>
+          <div class="flex gap-3 mt-4">
+            <a href="https://www.instagram.com/fitsockr" target="_blank" class="text-white/40 hover:text-brand text-sm">Instagram</a>
+            <span class="text-white/20">·</span>
+            <a href="https://www.facebook.com/fitsockr" target="_blank" class="text-white/40 hover:text-brand text-sm">Facebook</a>
+          </div>
+        </div>
+        <!-- Links -->
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-wider mb-4">FitSockr</h4>
+          <ul class="space-y-2 text-sm text-white/50">
+            <li><a href="https://www.fitsockr.nl/pages/over-ons" target="_blank" class="hover:text-white">Over ons</a></li>
+            <li><a href="https://www.fitsockr.nl/pages/contact" target="_blank" class="hover:text-white">Contact</a></li>
+            <li><a href="https://www.fitsockr.nl/pages/retourbeleid" target="_blank" class="hover:text-white">Retourbeleid</a></li>
+            <li><a href="https://www.fitsockr.nl/pages/verzending" target="_blank" class="hover:text-white">Verzending & Levering</a></li>
+          </ul>
+        </div>
+        <!-- Contact -->
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-wider mb-4">Contact</h4>
+          <ul class="space-y-2 text-sm text-white/50">
+            <li>info@fitsockr.nl</li>
+            <li>NL · BE · DE</li>
+            <li>Besteld &lt;22:00 = vandaag verstuurd</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/30">
+        <p>© 2025 FitSockr. Alle rechten voorbehouden.</p>
+        <!-- Payment icons (text representation) -->
+        <div class="flex gap-2 flex-wrap justify-center">
+          <span class="bg-white/10 px-2 py-1 rounded">iDEAL</span>
+          <span class="bg-white/10 px-2 py-1 rounded">Klarna</span>
+          <span class="bg-white/10 px-2 py-1 rounded">Visa</span>
+          <span class="bg-white/10 px-2 py-1 rounded">Mastercard</span>
+          <span class="bg-white/10 px-2 py-1 rounded">PayPal</span>
+          <span class="bg-white/10 px-2 py-1 rounded">Apple Pay</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

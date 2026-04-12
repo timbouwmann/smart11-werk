@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masterclass Opbouw — Smart11</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Poppins', sans-serif; }
+    body { background: #0E0E0E; color: #FFFFFF; margin: 0; padding: 0; padding-top: 52px; }
+
+    .label {
+      font-size: 13px; font-weight: 800; letter-spacing: 0.22em;
+      text-transform: uppercase; color: #DC9600;
+    }
+    .h1 { font-size: clamp(34px, 5.5vw, 64px); font-weight: 800; line-height: 1.08; color: #FFFFFF; }
+    .h2 { font-size: clamp(26px, 3.8vw, 44px); font-weight: 800; line-height: 1.12; color: #FFFFFF; }
+    .gold { color: #DC9600; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    @media(max-width:600px){ .container { padding: 0 20px; } }
+
+    .card-dark {
+      background: #161616; border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px; padding: 28px;
+    }
+    .card-gold {
+      background: rgba(220,150,0,0.1); border: 1px solid rgba(220,150,0,0.4);
+      border-radius: 6px; padding: 28px;
+    }
+
+    .btn-primary {
+      display: inline-block; background: #DC9600; color: #000000;
+      font-weight: 800; font-size: 15px; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 18px 40px; border-radius: 3px;
+      text-decoration: none; border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: #c88800; }
+
+    section { padding: 80px 0; }
+    @media(max-width:600px){ section { padding: 60px 0; } }
+
+    .value-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px; color: #CACACA;
+    }
+    .value-row:last-child { border-bottom: none; }
+    .value-row .val { color: #9A9A9A; font-size: 13px; white-space: nowrap; margin-left: 16px; }
+
+    /* ── STICKY BAR ── */
+    .sticky-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(14,14,14,0.97);
+      border-bottom: 1px solid rgba(220,150,0,0.35);
+      backdrop-filter: blur(8px);
+      padding: 0 24px;
+      height: 52px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sticky-bar-left {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .sticky-spot-dot {
+      width: 7px; height: 7px; background: #DC9600; border-radius: 50%;
+      animation: blink 1.4s ease-in-out infinite; flex-shrink: 0;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .sticky-bar a.sticky-btn {
+      background: #DC9600; color: #000; font-weight: 800; font-size: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px;
+      border-radius: 3px; text-decoration: none; white-space: nowrap;
+    }
+    .sticky-bar a.sticky-btn:hover { background: #c88800; }
+    @media(max-width:600px){
+      .sticky-bar-left span.sticky-date { display: none; }
+      .sticky-bar-left span.sticky-text { font-size: 11px; }
+    }
+
+    /* ── Spots badge ── */
+    .spots-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(220,150,0,0.15); border: 1px solid rgba(220,150,0,0.4);
+      border-radius: 3px; padding: 6px 16px; font-size: 13px;
+      font-weight: 800; color: #DC9600; letter-spacing: 0.08em;
+    }
+    .spot-dot {
+      width: 8px; height: 8px; background: #DC9600; border-radius: 50%;
+      animation: blink 1.4s ease-in-out infinite; flex-shrink: 0;
+    }
+
+    /* ── Stat bar ── */
+    .stat-bar {
+      background: #161616;
+      border-top: 1px solid rgba(220,150,0,0.35);
+      border-bottom: 1px solid rgba(220,150,0,0.35);
+      padding: 24px 0;
+    }
+    .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; text-align: center; }
+    .stat-item + .stat-item { border-left: 1px solid rgba(255,255,255,0.06); }
+    @media(max-width:480px){
+      .stat-grid { grid-template-columns: 1fr; }
+      .stat-item + .stat-item { border-left:none; border-top:1px solid rgba(255,255,255,0.06); padding-top:16px; margin-top:16px; }
+    }
+
+    /* ── Pain cards ── */
+    .pain-label { font-size:9px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; margin-bottom:10px; }
+
+    /* ── Checklist ── */
+    .check-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 14px; color: #CACACA; line-height: 1.55; margin-bottom: 14px;
+    }
+    .check-icon { color: #DC9600; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Steps ── */
+    .step-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
+    .step-col { padding: 28px 24px; }
+    .step-col + .step-col { border-left: 1px solid rgba(220,150,0,0.2); }
+    .step-num {
+      width: 36px; height: 36px; background: #DC9600; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; color: #000; margin-bottom: 16px;
+    }
+    @media(max-width:640px){
+      .step-grid { grid-template-columns: 1fr; }
+      .step-col + .step-col { border-left: none; border-top: 1px solid rgba(220,150,0,0.2); }
+    }
+
+    /* ── Testimonial ── */
+    .testimonial {
+      background: rgba(220,150,0,0.06); border: 1px solid rgba(220,150,0,0.25);
+      border-radius: 6px; padding: 28px;
+    }
+
+    /* ── Grid helpers ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    @media(max-width:768px){
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Hero ── */
+    .hero-img { width:100%; height:100%; object-fit:cover; border-radius:16px; display:block; }
+    @media(max-width:768px){
+      .hero-cols { flex-direction:column !important; }
+      .hero-img-wrap { margin-top:36px; width:100% !important; max-width:100% !important; height:280px !important; }
+    }
+
+    /* ── Guarantee ── */
+    .guarantee-bar {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px; padding: 14px 20px; margin-top: 12px;
+    }
+    .guarantee-icon { font-size: 20px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     STICKY BAR — meescrollende schaarste
+════════════════════════════════════════ -->
+<div class="sticky-bar">
+  <div class="sticky-bar-left">
+    <span class="sticky-spot-dot"></span>
+    <span class="sticky-text" style="font-size:13px; font-weight:700; color:#FFFFFF;">Nog <strong style="color:#DC9600;">3 plekken</strong> beschikbaar</span>
+    <span class="sticky-date" style="font-size:12px; color:#9A9A9A; border-left:1px solid rgba(255,255,255,0.1); padding-left:16px;">26 &amp; 27 april · 19:00–21:00 · €249</span>
+  </div>
+  <a href="#inschrijven" class="sticky-btn">Reserveer nu →</a>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTIE 1 — HERO
+════════════════════════════════════════ -->
+<section style="background:#0E0E0E; padding-top:100px; padding-bottom:80px;">
+  <div class="container">
+    <div class="hero-cols" style="display:flex; gap:48px; align-items:center;">
+
+      <div style="flex:1; min-width:0;">
+        <div style="margin-bottom:28px;">
+          <span class="spots-badge">
+            <span class="spot-dot"></span>
+            Nog 3 plekken beschikbaar — 26 &amp; 27 april
+          </span>
+        </div>
+
+        <p class="label" style="margin-bottom:14px;">SmartCoach · Masterclass</p>
+
+        <h1 class="h1" style="margin-bottom:24px;">
+          Jij ziet het —<br>
+          maar je kunt het nog niet<br>
+          <span class="gold">concreet maken</span>
+        </h1>
+
+        <p style="font-size:17px; color:#BFBFBF; line-height:1.7; max-width:500px; margin-bottom:28px;">
+          In 2 avonden leer je hoe spelers zich positioneren in de opbouw,
+          welke keuzes ze moeten maken, en hoe jij dit in 1–2 zinnen uitlegt
+          die echt blijven hangen.
+        </p>
+
+        <p style="font-size:13px; font-weight:600; color:#9A9A9A; margin-bottom:36px; line-height:2;">
+          <span style="margin-right:20px;">&#10003;&nbsp;26 &amp; 27 april · 19:00–21:00</span>
+          <span style="margin-right:20px;">&#10003;&nbsp;Online · Live</span>
+          <span>&#10003;&nbsp;Max. 3 coaches</span>
+        </p>
+
+        <a href="#inschrijven" class="btn-primary">Reserveer jouw plek — €249</a>
+
+        <!-- Guarantee -->
+        <div class="guarantee-bar">
+          <span class="guarantee-icon">🛡️</span>
+          <span style="font-size:13px; color:#9A9A9A; line-height:1.5;">
+            <strong style="color:#FFFFFF;">Bevalt de eerste avond niet?</strong>
+            Je krijgt je geld terug. Zonder gedoe.
+          </span>
+        </div>
+      </div>
+
+      <div class="hero-img-wrap" style="flex:0 0 460px; max-width:460px; height:520px;">
+        <img
+          src="../brand_assets/coach-photo-2.jpg"
+          alt="Coach met spelers op het veld"
+          class="hero-img"
+          onerror="this.src='https://placehold.co/460x520/161616/DC9600?text=Smart11'"
+        >
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Stat bar -->
+<div class="stat-bar">
+  <div class="container">
+    <div class="stat-grid">
+      <div class="stat-item" style="padding:8px 0;">
+        <p style="font-size:28px; font-weight:800; color:#DC9600; line-height:1; margin-bottom:6px;">2</p>
+        <p class="label" style="font-size:10px;">Live avonden</p>
+      </div>
+      <div class="stat-item" style="padding:8px 0;">
+        <p style="font-size:28px; font-weight:800; color:#DC9600; line-height:1; margin-bottom:6px;">3</p>
+        <p class="label" style="font-size:10px;">Max. coaches</p>
+      </div>
+      <div class="stat-item" style="padding:8px 0;">
+        <p style="font-size:28px; font-weight:800; color:#DC9600; line-height:1; margin-bottom:6px;">€434</p>
+        <p class="label" style="font-size:10px;">Waarde · Jij betaalt €249</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTIE 2 — PIJNPUNT
+════════════════════════════════════════ -->
+<section style="background:#161616;">
+  <div class="container">
+
+    <p class="label" style="margin-bottom:14px;">Herken jij dit?</p>
+    <h2 class="h2" style="margin-bottom:14px;">
+      Je begrijpt het spel —<br>
+      maar je coaching <span class="gold">blijft te algemeen</span>
+    </h2>
+    <p style="font-size:16px; color:#9A9A9A; line-height:1.7; max-width:540px; margin-bottom:48px;">
+      Je ziet dat het niet klopt. Maar het concreet maken voor je speler?
+      Dat is een vak apart — en niemand heeft je dat geleerd.
+    </p>
+
+    <div class="grid-3">
+      <div class="card-dark">
+        <p class="pain-label" style="color:#9A9A9A;">Pijnpunt 1</p>
+        <p style="font-size:15px; font-weight:800; color:#FFFFFF; line-height:1.4; margin-bottom:12px;">
+          "Sneller spelen" — en de week erna doet hij het weer
+        </p>
+        <p style="font-size:13px; color:#9A9A9A; line-height:1.65;">
+          Je corrigeert. Hij knikt. Volgende week exact hetzelfde. Je mist de taal
+          om precies te benoemen wat er fout gaat — en waarom.
+        </p>
+      </div>
+
+      <div class="card-gold">
+        <p class="pain-label" style="color:#DC9600;">Herken je dit?</p>
+        <p style="font-size:15px; font-weight:800; color:#FFFFFF; line-height:1.4; margin-bottom:12px;">
+          In jouw hoofd is het kraakhelder — bij de speler niet
+        </p>
+        <p style="font-size:13px; color:#CACACA; line-height:1.65;">
+          Je kunt het visualiseren. Maar het omzetten naar iets wat een speler van 17
+          direct begrijpt en uitvoert? Dat lukt nog niet.
+        </p>
+      </div>
+
+      <div class="card-dark">
+        <p class="pain-label" style="color:#9A9A9A;">Pijnpunt 3</p>
+        <p style="font-size:15px; font-weight:800; color:#FFFFFF; line-height:1.4; margin-bottom:12px;">
+          Je traint het — maar in de wedstrijd zie je er niets van terug
+        </p>
+        <p style="font-size:13px; color:#9A9A9A; line-height:1.65;">
+          De training loopt goed. Maar zodra de wedstrijd begint, verdwijnt alles.
+          Je mist het systeem om analyse te vertalen naar gedrag op het veld.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     TUSSENBLOK — SFEERBEELD
+════════════════════════════════════════ -->
+<div style="background:#0E0E0E;">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div style="position:relative; border-radius:12px; overflow:hidden; height:420px;">
+      <img
+        src="../brand_assets/foto's/Smart11_V2-6.jpg"
+        alt="Coaches analyseren wedstrijdbeelden"
+        style="width:100%; height:100%; object-fit:cover; display:block;"
+        onerror="this.src='https://placehold.co/1100x420/161616/DC9600?text=Sfeerbeeld+masterclass'"
+      >
+      <div style="position:absolute; inset:0; background:linear-gradient(to right, rgba(14,14,14,0.75) 0%, rgba(14,14,14,0.1) 65%, rgba(14,14,14,0) 100%);"></div>
+      <div style="position:absolute; bottom:36px; left:40px; max-width:440px;">
+        <p class="label" style="margin-bottom:10px;">Zo werkt de masterclass</p>
+        <p style="font-size:20px; font-weight:800; color:#FFFFFF; line-height:1.35; margin:0;">
+          Analyseer echte wedstrijdsituaties —<br>
+          <span class="gold">en pas het direct toe op jouw spelers</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     HOE WERKT HET — 3 stappen
+════════════════════════════════════════ -->
+<section style="background:#0E0E0E; padding-top:60px; padding-bottom:0;">
+  <div class="container">
+    <p class="label" style="margin-bottom:14px;">Hoe werken de avonden?</p>
+    <h2 class="h2" style="margin-bottom:40px;">
+      Geen passief webinar —<br>
+      <span class="gold">jij doet actief mee</span>
+    </h2>
+
+    <div style="background:#161616; border:1px solid rgba(220,150,0,0.25); border-radius:8px; overflow:hidden;">
+      <div class="step-grid">
+
+        <div class="step-col">
+          <div class="step-num">1</div>
+          <p style="font-size:11px; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:#DC9600; margin-bottom:10px;">Avond 1 — 26 april</p>
+          <p style="font-size:15px; font-weight:800; color:#FFFFFF; line-height:1.4; margin-bottom:10px;">Methodologie + Positionering</p>
+          <p style="font-size:13px; color:#9A9A9A; line-height:1.65; margin-bottom:14px;">Je leert Inside &amp; Outside Positioning — de twee meest bepalende keuzes in de opbouw. Met echte beelden van pro's én amateurs.</p>
+          <p style="font-size:12px; color:#DC9600; font-weight:700;">&#10003; Direct herkenbaar op het veld</p>
+        </div>
+
+        <div class="step-col">
+          <div class="step-num">2</div>
+          <p style="font-size:11px; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:#DC9600; margin-bottom:10px;">Avond 2 — 27 april</p>
+          <p style="font-size:15px; font-weight:800; color:#FFFFFF; line-height:1.4; margin-bottom:10px;">Analyseer jouw eigen beelden</p>
+          <p style="font-size:13px; color:#9A9A9A; line-height:1.65; margin-bottom:14px;">Je analyseert situaties uit jouw eigen wedstrijden of topwedstrijden in SmartCoach. Persoonlijke feedback van de docent.</p>
+          <p style="font-size:12px; color:#DC9600; font-weight:700;">&#10003; Jouw team. Jouw spelers. Concreet.</p>
+        </div>
+
+        <div class="step-col" style="background:rgba(220,150,0,0.05);">
+          <div class="step-num">3</div>
+          <p style="font-size:11px; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:#DC9600; margin-bottom:10px;">Na afloop</p>
+          <p style="font-size:15px; font-weight:800; color:#FFFFFF; line-height:1.4; margin-bottom:10px;">Tools, PDF's &amp; doorstroom</p>
+          <p style="font-size:13px; color:#9A9A9A; line-height:1.65; margin-bottom:14px;">Je vertrekt met mini-cursus, playlists, oefeningen PDF's en 1 maand SmartCoach + Clairence AI. En als enige de kans door te stromen.</p>
+          <p style="font-size:12px; color:#DC9600; font-weight:700;">&#10003; Exclusieve toegang Level Courses</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTIE 3 — HET AANBOD
+════════════════════════════════════════ -->
+<section style="background:#0E0E0E;">
+  <div class="container">
+
+    <p class="label" style="margin-bottom:14px;">Het aanbod</p>
+    <h2 class="h2" style="margin-bottom:14px;">
+      Alles wat je nodig hebt<br>om direct <span class="gold">concreter te coachen</span>
+    </h2>
+    <p style="font-size:16px; color:#9A9A9A; line-height:1.7; max-width:540px; margin-bottom:48px;">
+      In 2 avonden leer je de methode, werk je met echte wedstrijdbeelden
+      en vertrek je met tools die je morgen al kunt gebruiken.
+    </p>
+
+    <div class="grid-2" style="align-items:start;">
+
+      <!-- Value stack -->
+      <div class="card-dark" style="padding:36px;">
+        <p class="label" style="margin-bottom:20px;">Wat je krijgt</p>
+
+        <div class="value-row">
+          <span>2 live sessies: opbouw-analyse (Inside &amp; Outside Positioning)</span>
+          <span class="val">€150</span>
+        </div>
+        <div class="value-row">
+          <span>Mini-cursus video's Inside &amp; Outside Positioning</span>
+          <span class="val">€40</span>
+        </div>
+        <div class="value-row">
+          <span>2 playlists: top &amp; slechte voorbeelden</span>
+          <span class="val">€50</span>
+        </div>
+        <div class="value-row">
+          <span>Workshop: individueel analyseren in SmartCoach</span>
+          <span class="val">€99</span>
+        </div>
+        <div class="value-row">
+          <span>1 maand gratis SmartCoach + Clairence AI</span>
+          <span class="val">€45</span>
+        </div>
+        <div class="value-row">
+          <span>Praktische oefeningen PDF's voor trainingen</span>
+          <span class="val">€50</span>
+        </div>
+
+        <div style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(220,150,0,0.3);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:13px; color:#9A9A9A;">Totale waarde</span>
+            <span style="font-size:15px; font-weight:800; color:#9A9A9A; text-decoration:line-through;">€434</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:15px; font-weight:800; color:#FFFFFF;">Jij betaalt</span>
+            <span style="font-size:28px; font-weight:800; color:#DC9600;">€249</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div style="display:flex; flex-direction:column; gap:20px;">
+
+        <!-- SmartCoach photo -->
+        <div style="border-radius:6px; overflow:hidden; border:1px solid rgba(220,150,0,0.25);">
+          <img
+            src="../brand_assets/foto's/smartcoach-laptop.jpg"
+            alt="SmartCoach interface — individuele analyse"
+            style="width:100%; height:auto; display:block;"
+            onerror="this.src='https://placehold.co/540x220/111111/DC9600?text=SmartCoach+interface'"
+          >
+          <div style="background:#111111; padding:12px 16px; display:flex; align-items:center; gap:10px;">
+            <span style="width:8px; height:8px; background:#DC9600; border-radius:50%; flex-shrink:0;"></span>
+            <span style="font-size:12px; color:#9A9A9A;">SmartCoach — jouw tool tijdens én na de masterclass</span>
+          </div>
+        </div>
+
+        <!-- Results checklist -->
+        <div class="card-gold" style="padding:32px;">
+          <p class="label" style="margin-bottom:16px;">Na 2 avonden kun je:</p>
+          <div class="check-item"><span class="check-icon">&#10003;</span><span>Direct zien wat er fout gaat in de opbouw — en waarom</span></div>
+          <div class="check-item"><span class="check-icon">&#10003;</span><span>De beste keuze per situatie benoemen in 1–2 zinnen die blijven hangen</span></div>
+          <div class="check-item"><span class="check-icon">&#10003;</span><span>Spelers zichzelf laten analyseren in 10 minuten via de Smart11 app</span></div>
+          <div class="check-item"><span class="check-icon">&#10003;</span><span>Analyse vertalen naar concrete training met direct resultaat</span></div>
+        </div>
+
+        <!-- CTA -->
+        <a id="inschrijven" href="#" class="btn-primary" style="text-align:center; display:block;">
+          Ja, ik doe mee — €249
+        </a>
+
+        <!-- Guarantee -->
+        <div class="guarantee-bar" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:14px 20px; display:flex; align-items:center; gap:12px; margin-top:-8px;">
+          <span style="font-size:20px;">🛡️</span>
+          <span style="font-size:13px; color:#9A9A9A; line-height:1.5;">
+            <strong style="color:#FFFFFF;">Bevalt de eerste avond niet?</strong> Je krijgt je geld terug. Zonder gedoe.
+          </span>
+        </div>
+
+        <p style="font-size:12px; color:#555555; text-align:center; margin-top:-4px;">
+          26 &amp; 27 april &nbsp;·&nbsp; 19:00–21:00 &nbsp;·&nbsp; Online &nbsp;·&nbsp; Max. 3 plekken
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTIE 4 — VOOR WIE + TESTIMONIALS
+════════════════════════════════════════ -->
+<section style="background:#161616;">
+  <div class="container">
+
+    <p class="label" style="margin-bottom:14px;">Voor wie</p>
+    <h2 class="h2" style="margin-bottom:40px;">
+      Dit is voor coaches die <span class="gold">meer willen</span><br>dan intuïtie
+    </h2>
+
+    <div class="grid-2" style="margin-bottom:64px;">
+
+      <div class="card-dark" style="padding:32px;">
+        <p style="font-size:13px; font-weight:800; color:#DC9600; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:18px;">Dit is voor jou als...</p>
+        <div class="check-item"><span class="check-icon">&#10003;</span><span>Je ambitieuze jeugdcoach bent (O12–O19, hoofdklasse of hoger)</span></div>
+        <div class="check-item"><span class="check-icon">&#10003;</span><span>Je het spel begrijpt, maar je coaching nog niet concreet genoeg krijgt</span></div>
+        <div class="check-item"><span class="check-icon">&#10003;</span><span>Je al werkt met wedstrijdbeelden (Veo, Hudl, Spideo, Xbot — of wil starten)</span></div>
+        <div class="check-item"><span class="check-icon">&#10003;</span><span>Je spelers écht beter wil maken, niet alleen trainingen wil geven</span></div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:32px;">
+        <p style="font-size:13px; font-weight:800; color:#9A9A9A; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:18px;">Dit is NIET voor jou als...</p>
+        <div class="check-item">
+          <span style="color:#555555; font-weight:800; flex-shrink:0; margin-top:1px;">&#215;</span>
+          <span style="color:#9A9A9A;">Je puur op zoek bent naar tactische teamtrainingen of speelschema's</span>
+        </div>
+        <div class="check-item">
+          <span style="color:#555555; font-weight:800; flex-shrink:0; margin-top:1px;">&#215;</span>
+          <span style="color:#9A9A9A;">Je helemaal nieuw bent als coach en eerst de basis wil leren</span>
+        </div>
+        <div class="check-item">
+          <span style="color:#555555; font-weight:800; flex-shrink:0; margin-top:1px;">&#215;</span>
+          <span style="color:#9A9A9A;">Je geen tijd hebt om 2 avonden van 2 uur actief mee te doen</span>
+        </div>
+        <p style="font-size:12px; color:#555555; margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.05); line-height:1.6;">
+          Niet zeker of dit bij je past? Neem contact op — we kijken het samen door.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Testimonials -->
+    <p class="label" style="margin-bottom:6px;">Wat coaches zeggen</p>
+    <h2 class="h2" style="margin-bottom:8px; font-size:clamp(22px,3vw,32px);">Dit zeiden coaches na eerdere sessies</h2>
+    <p style="font-size:14px; color:#9A9A9A; margin-bottom:32px;">Niet over de masterclass specifiek — maar over wat de Smart11-methode concreet opleverde.</p>
+
+    <div class="grid-2">
+
+      <div class="testimonial">
+        <img src="https://placehold.co/60x60/1A1A1A/DC9600?text=AV" alt="Alex van der Veen" style="border-radius:50%; width:56px; height:56px; object-fit:cover; margin-bottom:14px; display:block;">
+        <p style="color:#DC9600; font-size:13px; letter-spacing:3px; margin-bottom:12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p style="font-style:italic; font-size:14px; color:#EFEFEF; line-height:1.7; margin-bottom:16px;">
+          "Smart11 heeft mij vertrouwen gegeven op het veld en in de coaching.
+          Je vertelt spelers echt iets waar ze wat aan hebben. Ik zie nu details
+          en weet zeker dat ik impact bezorg!"
+        </p>
+        <p style="font-size:13px; font-weight:800; color:#FFFFFF; margin-bottom:2px;">Alex van der Veen</p>
+        <p style="font-size:11px; color:#9A9A9A;">Eigenaar VEENS Voetbal Academie</p>
+        <p style="font-size:11px; font-weight:800; color:#DC9600; margin-top:12px; padding-top:12px; border-top:1px solid rgba(220,150,0,0.2);">Meer vertrouwen. Meer impact op het veld.</p>
+      </div>
+
+      <div class="testimonial">
+        <img src="https://placehold.co/60x60/1A1A1A/DC9600?text=JB" alt="Jordi Biemolt" style="border-radius:50%; width:56px; height:56px; object-fit:cover; margin-bottom:14px; display:block;">
+        <p style="color:#DC9600; font-size:13px; letter-spacing:3px; margin-bottom:12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p style="font-style:italic; font-size:14px; color:#EFEFEF; line-height:1.7; margin-bottom:16px;">
+          "Door heel gericht naar voetbalsituaties te kijken, herken je structuren
+          en kun je spelers gerichte handvatten bieden. Dit maakt het mogelijk om
+          individuele voetballers beter te begeleiden en hun ontwikkeling te versterken."
+        </p>
+        <p style="font-size:13px; font-weight:800; color:#FFFFFF; margin-bottom:2px;">Jordi Biemolt</p>
+        <p style="font-size:11px; color:#9A9A9A;">Trainer/Coach FC Groningen</p>
+        <p style="font-size:11px; font-weight:800; color:#DC9600; margin-top:12px; padding-top:12px; border-top:1px solid rgba(220,150,0,0.2);">Spelers gerichter begeleiden in hun groei.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     TUSSENBLOK — COACH OP HET VELD
+════════════════════════════════════════ -->
+<div style="background:#161616; padding:48px 0 0;">
+  <div class="container">
+    <div style="border-radius:12px; overflow:hidden; height:380px; position:relative;">
+      <img
+        src="../brand_assets/coach-photo-3.jpg"
+        alt="Coach op het veld met spelers"
+        style="width:100%; height:100%; object-fit:cover; display:block;"
+        onerror="this.src='https://placehold.co/1100x380/161616/DC9600?text=Coach+op+het+veld'"
+      >
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(22,22,22,0.88) 0%, rgba(22,22,22,0.1) 55%, rgba(22,22,22,0) 100%);"></div>
+      <div style="position:absolute; bottom:32px; left:0; right:0; text-align:center; padding:0 24px;">
+        <p style="font-size:18px; font-weight:800; color:#FFFFFF; font-style:italic; line-height:1.45; margin:0;">
+          "Een goede coach ziet niet alleen wat er fout gaat —<br>
+          hij begrijpt <span class="gold">waarom</span>, en weet wat de speler nodig heeft."
+        </p>
+        <p class="label" style="margin-top:12px; font-size:10px;">Smart11 Methodologie</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTIE 5 — FINALE CTA
+════════════════════════════════════════ -->
+<section style="background:#161616; border-top:1px solid rgba(220,150,0,0.3); padding:96px 0;">
+  <div class="container" style="max-width:780px; text-align:center;">
+
+    <p class="label" style="margin-bottom:20px;">Klaar om te starten?</p>
+    <h2 class="h2" style="margin-bottom:20px;">
+      Maak jouw coaching concreet —<br>
+      <span class="gold">en zie direct resultaat</span>
+    </h2>
+    <p style="font-size:16px; color:#9A9A9A; line-height:1.7; max-width:520px; margin:0 auto 36px;">
+      €249 voor 2 live avonden, tools, een maand SmartCoach en directe toegang
+      tot de Smart11-methode. Max. 3 coaches. Deelnemers krijgen als enigen
+      de kans door te stromen naar de Level Courses — tegen <strong style="color:#FFFFFF;">deelnemersprijs van €1.250</strong> i.p.v. €1.799.
+    </p>
+
+    <div style="display:inline-flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:36px;">
+      <span style="background:#1A1A1A; border:1px solid rgba(255,255,255,0.07); border-radius:3px; padding:10px 20px; font-size:13px; font-weight:700; color:#CACACA;">📅&nbsp; 26 &amp; 27 april</span>
+      <span style="background:#1A1A1A; border:1px solid rgba(255,255,255,0.07); border-radius:3px; padding:10px 20px; font-size:13px; font-weight:700; color:#CACACA;">⏰&nbsp; 19:00 – 21:00</span>
+      <span style="background:#1A1A1A; border:1px solid rgba(255,255,255,0.07); border-radius:3px; padding:10px 20px; font-size:13px; font-weight:700; color:#CACACA;">🌐&nbsp; Online · Live</span>
+      <span style="background:rgba(220,150,0,0.15); border:1px solid rgba(220,150,0,0.4); border-radius:3px; padding:10px 20px; font-size:13px; font-weight:800; color:#DC9600;">🔴 Nog 3 plekken</span>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <a href="#" class="btn-primary" style="font-size:16px; padding:20px 56px;">
+        Ja, ik doe mee — €249
+      </a>
+    </div>
+
+    <!-- Guarantee final -->
+    <div style="display:inline-flex; align-items:center; gap:10px; margin-top:16px; padding:12px 24px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:6px;">
+      <span style="font-size:18px;">🛡️</span>
+      <span style="font-size:13px; color:#9A9A9A;">Bevalt de eerste avond niet? <strong style="color:#FFFFFF;">Geld-terug-garantie.</strong> Geen gedoe.</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<div style="background:#0E0E0E; border-top:1px solid rgba(255,255,255,0.05); padding:32px 0; text-align:center;">
+  <img
+    src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png"
+    alt="Smart11"
+    style="height:32px; opacity:0.7;"
+    onerror="this.style.display='none'"
+  >
+  <p style="font-size:11px; color:#444444; margin-top:12px; letter-spacing:0.08em;">
+    © 2026 Smart11 &nbsp;·&nbsp; Groningen
+  </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RTC Voetbal Noord – Word de beste versie van jezelf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+    .gold { color: #DC9600; }
+    .bg-gold { background-color: #DC9600; }
+    .border-gold { border-color: #DC9600; }
+    .btn-gold {
+      display: inline-block;
+      background: #DC9600;
+      color: #fff;
+      font-weight: 700;
+      font-size: 17px;
+      padding: 14px 32px;
+      border-radius: 20px;
+      text-decoration: none;
+    }
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: #fff;
+      font-weight: 600;
+      font-size: 17px;
+      padding: 12px 32px;
+      border-radius: 20px;
+      border: 2px solid #DC9600;
+      text-decoration: none;
+    }
+    .card {
+      background: #0D0D0D;
+      border: 1px solid rgba(220,150,0,0.25);
+      border-radius: 20px;
+      padding: 32px;
+    }
+    nav a.active { color: #DC9600; }
+  </style>
+</head>
+<body style="background:#000;color:#fff;margin:0;">
+
+  <!-- NAV -->
+  <nav style="position:sticky;top:0;z-index:100;background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(220,150,0,0.15);padding:0 5%;">
+    <div style="max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <img src="../../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" style="height:32px;" />
+        <span style="color:#fff;font-weight:700;font-size:15px;border-left:1px solid rgba(220,150,0,0.4);padding-left:12px;">RTC Voetbal Noord</span>
+      </a>
+      <div style="display:flex;gap:28px;align-items:center;" class="hidden md:flex">
+        <a href="index.html" style="color:#DC9600;font-size:14px;font-weight:600;text-decoration:none;">Home</a>
+        <a href="over-rtc.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Over RTC</a>
+        <a href="aanpak.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Aanpak</a>
+        <a href="programma.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Programma</a>
+        <a href="faq.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">FAQ</a>
+        <a href="contact.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Contact</a>
+        <a href="aanmelden.html" class="btn-gold" style="font-size:14px;padding:10px 22px;">Plan proeftraining</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section style="position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:url('https://placehold.co/1920x1080/111111/333333?text=RTC+Voetbal+actie') center/cover no-repeat;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,0.9) 50%, rgba(0,0,0,0.4));"></div>
+    <div style="position:relative;padding:0 5%;max-width:1400px;margin:0 auto;width:100%;">
+      <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;">RTC Voetbal Noord · Onderdeel van Smart11</p>
+      <h1 style="font-size:clamp(38px,6vw,72px);font-weight:900;line-height:1.1;max-width:700px;margin-bottom:24px;">Word de beste versie van<br/><span style="color:#DC9600;">jezelf als voetballer</span></h1>
+      <p style="font-size:20px;color:rgba(255,255,255,0.75);max-width:520px;line-height:1.7;margin-bottom:40px;">Persoonlijke ontwikkeling voor ambitieuze spelers die meer uit hun talent willen halen.</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="aanmelden.html" class="btn-gold">Plan proeftraining</a>
+        <a href="programma.html" class="btn-outline">Bekijk programma</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAT IS RTC? -->
+  <section style="padding:100px 5%;background:#000;">
+    <div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div>
+        <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">Wat is RTC?</p>
+        <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.2;margin-bottom:24px;">Regionaal Talent Centrum voor individuele groei</h2>
+        <p style="font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:20px;">RTC is een Regionaal Talent Centrum waar spelers zich individueel ontwikkelen <em style="color:#fff;font-style:normal;">naast hun clubtraining</em>.</p>
+        <p style="font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:36px;">Wij werken samen met de <strong style="color:#DC9600;">Topsport Talentschool</strong> en het <strong style="color:#DC9600;">Werkman College</strong> om onderwijs en (top)sport optimaal te combineren.</p>
+        <a href="over-rtc.html" style="color:#DC9600;font-weight:700;font-size:16px;text-decoration:none;">Meer over RTC &rsaquo;</a>
+      </div>
+      <div>
+        <img src="https://placehold.co/640x480/111111/333333?text=Foto+veldtraining" alt="RTC veldtraining" style="width:100%;border-radius:20px;border:1px solid rgba(220,150,0,0.2);" />
+      </div>
+    </div>
+  </section>
+
+  <!-- WAAROM RTC? -->
+  <section style="padding:100px 5%;background:#0D0D0D;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;text-align:center;">Waarom RTC?</p>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;text-align:center;margin-bottom:60px;">Wat maakt ons anders</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+        <div class="card">
+          <div style="font-size:36px;margin-bottom:16px;">🎯</div>
+          <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;">Individu centraal</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.7;">Volledige focus op jouw persoonlijke ontwikkeling. Geen groepsaanpak, maar begeleiding die bij jou past.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:36px;margin-bottom:16px;">📹</div>
+          <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;">Veld, video & bewegen</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.7;">Unieke combinatie van veldtraining, videoanalyse en fysieke ontwikkeling via het Athletic Skills Model.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:36px;margin-bottom:16px;">⚡</div>
+          <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;">Smart11 methodiek</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.7;">Moderne trainingsvisie via Smart11 & Game Actions. Spelers analyseren hun eigen keuzes in het veld.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:36px;margin-bottom:16px;">🤝</div>
+          <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;">Persoonlijke begeleiding</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.7;">Trainers opgeleid via de Smart11 methodiek. Altijd oog voor de mens achter de speler, op elk niveau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONZE VISIE -->
+  <section style="padding:100px 5%;background:#000;">
+    <div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div>
+        <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">Onze visie</p>
+        <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.2;margin-bottom:32px;">Ontwikkeling ontstaat van binnenuit</h2>
+        <p style="font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:32px;">Wij geloven dat echte groei ontstaat wanneer spelers zichzelf uitdagen en verantwoordelijkheid nemen voor hun eigen ontwikkeling.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <span style="color:#DC9600;font-size:20px;font-weight:900;min-width:32px;">01</span>
+            <div>
+              <p style="font-weight:700;font-size:17px;margin-bottom:4px;">Eigenaarschap nemen</p>
+              <p style="color:rgba(255,255,255,0.6);font-size:15px;">Jij bent verantwoordelijk voor jouw groei.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <span style="color:#DC9600;font-size:20px;font-weight:900;min-width:32px;">02</span>
+            <div>
+              <p style="font-weight:700;font-size:17px;margin-bottom:4px;">Durven fouten te maken</p>
+              <p style="color:rgba(255,255,255,0.6);font-size:15px;">Fouten zijn geen falen – het zijn leermomenten.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <span style="color:#DC9600;font-size:20px;font-weight:900;min-width:32px;">03</span>
+            <div>
+              <p style="font-weight:700;font-size:17px;margin-bottom:4px;">Reflecteren op keuzes</p>
+              <p style="color:rgba(255,255,255,0.6);font-size:15px;">Via video analyseer je je eigen acties en verbeter je je besluitvorming.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <span style="color:#DC9600;font-size:20px;font-weight:900;min-width:32px;">04</span>
+            <div>
+              <p style="font-weight:700;font-size:17px;margin-bottom:4px;">Plezier in het proces</p>
+              <p style="color:rgba(255,255,255,0.6);font-size:15px;">Ontwikkeling werkt het best als je het leuk vindt.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img src="https://placehold.co/640x580/0D0D0D/333333?text=Foto+training+moment" alt="Training visie" style="width:100%;border-radius:20px;border:1px solid rgba(220,150,0,0.2);" />
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTAAT -->
+  <section style="padding:100px 5%;background:#0D0D0D;">
+    <div style="max-width:1400px;margin:0 auto;text-align:center;">
+      <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">Resultaat</p>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;margin-bottom:16px;">Wat spelers meenemen</h2>
+      <p style="color:rgba(255,255,255,0.65);font-size:18px;max-width:560px;margin:0 auto 60px;">Na RTC zijn spelers niet alleen betere voetballers – ze zijn ook bewustere mensen.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;text-align:left;">
+        <div style="background:#000;border:1px solid rgba(220,150,0,0.2);border-radius:20px;padding:36px;">
+          <p style="color:#DC9600;font-size:42px;font-weight:900;line-height:1;margin-bottom:16px;">01</p>
+          <h3 style="font-size:19px;font-weight:800;margin-bottom:10px;">Bewustere keuzes</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.7;">Spelers leren bewuster keuzes maken met én zonder bal in het veld.</p>
+        </div>
+        <div style="background:#000;border:1px solid rgba(220,150,0,0.2);border-radius:20px;padding:36px;">
+          <p style="color:#DC9600;font-size:42px;font-weight:900;line-height:1;margin-bottom:16px;">02</p>
+          <h3 style="font-size:19px;font-weight:800;margin-bottom:10px;">Complete ontwikkeling</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.7;">Fysiek, technisch, tactisch én mentaal – op alle vlakken groei je als speler.</p>
+        </div>
+        <div style="background:#000;border:1px solid rgba(220,150,0,0.2);border-radius:20px;padding:36px;">
+          <p style="color:#DC9600;font-size:42px;font-weight:900;line-height:1;margin-bottom:16px;">03</p>
+          <h3 style="font-size:19px;font-weight:800;margin-bottom:10px;">Zelfstandigheid</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.7;">Spelers worden zelfstandiger en weerbaarder, ook buiten het voetbal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section style="padding:80px 5%;background:#000;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <div style="background:#DC9600;border-radius:30px;padding:70px 5%;text-align:center;">
+        <h2 style="font-size:clamp(28px,4vw,48px);font-weight:900;color:#000;line-height:1.2;margin-bottom:16px;">Klaar om jezelf te ontwikkelen?</h2>
+        <p style="font-size:19px;color:rgba(0,0,0,0.7);margin-bottom:36px;">Probeer 2 keer vrijblijvend proeftrainen bij RTC Voetbal Noord.</p>
+        <a href="aanmelden.html" style="display:inline-block;background:#000;color:#fff;font-weight:700;font-size:18px;padding:16px 40px;border-radius:20px;text-decoration:none;">Plan een proeftraining</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#0D0D0D;border-top:1px solid rgba(220,150,0,0.15);padding:48px 5%;">
+    <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;">
+      <div>
+        <img src="../../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" style="height:28px;margin-bottom:8px;display:block;" />
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;">RTC Voetbal Noord – onderdeel van Smart11</p>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;">
+        <a href="index.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Home</a>
+        <a href="over-rtc.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Over RTC</a>
+        <a href="aanpak.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Aanpak</a>
+        <a href="programma.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Programma</a>
+        <a href="aanmelden.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Aanmelden</a>
+        <a href="contact.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Contact</a>
+        <a href="faq.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">FAQ</a>
+      </div>
+      <p style="color:rgba(255,255,255,0.3);font-size:12px;">&copy; 2026 Smart11 – RTC Voetbal Noord</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aanmelden – RTC Voetbal Noord</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+    .btn-gold { display:inline-block;background:#DC9600;color:#fff;font-weight:700;font-size:17px;padding:14px 32px;border-radius:20px;text-decoration:none; }
+    input, textarea, select {
+      background: #0D0D0D;
+      border: 1px solid rgba(220,150,0,0.3);
+      border-radius: 12px;
+      color: #fff;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      width: 100%;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #DC9600;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+    label { display:block;font-size:14px;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:8px; }
+  </style>
+</head>
+<body style="background:#000;color:#fff;margin:0;">
+
+  <!-- NAV -->
+  <nav style="position:sticky;top:0;z-index:100;background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(220,150,0,0.15);padding:0 5%;">
+    <div style="max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <img src="../../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" style="height:32px;" />
+        <span style="color:#fff;font-weight:700;font-size:15px;border-left:1px solid rgba(220,150,0,0.4);padding-left:12px;">RTC Voetbal Noord</span>
+      </a>
+      <div style="display:flex;gap:28px;align-items:center;">
+        <a href="index.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Home</a>
+        <a href="over-rtc.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Over RTC</a>
+        <a href="aanpak.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Aanpak</a>
+        <a href="programma.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Programma</a>
+        <a href="faq.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">FAQ</a>
+        <a href="contact.html" style="color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;text-decoration:none;">Contact</a>
+        <a href="aanmelden.html" class="btn-gold" style="font-size:14px;padding:10px 22px;">Plan proeftraining</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section style="padding:100px 5% 60px;background:#000;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">Aanmelden</p>
+      <h1 style="font-size:clamp(36px,5vw,62px);font-weight:900;line-height:1.15;max-width:700px;margin-bottom:24px;">Plan jouw<br/><span style="color:#DC9600;">proeftraining</span></h1>
+      <p style="font-size:19px;color:rgba(255,255,255,0.7);max-width:560px;line-height:1.75;">Spelers kunnen vrijblijvend 2 keer proeftrainen. Daarna volgt een kort gesprek met de coördinator om te kijken of de aansluiting past.</p>
+    </div>
+  </section>
+
+  <!-- PROCES -->
+  <section style="padding:80px 5%;background:#0D0D0D;">
+    <div style="max-width:1400px;margin:0 auto;">
+      <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;text-align:center;">Hoe werkt het?</p>
+      <h2 style="font-size:clamp(26px,3.5vw,40px);font-weight:900;text-align:center;margin-bottom:60px;">3 stappen naar RTC</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto;">
+        <div style="text-align:center;background:#000;border:1px solid rgba(220,150,0,0.2);border-radius:20px;padding:40px 28px;">
+          <div style="width:64px;height:64px;background:#DC9600;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#000;margin:0 auto 20px;">1</div>
+          <h3 style="font-size:19px;font-weight:800;margin-bottom:10px;">Aanmelden</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:15px;line-height:1.7;">Vul het formulier hieronder in. We nemen zo snel mogelijk contact met je op.</p>
+        </div>
+        <div style="text-align:center;background:#000;border:1px solid rgba(220,150,0,0.2);border-radius:20px;padding:40px 28px;">
+          <div style="width:64px;height:64px;background:#DC9600;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#000;margin:0 auto 20px;">2</div>
+          <h3 style="font-size:19px;font-weight:800;margin-bottom:10px;">Twee proeftrainingen</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:15px;line-height:1.7;">Volledig vrijblijvend. Train twee keer mee en ervaar hoe RTC werkt.</p>
+        </div>
+        <div style="text-align:center;background:#000;border:1px solid rgba(220,150,0,0.2);border-radius:20px;padding:40px 28px;">
+          <div style="width:64px;height:64px;background:#DC9600;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#000;margin:0 auto 20px;">3</div>
+          <h3 style="font-size:19px;font-weight:800;margin-bottom:10px;">Gesprek coördinator</h3>
+          <p style="color:rgba(255,255,255,0.65);font-size:15px;line-height:1.7;">Een kort gesprek om te kijken of het niveau en de mentaliteit aansluit bij RTC.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOELATING + VOOR SPELERS/OUDERS -->
+  <section style="padding:80px 5%;background:#000;">
+    <div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+      <!-- Toelating -->
+      <div>
+        <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">Toelating</p>
+        <h2 style="font-size:clamp(22px,3vw,32px);font-weight:900;margin-bottom:20px;">Waar letten wij op?</h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:16px;line-height:1.75;margin-bottom:28px;">We kijken tijdens de proeftrainingen naar een combinatie van factoren. Het allerbelangrijkste is dat een speler <strong style="color:#fff;">inzet toont en leergierig is</strong>.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
+          <div style="display:flex;gap:14px;align-items:center;background:#0D0D0D;border:1px solid rgba(220,150,0,0.2);border-radius:12px;padding:18px 20px;">
+            <span style="font-size:22px;">🧠</span>
+            <div>
+              <p style="font-weight:700;font-size:16px;margin-bottom:2px;">Gedrag</p>
+              <p style="color:rgba(255,255,255,0.55);font-size:14px;">Houding, mentaliteit en aansluiting bij kernwaarden</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center;background:#0D0D0D;border:1px solid rgba(220,150,0,0.2);border-radius:12px;padding:18px 20px;">
+            <span style="font-size:22px;">💪</span>
+            <div>
+              <p style="font-weight:700;font-size:16px;margin-bottom:2px;">Fysiek / motoriek</p>
+              <p style="color:rgba(255,255,255,0.55);font-size:14px;">Bewegingsvaardigheid en fysieke basis</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center;background:#0D0D0D;border:1px solid rgba(220,150,0,0.2);border-radius:12px;padding:18px 20px;">
+            <span style="font-size:22px;">⚽</span>
+            <div>
+              <p style="font-weight:700;font-size:16px;margin-bottom:2px;">Techniek</p>
+              <p style="color:rgba(255,255,255,0.55);font-size:14px;">Balvaardigheid en technische basis</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center;background:#0D0D0D;border:1px solid rgba(220,150,0,0.2);border-radius:12px;padding:18px 20px;">
+            <span style="font-size:22px;">🎯</span>
+            <div>
+              <p style="font-weight:700;font-size:16px;margin-bottom:2px;">Tactiek</p>
+              <p style="color:rgba(255,255,255,0.55);font-size:14px;">Keuzes in het veld met en zonder bal</p>
+            </div>
+          </div>
+        </div>
+        <div style="background:rgba(220,150,0,0.08);border:1px solid rgba(220,150,0,0.3);border-radius:14px;padding:20px 24px;">
+          <p style="color:#DC9600;font-size:14px;font-weight:700;margin-bottom:6px;">Belangrijk na toelating:</p>
+          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.65;">Na toelating schrijft de speler zich in bij de <strong style="color:#fff;">Topsport Talentschool</strong> of het <strong style="color:#fff;">Werkman College</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Voor spelers en ouders -->
+      <div>
+        <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">Voor wie?</p>
+        <h2 style="font-size:clamp(22px,3vw,32px);font-weight:900;margin-bottom:28px;">Voor spelers én ouders</h2>
+        <div style="background:#0D0D0D;border:1px solid rgba(220,150,0,0.2);border-radius:20px;padding:32px;margin-bottom:20px;">
+          <h3 style="font-size:19px;font-weight:800;margin-bottom:16px;color:#DC9600;">👟 Voor spelers</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li style="display:flex;gap:10px;align-items:center;"><span style="color:#DC9600;font-weight:900;">✔</span><span style="font-size:15px;color:rgba(255,255,255,0.8);">Je leert betere keuzes maken op het veld</span></li>
+            <li style="display:flex;gap:10px;align-items:center;"><span style="color:#DC9600;font-weight:900;">✔</span><span style="font-size:15px;color:rgba(255,255,255,0.8);">Je ontwikkelt je op meerdere vlakken tegelijk</span></li>
+            <li style="display:flex;gap:10px;align-items:center;"><span style="color:#DC9600;font-weight:900;">✔</span><span style="font-size:15px;color:rgba(255,255,255,0.8);">Je wordt zelfstandiger en weerbaarder</span></li>
+          </ul>
+        </div>
+        <div style="background:#0D0D0D;border:1px solid rgba(220,150,0,0.2);border-radius:20px;padding:32px;">
+          <h3 style="font-size:19px;font-weight:800;margin-bottom:16px;color:#DC9600;">👨‍👩‍👦 Voor ouders</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li style="display:flex;gap:10px;align-items:center;"><span style="color:#DC9600;font-weight:900;">✔</span><span style="font-size:15px;color:rgba(255,255,255,0.8);">Professionele begeleiding door opgeleide trainers</span></li>
+            <li style="display:flex;gap:10px;align-items:center;"><span style="color:#DC9600;font-weight:900;">✔</span><span style="font-size:15px;color:rgba(255,255,255,0.8);">Focus op ontwikkeling, niet alleen prestatie</span></li>
+            <li style="display:flex;gap:10px;align-items:center;"><span style="color:#DC9600;font-weight:900;">✔</span><span style="font-size:15px;color:rgba(255,255,255,0.8);">Goede balans tussen school en sport</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULIER -->
+  <section style="padding:80px 5%;background:#0D0D0D;" id="formulier">
+    <div style="max-width:760px;margin:0 auto;">
+      <p style="color:#DC9600;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;text-align:center;">Aanmelding</p>
+      <h2 style="font-size:clamp(26px,3.5vw,40px);font-weight:900;text-align:center;margin-bottom:12px;">Plan jouw proeftraining</h2>
+      <p style="color:rgba(255,255,255,0.65);font-size:17px;text-align:center;margin-bottom:48px;">Vul het formulier in en we nemen binnen 2 werkdagen contact met je op.</p>
+
+      <form style="display:flex;flex-direction:column;gap:20px;" onsubmit="return false;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <label>Naam speler *</label>
+            <input type="text" placeholder="Voornaam en achternaam" />
+          </div>
+          <div>
+            <label>Leeftijd *</label>
+            <input type="number" placeholder="Leeftijd in jaren" min="8" max="20" />
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <label>Huidige club *</label>
+            <input type="text" placeholder="Naam van je voetbalclub" />
+          </div>
+          <div>
+            <label>Positie</label>
+            <input type="text" placeholder="bijv. Middenvelder, Aanvaller" />
+          </div>
+        </div>
+        <div>
+          <label>Motivatie *</label>
+          <textarea rows="4" placeholder="Waarom wil jij bij RTC Voetbal Noord trainen? Wat wil jij leren of verbeteren?"></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <label>Telefoon ouder / verzorger *</label>
+            <input type="tel" placeholder="+31 6 12345678" />
+          </div>
+          <div>
+            <label>E-mailadres *</label>
+            <input type="email" placeholder="naam@email.nl" />
+          </div>
+        </div>
+        <div style="padding-top:8px;">
+          <button type="submit" style="width:100%;background:#DC9600;color:#fff;font-weight:700;font-size:18px;padding:18px;border-radius:20px;border:none;cursor:pointer;font-family:'Poppins',sans-serif;">Plan jouw proeftraining →</button>
+        </div>
+        <p style="color:rgba(255,255,255,0.4);font-size:13px;text-align:center;">Volledig vrijblijvend. Geen verplichtingen na de proeftrainingen.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#0D0D0D;border-top:1px solid rgba(220,150,0,0.15);padding:48px 5%;">
+    <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;">
+      <div>
+        <img src="../../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" style="height:28px;margin-bottom:8px;display:block;" />
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;">RTC Voetbal Noord – onderdeel van Smart11</p>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;">
+        <a href="index.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Home</a>
+        <a href="over-rtc.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Over RTC</a>
+        <a href="aanpak.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Aanpak</a>
+        <a href="programma.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Programma</a>
+        <a href="aanmelden.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Aanmelden</a>
+        <a href="contact.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">Contact</a>
+        <a href="faq.html" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;">FAQ</a>
+      </div>
+      <p style="color:rgba(255,255,255,0.3);font-size:12px;">&copy; 2026 Smart11 – RTC Voetbal Noord</p>
+    </div>
+  </footer>
+
+</body>
+</html>

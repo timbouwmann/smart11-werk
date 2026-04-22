@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/Smart11/html_pages/rtc/index.html" },
+    { "source": "/rtc", "destination": "/Smart11/html_pages/rtc/index.html" },
+    { "source": "/rtc/(.*)", "destination": "/Smart11/html_pages/rtc/$1" }
+  ]
+}

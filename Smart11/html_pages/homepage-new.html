@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart11 | Verhoog je voetbalintelligentie</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #DC9600;
+      --gold-light: #F0AB14;
+      --gold-dark: #B07800;
+      --bg-darkest: #000000;
+      --bg-dark: #0d0d0d;
+      --bg-card: #111111;
+      --bg-elevated: #1a1a1a;
+      --text-primary: #FFFFFF;
+      --text-secondary: #888888;
+      --border: rgba(255,255,255,0.08);
+      --border-gold: rgba(220,150,0,0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-darkest);
+      color: var(--text-primary);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.022; pointer-events: none; z-index: 9999;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-gold {
+      0%,100% { box-shadow: 0 0 0 0 rgba(220,150,0,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(220,150,0,0); }
+    }
+
+    /* ── UTILITY ── */
+    .section-wrap { padding: 0 max(1.5rem, calc((100vw - 1200px) / 2)); }
+    .section { padding: 6rem max(1.5rem, calc((100vw - 1200px) / 2)); }
+    .section-sm { padding: 4rem max(1.5rem, calc((100vw - 1200px) / 2)); }
+
+    .tag {
+      display: inline-block; font-size: 0.69rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.875rem;
+    }
+
+    .h2 {
+      font-size: clamp(1.875rem, 4vw, 2.875rem);
+      font-weight: 900; line-height: 1.08; letter-spacing: -0.025em;
+      font-style: italic; color: var(--text-primary);
+    }
+    .h2 em { color: var(--gold); font-style: normal; }
+
+    .lead { font-size: clamp(0.9rem, 1.5vw, 1.0625rem); color: var(--text-secondary); line-height: 1.75; }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.875rem 2rem; font-size: 0.9rem; font-weight: 700;
+      color: #08090b; background: var(--gold); border: none; border-radius: 10px;
+      cursor: pointer; text-decoration: none; font-family: 'Poppins', sans-serif;
+      box-shadow: 0 6px 24px rgba(220,150,0,0.3);
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.875rem 2rem; font-size: 0.9rem; font-weight: 600;
+      color: var(--text-primary); background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); border-radius: 10px;
+      cursor: pointer; text-decoration: none; font-family: 'Poppins', sans-serif;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.16); transform: translateY(-2px); }
+
+    /* ── NAVBAR ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 800; height: 68px;
+      display: flex; align-items: center;
+      padding: 0 max(1.5rem, calc((100vw - 1200px) / 2));
+      background: rgba(6,6,6,0.88); backdrop-filter: blur(28px) saturate(1.8);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { margin-right: 2.5rem; text-decoration: none; display: flex; align-items: center; }
+    .nav-logo img { height: 30px; }
+    .nav-links { display: flex; align-items: center; gap: 0.125rem; list-style: none; flex: 1; }
+    .nav-links a { padding: 0.45rem 0.875rem; font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-radius: 8px; }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; margin-left: auto; }
+    .nav-login { padding: 0.45rem 1rem; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; }
+    .nav-login:hover { color: #fff; border-color: rgba(255,255,255,0.18); }
+    .nav-cta { padding: 0.5rem 1.25rem; font-size: 0.875rem; font-weight: 700; color: #08090b; background: var(--gold); border-radius: 8px; text-decoration: none; }
+    .nav-cta:hover { background: var(--gold-light); }
+    @media(max-width:768px){ .nav-links { display:none; } .nav-login { display:none; } }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 7rem 1.5rem 4rem; overflow: hidden; text-align: center;
+    }
+    .hero-video {
+      position: absolute; inset: 0; z-index: 0;
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.72) 0%,
+        rgba(0,0,0,0.55) 40%,
+        rgba(0,0,0,0.75) 75%,
+        rgba(0,0,0,0.97) 100%
+      );
+    }
+    .hero-glow {
+      position: absolute; inset: 0; z-index: 1;
+      background: radial-gradient(ellipse 70% 45% at 50% 20%, rgba(220,150,0,0.18) 0%, transparent 60%);
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 900px; width: 100%; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 1rem; margin-bottom: 1.75rem;
+      background: var(--gold); border-radius: 3px;
+      font-size: 0.7rem; font-weight: 800; color: #000;
+      letter-spacing: 0.1em; text-transform: uppercase; font-style: italic;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.75rem, 7.5vw, 5.75rem);
+      font-weight: 900; line-height: 1.02; letter-spacing: -0.03em;
+      font-style: italic; color: #fff; margin-bottom: 1.375rem;
+      animation: fadeUp 0.5s 0.08s ease both;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+
+    .hero-sub {
+      font-size: clamp(0.9375rem, 1.8vw, 1.125rem); color: rgba(255,255,255,0.65);
+      line-height: 1.75; max-width: 560px; margin: 0 auto 3rem;
+      animation: fadeUp 0.5s 0.16s ease both;
+    }
+
+    /* ── SEGMENT CARDS ── */
+    .segments {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+      max-width: 840px; margin: 0 auto;
+      animation: fadeUp 0.5s 0.24s ease both;
+    }
+    .seg-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(16px);
+      border-radius: 16px; padding: 1.625rem 1.375rem;
+      text-align: left; text-decoration: none; cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .seg-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(220,150,0,0.08) 0%, transparent 60%);
+      opacity: 0;
+    }
+    .seg-card:hover { border-color: rgba(220,150,0,0.4); transform: translateY(-3px); }
+    .seg-card:hover::before { opacity: 1; }
+    .seg-card.active { border-color: rgba(220,150,0,0.35); }
+    .seg-card.active::before { opacity: 1; }
+
+    .seg-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(220,150,0,0.12); border: 1px solid rgba(220,150,0,0.22);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+    }
+    .seg-label { font-size: 0.67rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; }
+    .seg-title { font-size: 1.0625rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; line-height: 1.3; }
+    .seg-desc { font-size: 0.79rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 1.125rem; }
+    .seg-link { font-size: 0.79rem; font-weight: 700; color: var(--gold); display: flex; align-items: center; gap: 0.3rem; }
+
+    @media(max-width:640px){ .segments { grid-template-columns: 1fr; } }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      padding: 0 max(1.5rem, calc((100vw - 1200px) / 2));
+      background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .stats-inner {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      divide-x: 1px solid var(--border);
+    }
+    .stat-item {
+      padding: 2.25rem 2rem; text-align: center;
+      border-right: 1px solid var(--border); position: relative;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+      font-weight: 900; font-style: italic; letter-spacing: -0.03em;
+      color: var(--gold); line-height: 1; margin-bottom: 0.375rem;
+    }
+    .stat-label { font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); line-height: 1.4; }
+    .stat-knvb { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .stat-knvb-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.875rem;
+      background: rgba(220,150,0,0.1); border: 1px solid var(--border-gold);
+      border-radius: 6px; font-size: 0.8rem; font-weight: 700; color: var(--gold);
+    }
+    @media(max-width:768px){
+      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+      .stat-item:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
+    }
+    @media(max-width:480px){ .stats-inner { grid-template-columns: 1fr; } .stat-item { border-right: none !important; border-top: 1px solid var(--border); } .stat-item:first-child { border-top: none; } }
+
+    /* ── DIENSTEN / TWO PILLARS ── */
+    .pillars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 3.5rem; }
+    .pillar {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border); position: relative;
+      background: var(--bg-card);
+    }
+    .pillar-body { padding: 2.5rem 2.25rem 2rem; }
+    .pillar-num { font-size: 3.5rem; font-weight: 900; font-style: italic; color: rgba(220,150,0,0.1); line-height: 1; margin-bottom: 1.25rem; letter-spacing: -0.04em; }
+    .pillar-icon-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.375rem; }
+    .pillar-icon {
+      width: 50px; height: 50px; border-radius: 12px;
+      background: rgba(220,150,0,0.1); border: 1px solid var(--border-gold);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .pillar-tag-sm { font-size: 0.67rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+    .pillar-title { font-size: 1.5rem; font-weight: 800; font-style: italic; color: #fff; line-height: 1.25; margin-bottom: 0.875rem; }
+    .pillar-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+    .pillar-bullets { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+    .pillar-bullet { display: flex; align-items: center; gap: 0.5rem; font-size: 0.84rem; font-weight: 600; color: #fff; }
+    .pillar-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .pillar-video { width: 100%; height: 220px; object-fit: cover; border-top: 1px solid var(--border); display: block; }
+    .pillar-img { width: 100%; height: 220px; object-fit: cover; border-top: 1px solid var(--border); display: block; }
+    @media(max-width:768px){ .pillars-grid { grid-template-columns: 1fr; } }
+
+    /* ── HOW IT WORKS ── */
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 3.5rem; }
+    .step { background: var(--bg-card); padding: 2.25rem 2rem; position: relative; }
+    .step-num { font-size: 3rem; font-weight: 900; font-style: italic; color: rgba(220,150,0,0.14); line-height: 1; margin-bottom: 1.25rem; }
+    .step-title { font-size: 1.0625rem; font-weight: 700; color: #fff; margin-bottom: 0.625rem; line-height: 1.35; }
+    .step-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; }
+    @media(max-width:768px){ .steps { grid-template-columns: 1fr; } }
+
+    /* ── CLAIRENCE AI ── */
+    .clairence-card {
+      border-radius: 24px; overflow: hidden;
+      background: linear-gradient(135deg, #0a0800 0%, #0d0d0d 60%);
+      border: 1px solid rgba(220,150,0,0.25); position: relative;
+      margin-top: 1.5rem;
+    }
+    .clairence-card::before {
+      content: ''; position: absolute; top: -40%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(ellipse, rgba(220,150,0,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .clairence-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: center;
+    }
+    .clairence-body { padding: 3.5rem 3rem; position: relative; z-index: 1; }
+    .clairence-ai-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 0.875rem; margin-bottom: 1.5rem;
+      background: rgba(220,150,0,0.12); border: 1px solid var(--border-gold);
+      border-radius: 6px; font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold);
+    }
+    .clairence-title { font-size: clamp(1.625rem, 3vw, 2.25rem); font-weight: 900; font-style: italic; color: #fff; line-height: 1.15; margin-bottom: 1rem; }
+    .clairence-title em { color: var(--gold); font-style: normal; }
+    .clairence-desc { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem; }
+    .clairence-features { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+    .clairence-feature { display: flex; align-items: flex-start; gap: 0.625rem; font-size: 0.875rem; color: #fff; }
+    .clairence-check {
+      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+      background: rgba(220,150,0,0.15); border: 1px solid var(--border-gold);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .clairence-visual {
+      background: rgba(0,0,0,0.3); border-left: 1px solid rgba(220,150,0,0.15);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 420px; padding: 2rem; position: relative;
+    }
+    .clairence-screen {
+      background: var(--bg-card); border: 1px solid var(--border-gold);
+      border-radius: 12px; padding: 1.5rem; width: 100%; max-width: 320px;
+    }
+    .clairence-screen-title { font-size: 0.75rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .clairence-bar { height: 8px; border-radius: 4px; background: rgba(220,150,0,0.12); margin-bottom: 0.5rem; overflow: hidden; }
+    .clairence-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); }
+    .clairence-bar-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 0.875rem; }
+    @media(max-width:768px){ .clairence-inner { grid-template-columns: 1fr; } .clairence-visual { min-height: 260px; border-left: none; border-top: 1px solid rgba(220,150,0,0.15); } }
+
+    /* ── NEWS CAROUSEL ── */
+    .news-carousel-wrap { overflow: hidden; margin-top: 3rem; }
+    .news-carousel-track {
+      display: flex; gap: 1.25rem;
+      transition: transform 0.42s cubic-bezier(0.25,0.46,0.45,0.94);
+      will-change: transform;
+    }
+    .news-card {
+      position: relative; border-radius: 16px; overflow: hidden;
+      text-decoration: none; display: block; min-height: 310px;
+      flex: 0 0 calc((100% - 2 * 1.25rem) / 3);
+    }
+    .news-card:hover { transform: translateY(-3px); }
+    .news-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .news-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.12) 100%); }
+    .news-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.375rem; }
+    .news-meta { font-size: 0.67rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 0.5rem; }
+    .news-title { font-size: 1.0rem; font-weight: 800; color: #fff; line-height: 1.38; margin-bottom: 0.875rem; }
+    .news-footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; }
+    .news-date { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.45); }
+    .news-arrow { width: 34px; height: 34px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    .news-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.75rem; }
+    .news-nav-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text-secondary);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .news-nav-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+    .news-nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .news-dots { display: flex; gap: 0.5rem; align-items: center; }
+    .news-dot { width: 8px; height: 8px; border-radius: 50%; border: none; background: rgba(255,255,255,0.18); cursor: pointer; padding: 0; }
+    .news-dot.active { background: var(--gold); width: 22px; border-radius: 4px; }
+
+    @media(max-width:900px){ .news-card { flex: 0 0 calc((100% - 1.25rem) / 2); } }
+    @media(max-width:640px){ .news-card { flex: 0 0 100%; } }
+
+    /* ── GRADIENT AUDIENCE CARDS ── */
+    .gc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3.5rem; }
+
+    .gc { position: relative; border-radius: 20px; overflow: hidden; padding: 2.25rem; display: flex; flex-direction: column; min-height: 400px; border: 1px solid transparent; cursor: default; transition: transform 0.28s ease, box-shadow 0.28s ease; }
+    .gc:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+
+    .gc--speler { background: linear-gradient(135deg, #1e1100 0%, #111111 65%); border-color: rgba(220,150,0,0.2); }
+    .gc--coach  { background: linear-gradient(135deg, #090f1e 0%, #111111 65%); border-color: rgba(59,130,246,0.2); }
+    .gc--club   { background: linear-gradient(135deg, #071610 0%, #111111 65%); border-color: rgba(16,185,129,0.2); }
+
+    .gc-deco {
+      position: absolute; bottom: -12%; right: -8%;
+      width: 68%; pointer-events: none; object-fit: cover;
+      opacity: 0.18; border-radius: 12px;
+      transition: transform 0.38s ease, opacity 0.38s ease;
+    }
+    .gc:hover .gc-deco { transform: scale(1.09) rotate(3deg); opacity: 0.28; }
+
+    .gc-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.875rem; border-radius: 100px;
+      background: rgba(255,255,255,0.07); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.8);
+      margin-bottom: 1.5rem; width: fit-content;
+    }
+    .gc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    .gc-title { font-size: 1.5rem; font-weight: 900; font-style: italic; color: #fff; line-height: 1.2; margin-bottom: 0.5rem; }
+    .gc-desc { font-size: 0.84rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 1.5rem; }
+
+    .gc-products { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; margin-bottom: 2rem; }
+    .gc-product { display: flex; align-items: center; gap: 0.625rem; font-size: 0.84rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+    .gc-product-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    .gc-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 700; color: rgba(255,255,255,0.9); text-decoration: none; margin-top: auto; position: relative; z-index: 1; }
+    .gc-cta svg { transition: transform 0.25s ease; }
+    .gc-cta:hover { color: var(--gold); }
+    .gc-cta:hover svg { transform: translateX(4px); }
+
+    @media(max-width:900px){ .gc-grid { grid-template-columns: 1fr; } .gc { min-height: auto; } }
+
+    /* ── KENNIS FULL-WIDTH CARD ── */
+    .kennis-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-top: 1.25rem; display: grid; grid-template-columns: 1fr 1fr; }
+    .kennis-body { padding: 2.5rem 2.25rem 2rem; }
+    @media(max-width:768px){ .kennis-card { grid-template-columns: 1fr; } }
+
+    /* ── SOCIAL MEDIA ── */
+    .social-section { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .social-inner { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
+    .social-posts { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+    .social-post { aspect-ratio: 1; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+    .social-post img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .social-post:hover img { transform: scale(1.05); }
+    .social-post::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,0,0,0); pointer-events: none;
+    }
+    .social-post:hover::after { background: rgba(220,150,0,0.15); }
+    .social-platforms { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; }
+    .social-platform {
+      display: flex; align-items: center; gap: 0.875rem;
+      padding: 0.875rem 1.125rem; border-radius: 10px;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      text-decoration: none; cursor: pointer;
+    }
+    .social-platform:hover { border-color: var(--border-gold); background: rgba(220,150,0,0.06); }
+    .social-platform-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; flex-shrink: 0; }
+    .social-platform-name { font-size: 0.875rem; font-weight: 700; color: #fff; }
+    .social-platform-handle { font-size: 0.775rem; color: var(--text-secondary); }
+    .social-platform-follow { margin-left: auto; font-size: 0.775rem; font-weight: 700; color: var(--gold); }
+    @media(max-width:768px){ .social-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.125rem; margin-top: 3.5rem; }
+    .t-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem 1.75rem; }
+    .t-stars { color: var(--gold); font-size: 0.875rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .t-quote { font-size: 0.9375rem; color: #fff; line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+    .t-quote::before { content: '"'; color: var(--gold); }
+    .t-quote::after { content: '"'; color: var(--gold); }
+    .t-author { display: flex; align-items: center; gap: 0.875rem; }
+    .t-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-gold); flex-shrink: 0; }
+    .t-name { font-size: 0.875rem; font-weight: 700; color: #fff; }
+    .t-role { font-size: 0.775rem; color: var(--text-secondary); }
+    .t-badge { display: inline-block; margin-top: 0.2rem; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); background: rgba(220,150,0,0.1); border-radius: 4px; padding: 0.15rem 0.5rem; }
+    @media(max-width:768px){ .testimonials-grid { grid-template-columns: 1fr; } }
+
+    /* ── CONGRES ── */
+    .congres-card {
+      border-radius: 20px; overflow: hidden;
+      background: linear-gradient(135deg, #0b0900 0%, #0d0d0d 100%);
+      border: 1px solid var(--border-gold); position: relative;
+      display: grid; grid-template-columns: 1fr 1.2fr; margin-top: 3.5rem;
+    }
+    .congres-card::before {
+      content: ''; position: absolute; top: -30%; left: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(ellipse, rgba(220,150,0,0.09) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .congres-body { padding: 3rem 2.75rem; position: relative; z-index: 1; }
+    .congres-date-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 0.875rem; margin-bottom: 1.5rem;
+      background: rgba(220,150,0,0.12); border: 1px solid var(--border-gold);
+      border-radius: 6px; font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold);
+    }
+    .congres-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 900; font-style: italic; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+    .congres-title em { color: var(--gold); font-style: normal; }
+    .congres-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem; }
+    .congres-meta { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+    .congres-meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.75); }
+    .congres-visual { position: relative; overflow: hidden; min-height: 320px; }
+    .congres-img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.6; }
+    .congres-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, #0b0900 0%, transparent 40%);
+    }
+    @media(max-width:768px){ .congres-card { grid-template-columns: 1fr; } .congres-visual { min-height: 200px; } }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      border-radius: 20px; padding: 3.5rem;
+      background: linear-gradient(135deg, var(--bg-card) 0%, #161200 100%);
+      border: 1px solid var(--border-gold);
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .newsletter::before {
+      content: ''; position: absolute; right: -5%; top: -30%;
+      width: 400px; height: 400px;
+      background: radial-gradient(ellipse, rgba(220,150,0,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .newsletter-left { position: relative; z-index: 1; }
+    .newsletter-title { font-size: 1.625rem; font-weight: 900; font-style: italic; color: #fff; line-height: 1.2; margin-bottom: 0.75rem; }
+    .newsletter-title em { color: var(--gold); font-style: normal; }
+    .newsletter-sub { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
+    .newsletter-form { display: flex; flex-direction: column; gap: 0.875rem; position: relative; z-index: 1; }
+    .newsletter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .newsletter-input {
+      padding: 0.8rem 1.125rem; font-size: 0.875rem; font-weight: 500;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: 10px; color: #fff; font-family: 'Poppins', sans-serif;
+      outline: none; width: 100%;
+    }
+    .newsletter-input::placeholder { color: var(--text-secondary); }
+    .newsletter-input:focus { border-color: var(--border-gold); background: rgba(220,150,0,0.05); }
+    .newsletter-select {
+      padding: 0.8rem 1.125rem; font-size: 0.875rem; font-weight: 500;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text-secondary); font-family: 'Poppins', sans-serif;
+      outline: none; width: 100%; appearance: none; cursor: pointer;
+    }
+    .newsletter-select:focus { border-color: var(--border-gold); }
+    .newsletter-btn {
+      padding: 0.9rem 1.5rem; font-size: 0.9rem; font-weight: 700;
+      color: #08090b; background: var(--gold); border: none; border-radius: 10px;
+      cursor: pointer; font-family: 'Poppins', sans-serif; width: 100%;
+      box-shadow: 0 6px 20px rgba(220,150,0,0.28);
+    }
+    .newsletter-btn:hover { background: var(--gold-light); }
+    .newsletter-note { font-size: 0.75rem; color: rgba(255,255,255,0.25); text-align: center; }
+    @media(max-width:768px){ .newsletter { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.75rem; } .newsletter-row { grid-template-columns: 1fr; } }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      margin: 0 max(1.5rem, calc((100vw - 1200px) / 2)) 6rem;
+      background: linear-gradient(135deg, #0f0d00 0%, #0a0a0a 60%);
+      border: 1px solid var(--border-gold); border-radius: 24px;
+      padding: 5.5rem 3rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .final-cta::before {
+      content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(220,150,0,0.13) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .final-cta-title { font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 900; font-style: italic; line-height: 1.1; letter-spacing: -0.025em; color: #fff; margin-bottom: 1.25rem; position: relative; }
+    .final-cta-title em { color: var(--gold); font-style: normal; }
+    .final-cta-sub { font-size: 1.0625rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto 2.75rem; line-height: 1.7; position: relative; }
+    .final-btns { display: flex; align-items: center; justify-content: center; gap: 0.875rem; flex-wrap: wrap; position: relative; }
+    .final-note { margin-top: 1.5rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); position: relative; }
+
+    /* ── FOOTER ── */
+    .footer { padding: 4rem max(1.5rem, calc((100vw - 1200px) / 2)) 2rem; border-top: 1px solid var(--border); }
+    .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand img { height: 28px; margin-bottom: 1rem; }
+    .footer-tagline { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.65; max-width: 230px; margin-bottom: 1.5rem; }
+    .footer-app-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .footer-app-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.45rem 0.875rem; border-radius: 8px;
+      border: 1px solid var(--border); font-size: 0.75rem; font-weight: 600;
+      color: var(--text-secondary); text-decoration: none;
+    }
+    .footer-app-badge:hover { border-color: var(--border-gold); color: var(--gold); }
+    .footer-col-title { font-size: 0.78rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+    .footer-links { display: flex; flex-direction: column; gap: 0.5rem; list-style: none; }
+    .footer-links a { font-size: 0.84rem; color: var(--text-secondary); text-decoration: none; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.22); }
+    .footer-bottom-links { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-bottom-links a { font-size: 0.78rem; color: rgba(255,255,255,0.28); text-decoration: none; }
+    .footer-bottom-links a:hover { color: var(--text-secondary); }
+    @media(max-width:768px){ .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; } .footer-brand { grid-column: 1/-1; } }
+    @media(max-width:480px){ .footer-top { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <img src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#diensten">Software</a></li>
+    <li><a href="#kennis">Kennis</a></li>
+    <li><a href="#content">Blog</a></li>
+    <li><a href="#congres">Congres</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-login">Inloggen</a>
+    <a href="#newsletter" class="nav-cta">Probeer gratis</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     HERO — VIDEO ACHTERGROND
+══════════════════════════════════════ -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="../brand_assets/videos/Frame 1 .mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+      Het analyse-platform voor voetbal
+    </div>
+
+    <h1>Verhoog je <em>voetbal&shy;intelligentie</em></h1>
+
+    <p class="hero-sub">
+      Smart11 geeft spelers, coaches én clubs de analyse-software en voetbalkennis om écht beter te worden. Van JO15 tot reserve-elftal.
+    </p>
+
+    <!-- SEGMENT KEUZE -->
+    <div class="segments">
+      <a href="#speler" class="seg-card">
+        <div class="seg-icon">
+          <svg width="20" height="20" fill="none" stroke="#DC9600" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/>
+          </svg>
+        </div>
+        <div class="seg-label">Ik ben speler</div>
+        <div class="seg-title">Analyseer je eigen spel</div>
+        <div class="seg-desc">Volg je Game Actions, begrijp je keuzes en zie je groei per wedstrijd.</div>
+        <span class="seg-link">Ontdek de app <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="#coach" class="seg-card active">
+        <div class="seg-icon">
+          <svg width="20" height="20" fill="none" stroke="#DC9600" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/>
+          </svg>
+        </div>
+        <div class="seg-label">Ik ben coach</div>
+        <div class="seg-title">Analyseer sneller, coach beter</div>
+        <div class="seg-desc">AI-videoanalyse en spelersfeedback — klaar vóór de volgende training.</div>
+        <span class="seg-link">Ontdek SmartCoach <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="#club" class="seg-card">
+        <div class="seg-icon">
+          <svg width="20" height="20" fill="none" stroke="#DC9600" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="seg-label">Ik ben club</div>
+        <div class="seg-title">Eén platform voor de hele club</div>
+        <div class="seg-desc">Coaches én spelers op één plek. Schaalbaar van 1 team naar de hele selectie.</div>
+        <span class="seg-link">Bekijk Smart11 BASE <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     STATS BAR — USP's
+══════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number">3.500+</div>
+      <div class="stat-label">App-gebruikers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">200+</div>
+      <div class="stat-label">Professionele spelers begeleid</div>
+    </div>
+    <div class="stat-item stat-knvb">
+      <div class="stat-knvb-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Partner van de KNVB
+      </div>
+      <div class="stat-label">Officieel erkend</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1,2M+</div>
+      <div class="stat-label">Minuten wedstrijdvideo geanalyseerd</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     DIENSTEN — PER DOELGROEP
+══════════════════════════════════════ -->
+<section class="section" id="diensten">
+  <div style="text-align:center; margin-bottom:0.5rem;">
+    <span class="tag">Wat Smart11 biedt</span>
+  </div>
+  <div style="text-align:center; max-width:640px; margin:0 auto;">
+    <h2 class="h2">Tools voor <em>elke rol</em></h2>
+    <p class="lead" style="margin-top:0.875rem;">Van speler tot club — Smart11 heeft voor elke doelgroep de juiste tools om slimmer te worden.</p>
+  </div>
+
+  <!-- 3 gradient audience cards -->
+  <div class="gc-grid">
+
+    <!-- Spelers -->
+    <div class="gc gc--speler" id="speler-tools">
+      <img src="../brand_assets/foto's/Smart11_V2-5.jpg" class="gc-deco" alt="" />
+      <div class="gc-badge">
+        <span class="gc-dot" style="background:#DC9600;"></span>
+        Ik ben speler
+      </div>
+      <h3 class="gc-title">Analyseer je eigen spel</h3>
+      <p class="gc-desc">Volg je Game Actions per wedstrijd. Zie je keuzes, begrijp je uitvoering en groei elke week.</p>
+      <div class="gc-products">
+        <div class="gc-product">
+          <span class="gc-product-dot" style="background:#DC9600;"></span>
+          Smart11 App — gratis &amp; Pro
+        </div>
+        <div class="gc-product">
+          <span class="gc-product-dot" style="background:#DC9600;"></span>
+          Clairence — AI-analyst voor jouw momenten
+        </div>
+      </div>
+      <a href="#" class="gc-cta">
+        Ontdek de app
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Coaches -->
+    <div class="gc gc--coach" id="coach">
+      <img src="../brand_assets/foto's/Smartcoach-laptop.jpg" class="gc-deco" alt="" />
+      <div class="gc-badge">
+        <span class="gc-dot" style="background:#3b82f6;"></span>
+        Ik ben coach
+      </div>
+      <h3 class="gc-title">Analyseer sneller, coach beter</h3>
+      <p class="gc-desc">AI-videoanalyse en spelersfeedback — klaar vóór de volgende training. Minder nabespreken, meer impact.</p>
+      <div class="gc-products">
+        <div class="gc-product">
+          <span class="gc-product-dot" style="background:#3b82f6;"></span>
+          SmartCoach — voor de individuele coach
+        </div>
+        <div class="gc-product">
+          <span class="gc-product-dot" style="background:#3b82f6;"></span>
+          Smart11 BASE — volledige teamomgeving
+        </div>
+        <div class="gc-product">
+          <span class="gc-product-dot" style="background:#3b82f6;"></span>
+          Clairence — samenvattingen per speler in 5 min
+        </div>
+      </div>
+      <a href="#" class="gc-cta">
+        Ontdek SmartCoach
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Clubs -->
+    <div class="gc gc--club" id="club-tools">
+      <img src="../brand_assets/foto's/Smart11_V2-7.jpg" class="gc-deco" alt="" />
+      <div class="gc-badge">
+        <span class="gc-dot" style="background:#10b981;"></span>
+        Ik ben club
+      </div>
+      <h3 class="gc-title">Eén platform voor de hele club</h3>
+      <p class="gc-desc">Schaalbaar van 1 team naar de volledige selectie. Coaches én spelers op één plek, onder jouw clubnaam.</p>
+      <div class="gc-products">
+        <div class="gc-product">
+          <span class="gc-product-dot" style="background:#10b981;"></span>
+          Smart11 BASE — centraal clubplatform
+        </div>
+        <div class="gc-product">
+          <span class="gc-product-dot" style="background:#10b981;"></span>
+          Smart11 Team — analyse per team
+        </div>
+        <div class="gc-product">
+          <span class="gc-product-dot" style="background:#10b981;"></span>
+          Smart11 Club — voor alle selectieteams
+        </div>
+      </div>
+      <a href="#" class="gc-cta">
+        Bekijk Smart11 BASE
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Kennis card — volledige breedte -->
+  <div class="kennis-card" id="kennis">
+    <div class="kennis-body">
+      <div class="pillar-num">02</div>
+      <div class="pillar-icon-row">
+        <div class="pillar-icon">
+          <svg width="24" height="24" fill="none" stroke="#DC9600" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <span class="pillar-tag-sm">Voetbalkennis</span>
+      </div>
+      <h3 class="pillar-title">Next-level voetbalkennis</h3>
+      <p class="pillar-desc">Leer van de beste coaches in Nederland. Tactische cursussen en masterclasses die je direct kunt toepassen — in je nabespreking, op de training, in je periodisering.</p>
+      <div class="pillar-bullets">
+        <div class="pillar-bullet"><div class="pillar-dot"></div>Smart11 community — cursussen voor coaches &amp; spelers</div>
+        <div class="pillar-bullet"><div class="pillar-dot"></div>Videobibliotheek — praktijkvoorbeelden uit het veld</div>
+        <div class="pillar-bullet"><div class="pillar-dot"></div>Smart11 methode — compleet cursuspakket voor coaches <em style="font-style:italic; color:var(--gold);">volgens de bewezen Smart11 methode</em></div>
+        <div class="pillar-bullet"><div class="pillar-dot"></div>Masterclasses — tactische verdieping</div>
+      </div>
+      <a href="#content" class="btn-outline" style="font-size:0.875rem;">Bekijk het aanbod →</a>
+    </div>
+    <img src="../brand_assets/foto's/cursus voetbal coach.jpg" alt="Smart11 community" class="pillar-img" style="height:100%; min-height:260px;" />
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     HOE HET WERKT
+══════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <span class="tag">Hoe het werkt</span>
+  <h2 class="h2">Van wedstrijd naar <em>verbetering</em></h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Analyseer de wedstrijd met AI</div>
+      <div class="step-desc">Upload je wedstrijdvideo. Smart11 identificeert automatisch alle Game Actions — keuzes én uitvoeringen van elke speler.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Geef spelers directe feedback</div>
+      <div class="step-desc">Koppel analyses aan individuele spelers. Zij zien hun eigen momenten, leren van hun keuzes en nemen ownership over hun eigen groei.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Zie verbetering binnen 2 weken</div>
+      <div class="step-desc">Coaches zien al na één trainingsweek dat spelers bewuster spelen. Minder herhalen, meer toepassen — zo werkt echte voetbalintelligentie.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     CLAIRENCE AI SPOTLIGHT
+══════════════════════════════════════ -->
+<section class="section" style="padding-top:0;" id="clairence">
+  <span class="tag">AI-technologie</span>
+  <h2 class="h2">Maak kennis met <em>Clairence</em></h2>
+
+  <div class="clairence-card">
+    <div class="clairence-inner">
+      <div class="clairence-body">
+        <div class="clairence-ai-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          AI Add-on
+        </div>
+        <h3 class="clairence-title">De AI-analyst die <em>voor je kijkt</em></h3>
+        <p class="clairence-desc">Clairence labelt automatisch elke Game Action, maakt samenvattingen per speler en geeft coaches in minuten inzicht dat vroeger uren kostte.</p>
+        <div class="clairence-features">
+          <div class="clairence-feature">
+            <div class="clairence-check"><svg width="8" height="8" fill="none" stroke="#DC9600" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Automatische Game Action labeling per wedstrijd
+          </div>
+          <div class="clairence-feature">
+            <div class="clairence-check"><svg width="8" height="8" fill="none" stroke="#DC9600" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            AI-samenvattingen per speler — klaar in 5 minuten
+          </div>
+          <div class="clairence-feature">
+            <div class="clairence-check"><svg width="8" height="8" fill="none" stroke="#DC9600" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Snelle navigatie naar sleutelmomenten
+          </div>
+          <div class="clairence-feature">
+            <div class="clairence-check"><svg width="8" height="8" fill="none" stroke="#DC9600" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Upsell op Smart11 BASE — naadloze integratie
+          </div>
+        </div>
+        <a href="#" class="btn-gold" style="font-size:0.875rem;">Meer over Clairence →</a>
+      </div>
+      <div class="clairence-visual">
+        <div class="clairence-screen">
+          <div class="clairence-screen-title">⚡ Clairence Analyse — Speler #9</div>
+          <div style="margin-bottom:1.25rem;">
+            <div class="clairence-bar-label"><span>Beslissingssnelheid</span><span style="color:var(--gold)">84%</span></div>
+            <div class="clairence-bar"><div class="clairence-bar-fill" style="width:84%"></div></div>
+          </div>
+          <div style="margin-bottom:1.25rem;">
+            <div class="clairence-bar-label"><span>Uitvoering passes</span><span style="color:var(--gold)">71%</span></div>
+            <div class="clairence-bar"><div class="clairence-bar-fill" style="width:71%"></div></div>
+          </div>
+          <div style="margin-bottom:1.5rem;">
+            <div class="clairence-bar-label"><span>Positiespel</span><span style="color:var(--gold)">63%</span></div>
+            <div class="clairence-bar"><div class="clairence-bar-fill" style="width:63%"></div></div>
+          </div>
+          <div style="background:rgba(220,150,0,0.08); border:1px solid rgba(220,150,0,0.18); border-radius:8px; padding:0.75rem; font-size:0.75rem; color:rgba(255,255,255,0.7); line-height:1.5;">
+            <span style="color:var(--gold); font-weight:700;">AI Samenvatting:</span> Speler toont sterke beslissingen in opbouw maar mist ruimte achter de linie. Aanbeveling: werken aan diepteloopacties.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     BLOG / VOETBALINTELLIGENTIE CONTENT
+══════════════════════════════════════ -->
+<section class="section" style="padding-top:0;" id="content">
+  <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; margin-bottom:0.5rem;">
+    <div>
+      <span class="tag">Voetbalintelligentie</span>
+      <h2 class="h2">Leer van de <em>beste coaches</em></h2>
+    </div>
+    <a href="#" class="btn-outline" style="font-size:0.82rem; padding:0.65rem 1.375rem; white-space:nowrap;">Alle artikelen →</a>
+  </div>
+  <p class="lead" style="max-width:560px; margin-bottom:0;">Gratis kennis die je direct op de training kunt toepassen. Elke week nieuw.</p>
+
+  <!-- Carousel wrapper -->
+  <div class="news-carousel-wrap">
+    <div class="news-carousel-track" id="newsTrack">
+
+      <a href="https://smart11.ai/en/individuele-videoanalyse-in-het-amateurvoetbal/" class="news-card" target="_blank">
+        <img src="../brand_assets/foto's/videoanalyse voetbal ai.jpg" alt="Blog" class="news-bg" />
+        <div class="news-overlay"></div>
+        <div class="news-content">
+          <div class="news-meta">Voetbalintelligentie</div>
+          <div class="news-title">Individuele ontwikkeling met behulp van videobeelden in het amateurvoetbal</div>
+          <div class="news-footer">
+            <span class="news-date">1 apr 2026</span>
+            <div class="news-arrow"><svg width="14" height="14" fill="none" stroke="#000" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://smart11.ai/en/van-moeten-naar-willen-hoe-je-spelers-eigenaar-maakt-van-hun-eigen-groei/" class="news-card" target="_blank">
+        <img src="../brand_assets/foto's/Smart11_V2-5.jpg" alt="Blog" class="news-bg" />
+        <div class="news-overlay"></div>
+        <div class="news-content">
+          <div class="news-meta">Voetbalintelligentie</div>
+          <div class="news-title">Van 'moeten' naar 'willen': hoe je spelers eigenaar maakt van hun eigen groei</div>
+          <div class="news-footer">
+            <span class="news-date">16 mrt 2026</span>
+            <div class="news-arrow"><svg width="14" height="14" fill="none" stroke="#000" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://smart11.ai/en/eigenaarschap-en-zelfregulatie-bij-fc-twente-heracles-academie/" class="news-card" target="_blank">
+        <img src="../brand_assets/foto's/Smart11_V2-7.jpg" alt="Blog" class="news-bg" />
+        <div class="news-overlay"></div>
+        <div class="news-content">
+          <div class="news-meta">Use Cases</div>
+          <div class="news-title">Eigenaarschap en zelfregulatie bij FC Twente/Heracles Academie</div>
+          <div class="news-footer">
+            <span class="news-date">15 jan 2026</span>
+            <div class="news-arrow"><svg width="14" height="14" fill="none" stroke="#000" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://smart11.ai/en/individuele-analyse-voetbal-bouw-een-vaste-structuur/" class="news-card" target="_blank">
+        <img src="../brand_assets/foto's/Smart11_V2-8.jpg" alt="Blog" class="news-bg" />
+        <div class="news-overlay"></div>
+        <div class="news-content">
+          <div class="news-meta">Voetbalintelligentie</div>
+          <div class="news-title">Zo bouw je een vaste structuur voor individuele analyse zonder dat het je uren kost</div>
+          <div class="news-footer">
+            <span class="news-date">4 mrt 2026</span>
+            <div class="news-arrow"><svg width="14" height="14" fill="none" stroke="#000" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://smart11.ai/en/van-theorie-naar-praktijk-ons-sneek-stoomt-jeugdtrainers-klaar-dankzij-smart11/" class="news-card" target="_blank">
+        <img src="../brand_assets/foto's/rtc niek.png" alt="Blog" class="news-bg" />
+        <div class="news-overlay"></div>
+        <div class="news-content">
+          <div class="news-meta">Use Cases</div>
+          <div class="news-title">Van theorie naar praktijk: ONS Sneek stoomt jeugdtrainers klaar dankzij Smart11</div>
+          <div class="news-footer">
+            <span class="news-date">18 feb 2026</span>
+            <div class="news-arrow"><svg width="14" height="14" fill="none" stroke="#000" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://smart11.ai/en/clairence-is-now-live/" class="news-card" target="_blank">
+        <img src="../brand_assets/foto's/Smartcoach-laptop.jpg" alt="Blog" class="news-bg" />
+        <div class="news-overlay"></div>
+        <div class="news-content">
+          <div class="news-meta">Smart11 Tips</div>
+          <div class="news-title">Clairence: Smart11's volledig geïntegreerde AI-analyst is nu LIVE!</div>
+          <div class="news-footer">
+            <span class="news-date">15 dec 2025</span>
+            <div class="news-arrow"><svg width="14" height="14" fill="none" stroke="#000" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+    </div><!-- /track -->
+  </div><!-- /wrap -->
+
+  <!-- Controls -->
+  <div class="news-controls">
+    <button class="news-nav-btn" id="newsPrev" aria-label="Vorige">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="news-dots" id="newsDots"></div>
+    <button class="news-nav-btn" id="newsNext" aria-label="Volgende">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+</section>
+
+<script>
+(function() {
+  const track = document.getElementById('newsTrack');
+  const cards = track.querySelectorAll('.news-card');
+  const dotsEl = document.getElementById('newsDots');
+  const prevBtn = document.getElementById('newsPrev');
+  const nextBtn = document.getElementById('newsNext');
+  const total = cards.length;
+  let visible = 3;
+  let current = 0;
+
+  function getVisible() {
+    return window.innerWidth < 640 ? 1 : window.innerWidth < 900 ? 2 : 3;
+  }
+
+  const pages = () => Math.ceil(total / visible);
+
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < pages(); i++) {
+      const d = document.createElement('button');
+      d.className = 'news-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(idx, pages() - 1));
+    const gap = 20;
+    const cardW = track.parentElement.offsetWidth / visible - gap * (visible - 1) / visible;
+    const offset = current * (cardW + gap) * visible;
+    track.style.transform = `translateX(-${offset}px)`;
+    dotsEl.querySelectorAll('.news-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= pages() - 1;
+  }
+
+  function init() {
+    visible = getVisible();
+    buildDots();
+    goTo(0);
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+  window.addEventListener('resize', init);
+  init();
+})();
+</script>
+
+
+<!-- ══════════════════════════════════════
+     SOCIAL MEDIA
+══════════════════════════════════════ -->
+<section class="social-section section-sm">
+  <div class="section-wrap">
+    <div class="social-inner">
+      <div>
+        <span class="tag">Volg ons</span>
+        <h2 class="h2" style="margin-bottom:0.875rem;">Dagelijks <em>voetbalkennis</em> in je feed</h2>
+        <p class="lead" style="margin-bottom:0;">Volg Smart11 op Instagram en LinkedIn voor dagelijkse tips, tactische inzichten en nieuws vanuit de voetbalwereld.</p>
+        <div class="social-platforms">
+          <a href="#" class="social-platform">
+            <div class="social-platform-icon" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </div>
+            <div>
+              <div class="social-platform-name">Instagram</div>
+              <div class="social-platform-handle">@smart11_football</div>
+            </div>
+            <span class="social-platform-follow">Volgen →</span>
+          </a>
+          <a href="#" class="social-platform">
+            <div class="social-platform-icon" style="background:#0077b5;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div>
+              <div class="social-platform-name">LinkedIn</div>
+              <div class="social-platform-handle">Smart11 Football</div>
+            </div>
+            <span class="social-platform-follow">Volgen →</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="social-posts">
+        <div class="social-post"><img src="../brand_assets/social_stijl/1.png" alt="Smart11 social post" /></div>
+        <div class="social-post"><img src="../brand_assets/social_stijl/2.png" alt="Smart11 social post" /></div>
+        <div class="social-post"><img src="../brand_assets/social_stijl/3.png" alt="Smart11 social post" /></div>
+        <div class="social-post"><img src="../brand_assets/social_stijl/4.png" alt="Smart11 social post" /></div>
+        <div class="social-post"><img src="../brand_assets/social_stijl/5.png" alt="Smart11 social post" /></div>
+        <div class="social-post"><img src="../brand_assets/social_stijl/social content smart11.png" alt="Smart11 social post" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════ -->
+<section class="section" id="club">
+  <div style="text-align:center; margin-bottom:3.5rem;">
+    <span class="tag">Resultaten</span>
+    <h2 class="h2">Wat coaches en clubs <em>zeggen</em></h2>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">Smart11 scherpt het bewustzijn van spelers aan. Ze zien een niveau van detail dat anderen simpelweg niet zien.</p>
+      <div class="t-author">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(220,150,0,0.15);border:2px solid rgba(220,150,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;font-weight:800;color:var(--gold);">A</div>
+        <div>
+          <div class="t-name">Alex van der Veen</div>
+          <div class="t-role">Eigenaar — VEENS Voetbal Academie</div>
+          <span class="t-badge">Speler &amp; Coach</span>
+        </div>
+      </div>
+    </div>
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">Smart11 stimuleert zelfregulatie bij spelers — ze kijken vaker zelfstandig wedstrijdbeelden terug. Precies wat wij willen zien.</p>
+      <div class="t-author">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(220,150,0,0.15);border:2px solid rgba(220,150,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;font-weight:800;color:var(--gold);">F</div>
+        <div>
+          <div class="t-name">Fedrik Houtstra</div>
+          <div class="t-role">Head of Academy — SC Cambuur</div>
+          <span class="t-badge">Coach</span>
+        </div>
+      </div>
+    </div>
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">Smart11 geeft spelers krachtige tools om nieuwe inzichten te ontdekken en concrete vervolgstappen te zetten in hun ontwikkeling.</p>
+      <div class="t-author">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(220,150,0,0.15);border:2px solid rgba(220,150,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;font-weight:800;color:var(--gold);">Y</div>
+        <div>
+          <div class="t-name">Youri Geurkink</div>
+          <div class="t-role">Coordinator Performance &amp; Science — FC Twente/Heracles Academie</div>
+          <span class="t-badge">Club</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     CONGRES 2026
+══════════════════════════════════════ -->
+<section class="section" style="padding-top:0;" id="congres">
+  <span class="tag">Evenement</span>
+  <h2 class="h2">Smart11 <em>Congres 2026</em></h2>
+
+  <div class="congres-card">
+    <div class="congres-body">
+      <div class="congres-date-badge">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        30 september 2026
+      </div>
+      <h3 class="congres-title">Eén dag. Honderd coaches. <em>Eén missie.</em></h3>
+      <p class="congres-desc">Het Smart11 Congres brengt de meest ambitieuze coaches en technisch directeuren van Nederland samen. Tactische sessies, live demo's en netwerken op het hoogste niveau.</p>
+      <div class="congres-meta">
+        <div class="congres-meta-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          MAC³PARK Stadion — PEC Zwolle, Zwolle
+        </div>
+        <div class="congres-meta-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          ~100 coaches &amp; technisch directeuren
+        </div>
+      </div>
+      <a href="#" class="btn-gold" style="font-size:0.875rem;">Meld je aan →</a>
+    </div>
+    <div class="congres-visual">
+      <img src="../brand_assets/foto's/Smart11_V2-8.jpg" alt="Smart11 Congres 2026" class="congres-img" />
+      <div class="congres-img-overlay"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     NEWSLETTER OPT-IN
+══════════════════════════════════════ -->
+<section class="section" style="padding-top:0;" id="newsletter">
+  <div class="newsletter">
+    <div class="newsletter-left">
+      <span class="tag" style="margin-bottom:0.75rem;">Nieuwsbrief</span>
+      <h3 class="newsletter-title">Wekelijks <em>voetbalintelligentie</em> in je inbox</h3>
+      <p class="newsletter-sub" style="margin-top:0.75rem;">Tactische tips, analyse-inzichten en Smart11 nieuws — elke week gratis. Al meer dan 1.200 coaches gingen je voor.</p>
+    </div>
+    <div class="newsletter-form">
+      <div class="newsletter-row">
+        <input class="newsletter-input" type="text" placeholder="Voornaam" />
+        <input class="newsletter-input" type="email" placeholder="E-mailadres" />
+      </div>
+      <select class="newsletter-select">
+        <option value="" disabled selected>Ik ben een... (kies jouw rol)</option>
+        <option value="coach">Coach</option>
+        <option value="speler">Speler</option>
+        <option value="club">Club / technisch directeur</option>
+      </select>
+      <button class="newsletter-btn">Schrijf me in — gratis →</button>
+      <p class="newsletter-note">Geen spam. Alleen waardevolle content. Op elk moment uitschrijven.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FINALE CTA
+══════════════════════════════════════ -->
+<div class="final-cta" id="speler">
+  <span class="tag" style="position:relative;">Start vandaag</span>
+  <h2 class="final-cta-title">Jouw volgende wedstrijd is dit weekend.<br>Wat doe je met de <em>analyse</em>?</h2>
+  <p class="final-cta-sub">Sluit je aan bij meer dan 17 clubs die al slimmer analyseren. Start gratis of plan een demo om te zien wat Smart11 BASE voor jouw club doet.</p>
+  <div class="final-btns">
+    <a href="#" class="btn-gold">
+      Start vandaag gratis
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#" class="btn-outline">Plan een demo →</a>
+  </div>
+  <p class="final-note">Geen creditcard nodig · Gratis te starten · Onboarding inbegrepen</p>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="../brand_assets/logo/T2024010_SMART11_LOGO_WIT_GEEL_RGB (1).png" alt="Smart11" />
+      <p class="footer-tagline">Wij versterken ambitieuze voetballers en coaches met slimme tools en tactische kennis om hun voetbalintelligentie te verhogen.</p>
+      <div class="footer-app-badges">
+        <a href="#" class="footer-app-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <a href="#" class="footer-app-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Software</div>
+      <ul class="footer-links">
+        <li><a href="#">Smart11 BASE</a></li>
+        <li><a href="#">SmartCoach</a></li>
+        <li><a href="#">Clairence AI</a></li>
+        <li><a href="#">Smart11 App</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Kennis</div>
+      <ul class="footer-links">
+        <li><a href="#">Smart11 community</a></li>
+        <li><a href="#">Masterclasses</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Congres 2026</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">Over Smart11</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">RTC Noord</a></li>
+        <li><a href="#">KNVB Partner</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Smart11. All rights reserved.</span>
+    <ul class="footer-bottom-links">
+      <li><a href="#">Privacybeleid</a></li>
+      <li><a href="#">Algemene voorwaarden</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>

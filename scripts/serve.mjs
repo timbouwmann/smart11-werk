@@ -22,11 +22,32 @@ const MIME = {
   '.ico': 'image/x-icon',
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf',
+  '.mp4': 'video/mp4',
 };
 
 const server = http.createServer((req, res) => {
-  const decodedUrl = decodeURIComponent(req.url);
-  let filePath = path.join(ROOT, decodedUrl === '/' ? 'index.html' : decodedUrl);
+  // Strip query string before building file path
+  const pathname = new URL(req.url, 'http://localhost').pathname;
+  let decodedPath;
+  try {
+    decodedPath = decodeURIComponent(pathname);
+  } catch {
+    res.writeHead(400);
+    res.end('Bad request');
+    return;
+  }
+  let filePath = path.resolve(ROOT, '.' + (decodedPath === '/' ? '/index.html' : decodedPath));
+
+  // Block requests outside the project root and to hidden files/folders (.env, .git, ...)
+  const relative = path.relative(ROOT, filePath);
+  const isOutsideRoot = relative.startsWith('..') || path.isAbsolute(relative);
+  const isHidden = relative.split(path.sep).some(part => part.startsWith('.'));
+  if (isOutsideRoot || isHidden) {
+    res.writeHead(403);
+    res.end('Forbidden');
+    return;
+  }
 
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
     filePath = path.join(ROOT, 'index.html');
@@ -46,6 +67,7 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
+// Only accept connections from this computer, not from the rest of the network
+server.listen(PORT, '127.0.0.1', () => {
   console.log(`Server draait op http://localhost:${PORT}`);
 });
